@@ -1,0 +1,52 @@
+server:
+  port: 8080 #服务端口
+spring:
+  thymeleaf:
+    mode: HTML5
+    encoding: UTF-8
+    content-type: text/html
+    cache: false
+    settings: template_update_delay=0
+
+  # mysql 属性配置
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql://127.0.0.1:3307/qianyi
+    username: root
+    password: root
+
+  devtools:
+    restart:
+      enabled: true #是否开启开发者工具（true/false）
+
+################################################################
+################################################################
+#spring集成Mybatis环境
+#pojo别名扫描包
+mybatis:
+  type-aliases-package: com.master.qianyi
+################################################################
+################################################################
+# 分页配置
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true
+  params: count=countSql
+################################################################
+################################################################
+logging:
+  level:
+    root: debug
+    com.itheima.microservice.user.mapper: debug
+  #    org.springframework.web: DEBUG
+  file: /log/log/my_provide.log
+  pattern:
+    console: "%d{yyyy/MM/dd-HH:mm:ss} [%thread] %-5level %logger- %msg%n"
+    file: "%d{yyyy/MM/dd-HH:mm} [%thread] %-5level %logger- %msg%n"
+################################################################
+
+management:
+  security:
+    enabled: false #是否开启actuator安全认证
