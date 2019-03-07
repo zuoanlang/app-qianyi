@@ -1,4 +1,4 @@
-package com.master.qianyi.course.pojo;
+package com.master.qianyi.pojo;
 
 public class TbCourse {
     private String courseId;

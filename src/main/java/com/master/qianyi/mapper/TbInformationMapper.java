@@ -1,8 +1,8 @@
-package com.master.qianyi.information.mapper;
+package com.master.qianyi.mapper;
 
 
-import com.master.qianyi.information.pojo.TbInformation;
-import com.master.qianyi.information.pojo.TbInformationExample;
+import com.master.qianyi.pojo.TbInformation;
+import com.master.qianyi.pojo.TbInformationExample;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

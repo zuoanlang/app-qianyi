@@ -1,4 +1,4 @@
-package com.master.qianyi.manager.interceptor;
+package com.master.qianyi.inteceptor;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -55,7 +55,7 @@ public class WebConfig implements WebMvcConfigurer {
         // addPathPatterns("/**") 表示拦截所有的请求，
         // excludePathPatterns("/login", "/register") 表示除了登陆与注册之外，因为登陆注册不需要登陆也可以访问
         interceptorRegistry.addInterceptor(loginInterceptor).addPathPatterns("/**")
-                .excludePathPatterns("/manager/loginPage","/manager/login");
+                .excludePathPatterns("/manager/loginPage","/manager/login","/static/*/*");
     }
 
     @Override

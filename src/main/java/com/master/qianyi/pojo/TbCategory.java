@@ -1,4 +1,4 @@
-package com.master.qianyi.manager.pojo;
+package com.master.qianyi.pojo;
 
 import java.util.Date;
 

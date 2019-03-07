@@ -3,9 +3,9 @@ package com.master.qianyi.course.service;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.github.pagehelper.util.StringUtil;
-import com.master.qianyi.course.mapper.TbCourseMapper;
-import com.master.qianyi.course.pojo.TbCourse;
-import com.master.qianyi.course.pojo.TbCourseExample;
+import com.master.qianyi.mapper.TbCourseMapper;
+import com.master.qianyi.pojo.TbCourse;
+import com.master.qianyi.pojo.TbCourseExample;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

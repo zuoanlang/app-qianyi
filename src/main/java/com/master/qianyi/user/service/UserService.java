@@ -2,9 +2,9 @@ package com.master.qianyi.user.service;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.master.qianyi.user.mapper.TbUserMapper;
-import com.master.qianyi.user.pojo.TbUser;
-import com.master.qianyi.user.pojo.TbUserExample;
+import com.master.qianyi.mapper.TbUserMapper;
+import com.master.qianyi.pojo.TbUser;
+import com.master.qianyi.pojo.TbUserExample;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

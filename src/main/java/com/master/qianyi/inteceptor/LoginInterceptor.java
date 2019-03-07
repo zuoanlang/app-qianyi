@@ -1,7 +1,6 @@
-package com.master.qianyi.manager.interceptor;
+package com.master.qianyi.inteceptor;
 
-
-import com.master.qianyi.manager.pojo.TbUser;
+import com.master.qianyi.pojo.TbUser;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -37,21 +36,6 @@ public class LoginInterceptor implements HandlerInterceptor {
             return true;    //如果session里有user，表示该用户已经登陆，放行，用户即可继续调用自己需要的接口
         }
     }
-//    private void returnJson(HttpServletResponse response, String json) throws Exception{
-//        PrintWriter writer = null;
-//        response.setCharacterEncoding("UTF-8");
-//        response.setContentType("text/html; charset=utf-8");
-//        try {
-//            writer = response.getWriter();
-//            writer.print(json);
-//
-//        } catch (IOException e) {
-//            //logger.error("response error",e);
-//        } finally {
-//            if (writer != null)
-//                writer.close();
-//        }
-//    }
 
     @Override
     public void postHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, ModelAndView modelAndView) throws Exception {

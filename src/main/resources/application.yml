@@ -1,34 +1,33 @@
 server:
-  port: 8080 #·þÎñ¶Ë¿Ú
+  port: 8080 #ï¿½ï¿½ï¿½ï¿½Ë¿ï¿½
 spring:
   thymeleaf:
     mode: HTML5
     encoding: UTF-8
-    content-type: text/html
     cache: false
     settings: template_update_delay=0
 
-  # mysql ÊôÐÔÅäÖÃ
+  # mysql ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
-    url: jdbc:mysql://127.0.0.1:3307/qianyi
+    url: jdbc:mysql://127.0.0.1:3306/qianyi?useUnicode=true&characterEncoding=UTF-8
     username: root
-    password: root
+    password:
 
   devtools:
     restart:
-      enabled: true #ÊÇ·ñ¿ªÆô¿ª·¢Õß¹¤¾ß£¨true/false£©
+      enabled: true #ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß¹ï¿½ï¿½ß£ï¿½true/falseï¿½ï¿½
 
 ################################################################
 ################################################################
-#spring¼¯³ÉMybatis»·¾³
-#pojo±ðÃûÉ¨Ãè°ü
+#springï¿½ï¿½ï¿½ï¿½Mybatisï¿½ï¿½ï¿½ï¿½
+#pojoï¿½ï¿½ï¿½ï¿½É¨ï¿½ï¿½ï¿½
 mybatis:
-  type-aliases-package: com.master.qianyi
+  type-aliases-package: com.master.qianyi.pojo
 ################################################################
 ################################################################
-# ·ÖÒ³ÅäÖÃ
+# ï¿½ï¿½Ò³ï¿½ï¿½ï¿½ï¿½
 pagehelper:
   helper-dialect: mysql
   reasonable: true
@@ -49,4 +48,4 @@ logging:
 
 management:
   security:
-    enabled: false #ÊÇ·ñ¿ªÆôactuator°²È«ÈÏÖ¤
+    enabled: false #ï¿½Ç·ï¿½ï¿½ï¿½actuatorï¿½ï¿½È«ï¿½ï¿½Ö¤

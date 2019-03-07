@@ -1,8 +1,8 @@
 package com.master.qianyi.manager.controller;
 
-import com.master.qianyi.manager.pojo.TbUser;
 import com.master.qianyi.manager.service.BaseService;
-import com.master.qianyi.manager.service.UserService;
+import com.master.qianyi.pojo.TbUser;
+import com.master.qianyi.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -68,7 +68,7 @@ public class ManagerController {
         }
     }
 
-    //登录操作
+    //获取普通用户列表
     @GetMapping("/getOrdinaryUserList")
     @ResponseBody
     public List<TbUser> getOrdinaryUserList(int page , int rows) {

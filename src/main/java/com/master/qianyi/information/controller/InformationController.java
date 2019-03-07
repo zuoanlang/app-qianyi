@@ -1,7 +1,7 @@
 package com.master.qianyi.information.controller;
 
 
-import com.master.qianyi.information.pojo.TbInformation;
+import com.master.qianyi.pojo.TbInformation;
 import com.master.qianyi.information.service.InformationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestParam;

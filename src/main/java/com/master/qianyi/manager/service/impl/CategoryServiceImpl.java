@@ -1,10 +1,10 @@
 package com.master.qianyi.manager.service.impl;
 
-import com.master.qianyi.manager.mapper.TbCategoryMapper;
 import com.master.qianyi.manager.pojo.EasyUITreeNode;
-import com.master.qianyi.manager.pojo.TbCategory;
-import com.master.qianyi.manager.pojo.TbCategoryExample;
 import com.master.qianyi.manager.service.CategoryService;
+import com.master.qianyi.mapper.TbCategoryMapper;
+import com.master.qianyi.pojo.TbCategory;
+import com.master.qianyi.pojo.TbCategoryExample;
 import com.master.qianyi.utils.E3Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

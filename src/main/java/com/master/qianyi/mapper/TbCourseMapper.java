@@ -1,7 +1,7 @@
-package com.master.qianyi.course.mapper;
+package com.master.qianyi.mapper;
 
-import com.master.qianyi.course.pojo.TbCourse;
-import com.master.qianyi.course.pojo.TbCourseExample;
+import com.master.qianyi.pojo.TbCourse;
+import com.master.qianyi.pojo.TbCourseExample;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

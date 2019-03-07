@@ -1,6 +1,7 @@
 package com.master.qianyi.manager.service;
 
-import com.master.qianyi.manager.pojo.TbUser;
+import com.master.qianyi.pojo.TbUser;
+import com.master.qianyi.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,18 +24,7 @@ public class BaseService {
 
         TbUser user = this.getUserFromSession(request);
         //当前登录用户再登录
-        if(user!=null && user.getUserName().equals(username)){
-            return "index";
-        } else {
-            //其余用户登录
-            user = userService.checkUser(username, password);
-            if(user == null ||user.getUserPassword() == null){
-                return "loginPage";
-            } else {
-                this.setUserSession(request,user);
-                return "index";
-            }
-        }
+        return null;
     }
 
     //get user session

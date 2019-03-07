@@ -1,17 +1,19 @@
 package com.master.qianyi.user.controller;
 
 import com.github.pagehelper.PageInfo;
+import com.master.qianyi.pojo.TbUser;
+import com.master.qianyi.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 
 /**
  * Created by Administrator on 2017/12/6.
  */
 @RestController
-@RefreshScope
 public class UserController {
 
     @Autowired
