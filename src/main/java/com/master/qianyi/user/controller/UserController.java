@@ -37,9 +37,10 @@ public class UserController {
     public List<TbUser> getOrdinaryUserList(int pageNum, int pageSize) {
         List<TbUser> userList = this.userService.getOrdinaryUserList(pageNum, pageSize);
         PageInfo pageInfo = new PageInfo<>(userList);
-        System.out.println("total:" + pageInfo.getTotal());
-        System.out.println("pages:" + pageInfo.getPages());
-        System.out.println("pageSize:" + pageInfo.getPageSize());
+//        System.out.println("total:" + pageInfo.getTotal());
+//        System.out.println("pages:" + pageInfo.getPages());
+//        System.out.println("pageSize:" + pageInfo.getPageSize());
         return userList;
     }
+
 }

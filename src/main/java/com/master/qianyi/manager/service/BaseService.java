@@ -20,40 +20,25 @@ public class BaseService {
     @Autowired
     private UserService userService;
 
-    public String login(HttpServletRequest request, String username, String password) {
-
-        TbUser user = null;
-        //
-        user = this.getUserFromSession(request);
-        //判断是否当前登录用户再登录
-        if (user!=null) {
-            if(user.getUserName().equals(username) && user.getUserPassword().equals(password)) {
-                return "index";
-            } else {
-                //新用户登录
-                user = userService.getUserByUsername(username);
-                if(user!=null && user.getUserPassword().equals(password)){
-                    return "index";
-                }
-            }
-
+    public boolean login(HttpServletRequest request, String username, String password) {
+        //查询数据库
+        TbUser user = userService.getUserByUsername(username);
+        if(user.getUserPassword().equals(password)){
+            setUserSession(request,user);
+            return true;
         } else {
-            //新用户登录
-            user = userService.getUserByUsername(username);
-            if(user!=null && user.getUserPassword().equals(password)){
-                return "index";
-            } else {
-                return "loginPage";
-            }
-
+            return false;
         }
-        return null;
     }
 
     //get user session
     public TbUser getUserFromSession(HttpServletRequest request){
         HttpSession session = request.getSession();
-        return  (TbUser) session.getAttribute("user");
+        if(session!=null && session.getAttribute("user")!=null){
+            return (TbUser)session.getAttribute("user");
+        } else {
+            return null;
+        }
     }
 
     //set user session

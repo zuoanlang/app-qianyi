@@ -54,18 +54,19 @@ public class ManagerController {
      */
     @RequestMapping("/index")
     public String index(){
-        System.out.println("yueyue");
         return "index";
     }
 
     //登录操作
     @PostMapping("/login")
     public void userLogin(HttpServletRequest request, HttpServletResponse response, String username, String password) throws IOException {
-        String result = baseService.login(request, username, password);
-        if(result.equals("loginPage")){
-            response.sendRedirect(request.getContextPath()+"/manager/loginPage?index=2");
+        boolean result = baseService.login(request, username, password);
+        if(result){
+            response.sendRedirect("index");
         } else {
-            response.sendRedirect(request.getContextPath()+"/manager/index");
+            //重定向到登录界面
+            response.getWriter().write("登录信息已失效，请重新登录！");
+            response.sendRedirect("/pages/loginPage.html");
         }
     }
 
