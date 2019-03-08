@@ -2,9 +2,8 @@ package com.master.qianyi.mapper;
 
 import com.master.qianyi.pojo.TbCourse;
 import com.master.qianyi.pojo.TbCourseExample;
-import org.apache.ibatis.annotations.Param;
-
 import java.util.List;
+import org.apache.ibatis.annotations.Param;
 
 public interface TbCourseMapper {
     int countByExample(TbCourseExample example);

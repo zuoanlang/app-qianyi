@@ -54,6 +54,7 @@ public class ManagerController {
      */
     @RequestMapping("/index")
     public String index(){
+        System.out.println("yueyue");
         return "index";
     }
 

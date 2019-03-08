@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.qianyi.microservice.manager.mapper.TbCategoryMapper" >
-  <resultMap id="BaseResultMap" type="com.qianyi.microservice.manager.pojo.TbCategory" >
+<mapper namespace="com.master.qianyi.mapper.TbCategoryMapper" >
+  <resultMap id="BaseResultMap" type="com.master.qianyi.pojo.TbCategory" >
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="parent_id" property="parentId" jdbcType="BIGINT" />
     <result column="name" property="name" jdbcType="VARCHAR" />
@@ -72,11 +72,12 @@
   <sql id="Base_Column_List" >
     id, parent_id, name, status, sort_order, is_parent, created, updated
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.qianyi.microservice.manager.pojo.TbCategoryExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.master.qianyi.pojo.TbCategoryExample" >
     select
     <if test="distinct" >
       distinct
     </if>
+    'true' as QUERYID,
     <include refid="Base_Column_List" />
     from tb_category
     <if test="_parameter != null" >
@@ -96,13 +97,13 @@
     delete from tb_category
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="com.qianyi.microservice.manager.pojo.TbCategoryExample" >
+  <delete id="deleteByExample" parameterType="com.master.qianyi.pojo.TbCategoryExample" >
     delete from tb_category
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.qianyi.microservice.manager.pojo.TbCategory" >
+  <insert id="insert" parameterType="com.master.qianyi.pojo.TbCategory" >
     insert into tb_category (id, parent_id, name, 
       status, sort_order, is_parent, 
       created, updated)
@@ -110,7 +111,7 @@
       #{status,jdbcType=INTEGER}, #{sortOrder,jdbcType=INTEGER}, #{isParent,jdbcType=BIT}, 
       #{created,jdbcType=TIMESTAMP}, #{updated,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.qianyi.microservice.manager.pojo.TbCategory" >
+  <insert id="insertSelective" parameterType="com.master.qianyi.pojo.TbCategory" >
     insert into tb_category
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -165,7 +166,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.qianyi.microservice.manager.pojo.TbCategoryExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="com.master.qianyi.pojo.TbCategoryExample" resultType="java.lang.Integer" >
     select count(*) from tb_category
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
@@ -217,7 +218,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.qianyi.microservice.manager.pojo.TbCategory" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.master.qianyi.pojo.TbCategory" >
     update tb_category
     <set >
       <if test="parentId != null" >
@@ -244,7 +245,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.qianyi.microservice.manager.pojo.TbCategory" >
+  <update id="updateByPrimaryKey" parameterType="com.master.qianyi.pojo.TbCategory" >
     update tb_category
     set parent_id = #{parentId,jdbcType=BIGINT},
       name = #{name,jdbcType=VARCHAR},

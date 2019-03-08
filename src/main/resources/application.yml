@@ -1,12 +1,22 @@
 server:
   port: 8080 #����˿�
+
+web:
+  images-path: B:\qianyiApp\images
+
 spring:
   thymeleaf:
     mode: HTML5
     encoding: UTF-8
     cache: false
     settings: template_update_delay=0
+  #指定静态文件的位置
+  resources:
+    static-locations : classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/,file:${web.images-path}
 
+  devtools:
+    restart:
+      trigger-file: trigger.txt
   # mysql ��������
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
@@ -14,10 +24,6 @@ spring:
     url: jdbc:mysql://127.0.0.1:3306/qianyi?useUnicode=true&characterEncoding=UTF-8
     username: root
     password:
-
-  devtools:
-    restart:
-      enabled: true #�Ƿ��������߹��ߣ�true/false��
 
 ################################################################
 ################################################################
@@ -37,8 +43,8 @@ pagehelper:
 ################################################################
 logging:
   level:
-    root: debug
-    com.itheima.microservice.user.mapper: debug
+    root: info
+    com.master.qianyi.mapper: debug
   #    org.springframework.web: DEBUG
   file: /log/log/my_provide.log
   pattern:

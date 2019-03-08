@@ -1,11 +1,9 @@
 package com.master.qianyi.mapper;
 
-
 import com.master.qianyi.pojo.TbInformation;
 import com.master.qianyi.pojo.TbInformationExample;
-import org.apache.ibatis.annotations.Param;
-
 import java.util.List;
+import org.apache.ibatis.annotations.Param;
 
 public interface TbInformationMapper {
     int countByExample(TbInformationExample example);

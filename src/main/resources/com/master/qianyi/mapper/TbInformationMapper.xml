@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.itheima.microservice.information.mapper.TbInformationMapper" >
-  <resultMap id="BaseResultMap" type="com.itheima.microservice.information.pojo.TbInformation" >
+<mapper namespace="com.master.qianyi.mapper.TbInformationMapper" >
+  <resultMap id="BaseResultMap" type="com.master.qianyi.pojo.TbInformation" >
     <id column="info_id" property="infoId" jdbcType="VARCHAR" />
     <result column="info_type" property="infoType" jdbcType="CHAR" />
     <result column="info_writer" property="infoWriter" jdbcType="VARCHAR" />
@@ -18,7 +18,7 @@
     <result column="remark2" property="remark2" jdbcType="VARCHAR" />
     <result column="remark1" property="remark1" jdbcType="VARCHAR" />
   </resultMap>
-  <resultMap id="ResultMapWithBLOBs" type="com.itheima.microservice.information.pojo.TbInformation" extends="BaseResultMap" >
+  <resultMap id="ResultMapWithBLOBs" type="com.master.qianyi.pojo.TbInformation" extends="BaseResultMap" >
     <result column="info_details" property="infoDetails" jdbcType="LONGVARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
@@ -86,11 +86,12 @@
   <sql id="Blob_Column_List" >
     info_details
   </sql>
-  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.itheima.microservice.information.pojo.TbInformationExample" >
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.master.qianyi.pojo.TbInformationExample" >
     select
     <if test="distinct" >
       distinct
     </if>
+    'true' as QUERYID,
     <include refid="Base_Column_List" />
     ,
     <include refid="Blob_Column_List" />
@@ -102,11 +103,12 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.itheima.microservice.information.pojo.TbInformationExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.master.qianyi.pojo.TbInformationExample" >
     select
     <if test="distinct" >
       distinct
     </if>
+    'true' as QUERYID,
     <include refid="Base_Column_List" />
     from tb_information
     <if test="_parameter != null" >
@@ -128,13 +130,13 @@
     delete from tb_information
     where info_id = #{infoId,jdbcType=VARCHAR}
   </delete>
-  <delete id="deleteByExample" parameterType="com.itheima.microservice.information.pojo.TbInformationExample" >
+  <delete id="deleteByExample" parameterType="com.master.qianyi.pojo.TbInformationExample" >
     delete from tb_information
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.itheima.microservice.information.pojo.TbInformation" >
+  <insert id="insert" parameterType="com.master.qianyi.pojo.TbInformation" >
     insert into tb_information (info_id, info_type, info_writer, 
       info_title, info_view_times, info_img_path, 
       effect_flag, delete_flag, published_time, 
@@ -148,7 +150,7 @@
       #{remark3,jdbcType=VARCHAR}, #{remark2,jdbcType=VARCHAR}, #{remark1,jdbcType=VARCHAR}, 
       #{infoDetails,jdbcType=LONGVARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.itheima.microservice.information.pojo.TbInformation" >
+  <insert id="insertSelective" parameterType="com.master.qianyi.pojo.TbInformation" >
     insert into tb_information
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="infoId != null" >
@@ -251,7 +253,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.itheima.microservice.information.pojo.TbInformationExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="com.master.qianyi.pojo.TbInformationExample" resultType="java.lang.Integer" >
     select count(*) from tb_information
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
@@ -356,7 +358,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.itheima.microservice.information.pojo.TbInformation" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.master.qianyi.pojo.TbInformation" >
     update tb_information
     <set >
       <if test="infoType != null" >
@@ -407,7 +409,7 @@
     </set>
     where info_id = #{infoId,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.itheima.microservice.information.pojo.TbInformation" >
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.master.qianyi.pojo.TbInformation" >
     update tb_information
     set info_type = #{infoType,jdbcType=CHAR},
       info_writer = #{infoWriter,jdbcType=VARCHAR},
@@ -426,7 +428,7 @@
       info_details = #{infoDetails,jdbcType=LONGVARCHAR}
     where info_id = #{infoId,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.itheima.microservice.information.pojo.TbInformation" >
+  <update id="updateByPrimaryKey" parameterType="com.master.qianyi.pojo.TbInformation" >
     update tb_information
     set info_type = #{infoType,jdbcType=CHAR},
       info_writer = #{infoWriter,jdbcType=VARCHAR},

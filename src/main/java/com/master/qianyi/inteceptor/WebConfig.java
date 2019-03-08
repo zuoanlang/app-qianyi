@@ -1,7 +1,6 @@
 package com.master.qianyi.inteceptor;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.validation.MessageCodesResolver;
@@ -19,7 +18,7 @@ import java.util.List;
  * author:kangkang
  * date: 2019/2/24
  */
-@Configuration
+
 public class WebConfig implements WebMvcConfigurer {
 
     @Autowired

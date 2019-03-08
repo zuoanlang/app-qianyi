@@ -22,8 +22,31 @@ public class BaseService {
 
     public String login(HttpServletRequest request, String username, String password) {
 
-        TbUser user = this.getUserFromSession(request);
-        //当前登录用户再登录
+        TbUser user = null;
+        //
+        user = this.getUserFromSession(request);
+        //判断是否当前登录用户再登录
+        if (user!=null) {
+            if(user.getUserName().equals(username) && user.getUserPassword().equals(password)) {
+                return "index";
+            } else {
+                //新用户登录
+                user = userService.getUserByUsername(username);
+                if(user!=null && user.getUserPassword().equals(password)){
+                    return "index";
+                }
+            }
+
+        } else {
+            //新用户登录
+            user = userService.getUserByUsername(username);
+            if(user!=null && user.getUserPassword().equals(password)){
+                return "index";
+            } else {
+                return "loginPage";
+            }
+
+        }
         return null;
     }
 

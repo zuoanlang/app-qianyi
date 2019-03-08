@@ -1,7 +1,6 @@
 package com.master.qianyi.inteceptor;
 
 import com.master.qianyi.pojo.TbUser;
-import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -16,7 +15,7 @@ import javax.servlet.http.HttpSession;
  * author:kangkang
  * date: 2019/2/24
  */
-@Component
+
 public class LoginInterceptor implements HandlerInterceptor {
 
 
