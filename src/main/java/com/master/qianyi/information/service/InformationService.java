@@ -23,13 +23,12 @@ public class InformationService {
     /**
      * 查询资讯
      *
-     * @param pageNum  页码（默认第一页）
-     * @param pageSize 当前页条数（默认每页4条）
+     * @param pageNum  页码
+     * @param pageSize 当前页条数
      * @param infoType 咨询类型
      * @return
      */
-    public List<TbInformation> getMainPageInfo(int pageNum, int pageSize, String infoType) {
-        PageHelper.startPage(pageNum, pageSize);
+    public List<TbInformation> getInformation(int pageNum, int pageSize, String infoType) {
         TbInformationExample example = new TbInformationExample();
         example.createCriteria()
                 // // 有效标志为1（有效）
@@ -41,7 +40,8 @@ public class InformationService {
             example.getOredCriteria().get(0).andInfoTypeEqualTo(infoType);
         }
         // 按发布时间降序
-        example.setOrderByClause("published_time desc");
+        example.setOrderByClause("PUBLISHED_TIME desc");
+        PageHelper.startPage(pageNum, pageSize);
         List<TbInformation> tbInformations = mapper.selectByExample(example);
         PageInfo pageInfo = new PageInfo<>(tbInformations);
         return tbInformations;

@@ -1,7 +1,9 @@
 package com.master.qianyi.user.controller;
 
 import com.github.pagehelper.PageInfo;
+import com.master.qianyi.pojo.TbCourse;
 import com.master.qianyi.pojo.TbUser;
+import com.master.qianyi.user.form.OrderForm;
 import com.master.qianyi.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -42,5 +44,29 @@ public class UserController {
 //        System.out.println("pageSize:" + pageInfo.getPageSize());
         return userList;
     }
+
+    /**
+     * 根据条件查询名师列表
+     *
+     * @param pageNum
+     * @param pageSize
+     * @param user
+     * @return
+     */
+    @GetMapping("/getFamousTeachers")
+    public List<TbUser> getFamousTeachers(int pageNum, int pageSize, TbUser user) {
+        return userService.getFamousTeachers(pageNum, pageSize, user);
+    }
+
+    /**
+     * 根据用户id查询我的订单详情
+     * @param userId
+     * @return
+     */
+    @GetMapping("/getOrderByUserId")
+    public List<OrderForm> getOrderByUserId(OrderForm orderForm) {
+        return userService.getOrderByUserId(orderForm);
+    }
+
 
 }
