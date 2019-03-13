@@ -1,5 +1,6 @@
 package com.master.qianyi.user.service;
 
+import com.alibaba.druid.util.StringUtils;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.github.pagehelper.util.StringUtil;
@@ -8,6 +9,7 @@ import com.master.qianyi.mapper.TbOrderMapper;
 import com.master.qianyi.mapper.TbUserMapper;
 import com.master.qianyi.pojo.*;
 import com.master.qianyi.user.form.OrderForm;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -87,19 +89,20 @@ public class UserService {
     }
 
     /**
-     * @param orderForm
+     * @param userId
+     * @param orderStatus
      * @return
      */
-    public List<OrderForm> getOrderByUserId(OrderForm orderForm) {
+    public List<OrderForm> getOrderByUserId(String userId, String orderStatus) {
         // 1. 查询订单表
         TbOrderExample tbOrderExample = new TbOrderExample();
         tbOrderExample.createCriteria()
                 .andEffectFlagEqualTo("1")
-                .andDeleteFlagEqualTo("1")
-                .andUserIdEqualTo(orderForm.getUserId());
+                .andDeleteFlagEqualTo("0")
+                .andUserIdEqualTo(userId);
         // 订单状态（进行中、已完成等）
-        if (StringUtil.isNotEmpty(orderForm.getOrderStatus())) {
-            tbOrderExample.getOredCriteria().get(0).andOrderStatusEqualTo(orderForm.getOrderStatus());
+        if (StringUtil.isNotEmpty(orderStatus)) {
+            tbOrderExample.getOredCriteria().get(0).andOrderStatusEqualTo(orderStatus);
         }
         List<TbOrder> tbOrderList = tbOrderMapper.selectByExample(tbOrderExample);
 
@@ -110,7 +113,27 @@ public class UserService {
                 courseIdList.add(order.getGoodId());
             }
         }
-        return null;
+        TbCourseExample tbCourseExample = new TbCourseExample();
+        tbCourseExample.createCriteria().andCourseIdIn(courseIdList);
+        List<TbCourse> courses = tbCourseMapper.selectByExample(tbCourseExample);
+        OrderForm form = null;
+        List<OrderForm> formList = new ArrayList<>();
+        for (TbOrder order : tbOrderList) {
+            form = new OrderForm();
+            BeanUtils.copyProperties(order, form);
+            for (TbCourse course : courses) {
+                if (StringUtils.equals(order.getGoodId(), course.getCourseId())) {
+                    form.setCourseId(course.getCourseId());
+                    form.setCourseName(course.getCourseName());
+                    form.setCourseImg(course.getCourseImg());
+                    form.setCourse_belongTo(course.getCourseBelongto());
+                    form.setCoursePrice(course.getCoursePrice());
+                    form.setCourseLearningFrequency(course.getCourseLearningFrequency());
+                }
+            }
+            formList.add(form);
+        }
+        return formList;
     }
 
 }
