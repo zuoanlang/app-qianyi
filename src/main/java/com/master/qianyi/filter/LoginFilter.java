@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebFilter(urlPatterns = "/manager/*",filterName = "loginFilter")
+@WebFilter(urlPatterns = "/qianyi/manager/*",filterName = "loginFilter")
 public class LoginFilter implements Filter {
 
     //不需要登录就可以访问的路径(比如:注册登录等)
@@ -36,7 +36,7 @@ public class LoginFilter implements Filter {
             } else {
                 //重定向到登录界面
                 response.getWriter().write("登录信息已失效，请重新登录！");
-                response.sendRedirect("/pages/loginPage.html");
+                response.sendRedirect("/qinayi/pages/loginPage.html");
                 return;
             }
         }

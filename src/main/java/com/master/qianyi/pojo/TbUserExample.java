@@ -1592,6 +1592,76 @@ public class TbUserExample {
             return (Criteria) this;
         }
 
+        public Criteria andSmsIsNull() {
+            addCriterion("sms is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSmsIsNotNull() {
+            addCriterion("sms is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andSmsEqualTo(String value) {
+            addCriterion("sms =", value, "sms");
+            return (Criteria) this;
+        }
+
+        public Criteria andSmsNotEqualTo(String value) {
+            addCriterion("sms <>", value, "sms");
+            return (Criteria) this;
+        }
+
+        public Criteria andSmsGreaterThan(String value) {
+            addCriterion("sms >", value, "sms");
+            return (Criteria) this;
+        }
+
+        public Criteria andSmsGreaterThanOrEqualTo(String value) {
+            addCriterion("sms >=", value, "sms");
+            return (Criteria) this;
+        }
+
+        public Criteria andSmsLessThan(String value) {
+            addCriterion("sms <", value, "sms");
+            return (Criteria) this;
+        }
+
+        public Criteria andSmsLessThanOrEqualTo(String value) {
+            addCriterion("sms <=", value, "sms");
+            return (Criteria) this;
+        }
+
+        public Criteria andSmsLike(String value) {
+            addCriterion("sms like", value, "sms");
+            return (Criteria) this;
+        }
+
+        public Criteria andSmsNotLike(String value) {
+            addCriterion("sms not like", value, "sms");
+            return (Criteria) this;
+        }
+
+        public Criteria andSmsIn(List<String> values) {
+            addCriterion("sms in", values, "sms");
+            return (Criteria) this;
+        }
+
+        public Criteria andSmsNotIn(List<String> values) {
+            addCriterion("sms not in", values, "sms");
+            return (Criteria) this;
+        }
+
+        public Criteria andSmsBetween(String value1, String value2) {
+            addCriterion("sms between", value1, value2, "sms");
+            return (Criteria) this;
+        }
+
+        public Criteria andSmsNotBetween(String value1, String value2) {
+            addCriterion("sms not between", value1, value2, "sms");
+            return (Criteria) this;
+        }
+
         public Criteria andWeixinIsNull() {
             addCriterion("weixin is null");
             return (Criteria) this;

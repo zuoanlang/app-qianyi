@@ -25,7 +25,7 @@ public class CourseController {
      * @param course   查询条件
      * @return
      */
-    @GetMapping("/searchCourse")
+    @GetMapping("course/searchCourse")
     @ResponseBody
     public List<TbCourse> getCourseSearchResult(int pageNum, int pageSize, TbCourse course) {
         return service.getCourseSearchResult(pageNum, pageSize, course);

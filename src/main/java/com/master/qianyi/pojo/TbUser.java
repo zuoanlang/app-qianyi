@@ -45,6 +45,8 @@ public class TbUser {
 
     private String qq;
 
+    private String sms;
+
     private String weixin;
 
     private String asign;
@@ -233,6 +235,14 @@ public class TbUser {
 
     public void setQq(String qq) {
         this.qq = qq == null ? null : qq.trim();
+    }
+
+    public String getSms() {
+        return sms;
+    }
+
+    public void setSms(String sms) {
+        this.sms = sms == null ? null : sms.trim();
     }
 
     public String getWeixin() {

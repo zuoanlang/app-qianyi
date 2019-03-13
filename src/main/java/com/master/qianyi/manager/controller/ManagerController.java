@@ -17,7 +17,7 @@ import java.io.IOException;
 import java.util.List;
 
 /**
- * project:itcast-microservice-user
+ * project:后台登录及相关操作
  * function:
  * author:kangkang
  * date: 2019/2/22
@@ -66,7 +66,7 @@ public class ManagerController {
         } else {
             //重定向到登录界面
             response.getWriter().write("登录信息已失效，请重新登录！");
-            response.sendRedirect("/pages/loginPage.html");
+            response.sendRedirect("/qianyi/pages/loginPage.html");
         }
     }
 
