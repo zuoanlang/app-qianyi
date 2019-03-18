@@ -16,7 +16,7 @@ public class MobileController {
     private MobileService mobileService;
 
     /**
-     * 发送验证码（用于找回密码）
+     * 发送验证码（用于找回密码、注册）
      *
      * @param request
      * @param phoneNumber

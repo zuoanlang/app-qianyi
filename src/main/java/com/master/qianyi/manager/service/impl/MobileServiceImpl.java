@@ -45,6 +45,7 @@ public class MobileServiceImpl implements MobileService {
                 if(insertResult){
                     result.setCode(Constants.code_0);
                     result.setMsg(Constants.msg_success);
+                    result.setResult("验证码发送成功！");
                 } else {
                     result.setCode(Constants.code_1);
                     result.setMsg(Constants.msg_failed);
@@ -61,6 +62,7 @@ public class MobileServiceImpl implements MobileService {
                 //发送成功，在user表中更新该条用户记录的sms，
                 //设置更新条件
                 TbUser tbUser = new TbUser();
+                tbUser.setUserId(user.getUserId());
                 tbUser.setSms(mobile_code);
                 boolean updateResult = userService.updateUserBySelective(tbUser);
                 //4.设置跟新条件
