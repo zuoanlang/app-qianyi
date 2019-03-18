@@ -32,7 +32,7 @@ public class IDUtils {
 	/**
 	 * 商品id生成
 	 */
-	public static long genItemId() {
+	public static String genItemId() {
 		//取当前时间的长整形值包含毫秒
 		long millis = System.currentTimeMillis();
 		//long millis = System.nanoTime();
@@ -42,7 +42,7 @@ public class IDUtils {
 		//如果不足两位前面补0
 		String str = millis + String.format("%02d", end2);
 		long id = new Long(str);
-		return id;
+		return Long.toString(id);
 	}
 	
 	public static void main(String[] args) {

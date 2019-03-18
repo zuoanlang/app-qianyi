@@ -45,7 +45,7 @@ public class TbUser {
 
     private String qq;
 
-    private String sms;
+    private Integer sms;
 
     private String weixin;
 
@@ -237,12 +237,12 @@ public class TbUser {
         this.qq = qq == null ? null : qq.trim();
     }
 
-    public String getSms() {
+    public Integer getSms() {
         return sms;
     }
 
-    public void setSms(String sms) {
-        this.sms = sms == null ? null : sms.trim();
+    public void setSms(Integer sms) {
+        this.sms = sms;
     }
 
     public String getWeixin() {

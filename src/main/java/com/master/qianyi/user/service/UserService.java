@@ -113,4 +113,46 @@ public class UserService {
         return null;
     }
 
+    /**
+     * 根据手机号查询用户
+     * @return
+     */
+    public TbUser getUserByPhoneNumber(String phoneNumber){
+        TbUserExample userExample = new TbUserExample();
+        TbUserExample.Criteria criteria = userExample.createCriteria();
+        criteria.andHandphoneEqualTo(phoneNumber);
+        List<TbUser> usersList = tbuserMapper.selectByExample(userExample);
+        if(usersList!=null && usersList.size()==1){
+            return usersList.get(0);
+        }
+        return null;
+    }
+
+    /**
+     * 用户表插入一条数据：根据已有值的字段
+     * @param user
+     * @return
+     */
+    public boolean insertOneUserRecord(TbUser user){
+        int count = tbuserMapper.insertSelective(user);
+        if(count>0){
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * 根据主键userId更新用户信息，（不为空的字段）
+     * @return
+     */
+    public boolean updateUserBySelective(TbUser user){
+        int count = tbuserMapper.updateByPrimaryKeySelective(user);
+        if(count>0){
+            return true;
+        }
+        return false;
+    }
+
+
+
 }

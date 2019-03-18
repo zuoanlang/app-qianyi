@@ -1602,62 +1602,52 @@ public class TbUserExample {
             return (Criteria) this;
         }
 
-        public Criteria andSmsEqualTo(String value) {
+        public Criteria andSmsEqualTo(Integer value) {
             addCriterion("sms =", value, "sms");
             return (Criteria) this;
         }
 
-        public Criteria andSmsNotEqualTo(String value) {
+        public Criteria andSmsNotEqualTo(Integer value) {
             addCriterion("sms <>", value, "sms");
             return (Criteria) this;
         }
 
-        public Criteria andSmsGreaterThan(String value) {
+        public Criteria andSmsGreaterThan(Integer value) {
             addCriterion("sms >", value, "sms");
             return (Criteria) this;
         }
 
-        public Criteria andSmsGreaterThanOrEqualTo(String value) {
+        public Criteria andSmsGreaterThanOrEqualTo(Integer value) {
             addCriterion("sms >=", value, "sms");
             return (Criteria) this;
         }
 
-        public Criteria andSmsLessThan(String value) {
+        public Criteria andSmsLessThan(Integer value) {
             addCriterion("sms <", value, "sms");
             return (Criteria) this;
         }
 
-        public Criteria andSmsLessThanOrEqualTo(String value) {
+        public Criteria andSmsLessThanOrEqualTo(Integer value) {
             addCriterion("sms <=", value, "sms");
             return (Criteria) this;
         }
 
-        public Criteria andSmsLike(String value) {
-            addCriterion("sms like", value, "sms");
-            return (Criteria) this;
-        }
-
-        public Criteria andSmsNotLike(String value) {
-            addCriterion("sms not like", value, "sms");
-            return (Criteria) this;
-        }
-
-        public Criteria andSmsIn(List<String> values) {
+        public Criteria andSmsIn(List<Integer> values) {
             addCriterion("sms in", values, "sms");
             return (Criteria) this;
         }
 
-        public Criteria andSmsNotIn(List<String> values) {
+        public Criteria andSmsNotIn(List<Integer> values) {
             addCriterion("sms not in", values, "sms");
             return (Criteria) this;
         }
 
-        public Criteria andSmsBetween(String value1, String value2) {
+        public Criteria andSmsBetween(Integer value1, Integer value2) {
             addCriterion("sms between", value1, value2, "sms");
             return (Criteria) this;
         }
 
-        public Criteria andSmsNotBetween(String value1, String value2) {
+        public Criteria andSmsNotBetween(Integer value1, Integer value2) {
             addCriterion("sms not between", value1, value2, "sms");
             return (Criteria) this;
         }

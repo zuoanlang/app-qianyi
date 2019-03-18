@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.master.qianyi.mapper.TbReceiptionMapper" >
+  <resultMap id="BaseResultMap" type="com.master.qianyi.pojo.TbReceiption" >
+    <id column="receipt_id" property="receiptId" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="trade_type" property="tradeType" jdbcType="CHAR" />
+    <result column="trade_date_time" property="tradeDateTime" jdbcType="TIMESTAMP" />
+    <result column="trade_source" property="tradeSource" jdbcType="CHAR" />
+    <result column="trade_detail" property="tradeDetail" jdbcType="VARCHAR" />
+    <result column="delete_flag" property="deleteFlag" jdbcType="CHAR" />
+    <result column="effect_flag" property="effectFlag" jdbcType="CHAR" />
+    <result column="remark1" property="remark1" jdbcType="VARCHAR" />
+    <result column="remark5" property="remark5" jdbcType="VARCHAR" />
+    <result column="remark3" property="remark3" jdbcType="VARCHAR" />
+    <result column="remark2" property="remark2" jdbcType="VARCHAR" />
+    <result column="remark4" property="remark4" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    receipt_id, user_id, trade_type, trade_date_time, trade_source, trade_detail, delete_flag, 
+    effect_flag, remark1, remark5, remark3, remark2, remark4
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.master.qianyi.pojo.TbReceiptionExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from tb_receiption
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_receiption
+    where receipt_id = #{receiptId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tb_receiption
+    where receipt_id = #{receiptId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.master.qianyi.pojo.TbReceiptionExample" >
+    delete from tb_receiption
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.master.qianyi.pojo.TbReceiption" >
+    insert into tb_receiption (receipt_id, user_id, trade_type, 
+      trade_date_time, trade_source, trade_detail, 
+      delete_flag, effect_flag, remark1, 
+      remark5, remark3, remark2, 
+      remark4)
+    values (#{receiptId,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{tradeType,jdbcType=CHAR}, 
+      #{tradeDateTime,jdbcType=TIMESTAMP}, #{tradeSource,jdbcType=CHAR}, #{tradeDetail,jdbcType=VARCHAR}, 
+      #{deleteFlag,jdbcType=CHAR}, #{effectFlag,jdbcType=CHAR}, #{remark1,jdbcType=VARCHAR}, 
+      #{remark5,jdbcType=VARCHAR}, #{remark3,jdbcType=VARCHAR}, #{remark2,jdbcType=VARCHAR}, 
+      #{remark4,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.master.qianyi.pojo.TbReceiption" >
+    insert into tb_receiption
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="receiptId != null" >
+        receipt_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="tradeType != null" >
+        trade_type,
+      </if>
+      <if test="tradeDateTime != null" >
+        trade_date_time,
+      </if>
+      <if test="tradeSource != null" >
+        trade_source,
+      </if>
+      <if test="tradeDetail != null" >
+        trade_detail,
+      </if>
+      <if test="deleteFlag != null" >
+        delete_flag,
+      </if>
+      <if test="effectFlag != null" >
+        effect_flag,
+      </if>
+      <if test="remark1 != null" >
+        remark1,
+      </if>
+      <if test="remark5 != null" >
+        remark5,
+      </if>
+      <if test="remark3 != null" >
+        remark3,
+      </if>
+      <if test="remark2 != null" >
+        remark2,
+      </if>
+      <if test="remark4 != null" >
+        remark4,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="receiptId != null" >
+        #{receiptId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="tradeType != null" >
+        #{tradeType,jdbcType=CHAR},
+      </if>
+      <if test="tradeDateTime != null" >
+        #{tradeDateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tradeSource != null" >
+        #{tradeSource,jdbcType=CHAR},
+      </if>
+      <if test="tradeDetail != null" >
+        #{tradeDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="deleteFlag != null" >
+        #{deleteFlag,jdbcType=CHAR},
+      </if>
+      <if test="effectFlag != null" >
+        #{effectFlag,jdbcType=CHAR},
+      </if>
+      <if test="remark1 != null" >
+        #{remark1,jdbcType=VARCHAR},
+      </if>
+      <if test="remark5 != null" >
+        #{remark5,jdbcType=VARCHAR},
+      </if>
+      <if test="remark3 != null" >
+        #{remark3,jdbcType=VARCHAR},
+      </if>
+      <if test="remark2 != null" >
+        #{remark2,jdbcType=VARCHAR},
+      </if>
+      <if test="remark4 != null" >
+        #{remark4,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.master.qianyi.pojo.TbReceiptionExample" resultType="java.lang.Integer" >
+    select count(*) from tb_receiption
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tb_receiption
+    <set >
+      <if test="record.receiptId != null" >
+        receipt_id = #{record.receiptId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tradeType != null" >
+        trade_type = #{record.tradeType,jdbcType=CHAR},
+      </if>
+      <if test="record.tradeDateTime != null" >
+        trade_date_time = #{record.tradeDateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.tradeSource != null" >
+        trade_source = #{record.tradeSource,jdbcType=CHAR},
+      </if>
+      <if test="record.tradeDetail != null" >
+        trade_detail = #{record.tradeDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deleteFlag != null" >
+        delete_flag = #{record.deleteFlag,jdbcType=CHAR},
+      </if>
+      <if test="record.effectFlag != null" >
+        effect_flag = #{record.effectFlag,jdbcType=CHAR},
+      </if>
+      <if test="record.remark1 != null" >
+        remark1 = #{record.remark1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark5 != null" >
+        remark5 = #{record.remark5,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark3 != null" >
+        remark3 = #{record.remark3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark2 != null" >
+        remark2 = #{record.remark2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark4 != null" >
+        remark4 = #{record.remark4,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tb_receiption
+    set receipt_id = #{record.receiptId,jdbcType=VARCHAR},
+      user_id = #{record.userId,jdbcType=VARCHAR},
+      trade_type = #{record.tradeType,jdbcType=CHAR},
+      trade_date_time = #{record.tradeDateTime,jdbcType=TIMESTAMP},
+      trade_source = #{record.tradeSource,jdbcType=CHAR},
+      trade_detail = #{record.tradeDetail,jdbcType=VARCHAR},
+      delete_flag = #{record.deleteFlag,jdbcType=CHAR},
+      effect_flag = #{record.effectFlag,jdbcType=CHAR},
+      remark1 = #{record.remark1,jdbcType=VARCHAR},
+      remark5 = #{record.remark5,jdbcType=VARCHAR},
+      remark3 = #{record.remark3,jdbcType=VARCHAR},
+      remark2 = #{record.remark2,jdbcType=VARCHAR},
+      remark4 = #{record.remark4,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.master.qianyi.pojo.TbReceiption" >
+    update tb_receiption
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="tradeType != null" >
+        trade_type = #{tradeType,jdbcType=CHAR},
+      </if>
+      <if test="tradeDateTime != null" >
+        trade_date_time = #{tradeDateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tradeSource != null" >
+        trade_source = #{tradeSource,jdbcType=CHAR},
+      </if>
+      <if test="tradeDetail != null" >
+        trade_detail = #{tradeDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="deleteFlag != null" >
+        delete_flag = #{deleteFlag,jdbcType=CHAR},
+      </if>
+      <if test="effectFlag != null" >
+        effect_flag = #{effectFlag,jdbcType=CHAR},
+      </if>
+      <if test="remark1 != null" >
+        remark1 = #{remark1,jdbcType=VARCHAR},
+      </if>
+      <if test="remark5 != null" >
+        remark5 = #{remark5,jdbcType=VARCHAR},
+      </if>
+      <if test="remark3 != null" >
+        remark3 = #{remark3,jdbcType=VARCHAR},
+      </if>
+      <if test="remark2 != null" >
+        remark2 = #{remark2,jdbcType=VARCHAR},
+      </if>
+      <if test="remark4 != null" >
+        remark4 = #{remark4,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where receipt_id = #{receiptId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.master.qianyi.pojo.TbReceiption" >
+    update tb_receiption
+    set user_id = #{userId,jdbcType=VARCHAR},
+      trade_type = #{tradeType,jdbcType=CHAR},
+      trade_date_time = #{tradeDateTime,jdbcType=TIMESTAMP},
+      trade_source = #{tradeSource,jdbcType=CHAR},
+      trade_detail = #{tradeDetail,jdbcType=VARCHAR},
+      delete_flag = #{deleteFlag,jdbcType=CHAR},
+      effect_flag = #{effectFlag,jdbcType=CHAR},
+      remark1 = #{remark1,jdbcType=VARCHAR},
+      remark5 = #{remark5,jdbcType=VARCHAR},
+      remark3 = #{remark3,jdbcType=VARCHAR},
+      remark2 = #{remark2,jdbcType=VARCHAR},
+      remark4 = #{remark4,jdbcType=VARCHAR}
+    where receipt_id = #{receiptId,jdbcType=VARCHAR}
+  </update>
+</mapper>
