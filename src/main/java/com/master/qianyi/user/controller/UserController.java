@@ -71,4 +71,15 @@ public class UserController {
     }
 
 
+    /**
+     * 根据订单编号查询订单详情
+     *
+     * @param orderId
+     * @return
+     */
+    @GetMapping("/getOrderDetail")
+    public OrderForm getOrderDetailByOrderId(String orderId) {
+        return userService.getOrderDetailByOrderId(orderId);
+    }
+
 }

@@ -136,4 +136,24 @@ public class UserService {
         return formList;
     }
 
+    /**
+     * 根据订单id查询订单信息
+     *
+     * @param orderId
+     * @return
+     */
+    public OrderForm getOrderDetailByOrderId(String orderId) {
+        // 1. 查询订单表
+        TbOrder tbOrder = tbOrderMapper.selectByPrimaryKey(orderId);
+        // 2. 查询课程表
+        TbCourse tbCourse = tbCourseMapper.selectByPrimaryKey(tbOrder.getGoodId());
+        OrderForm form = new OrderForm();
+        BeanUtils.copyProperties(tbOrder, form);
+        form.setCourseName(tbCourse.getCourseName());
+        form.setCourseImg(tbCourse.getCourseImg());
+        form.setCourse_belongTo(tbCourse.getCourseBelongto());
+        form.setCoursePrice(tbCourse.getCoursePrice());
+        form.setCourseLearningFrequency(tbCourse.getCourseLearningFrequency());
+        return form;
+    }
 }

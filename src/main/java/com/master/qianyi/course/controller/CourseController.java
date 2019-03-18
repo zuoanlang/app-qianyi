@@ -2,6 +2,7 @@ package com.master.qianyi.course.controller;
 
 import com.master.qianyi.course.service.CourseService;
 import com.master.qianyi.pojo.TbCourse;
+import com.master.qianyi.user.form.OrderForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -43,6 +44,4 @@ public class CourseController {
     public List<TbCourse> getCourseByUserId(String userId, int pageNum, int pageSize) {
         return service.getCourseByUserId(userId, pageNum, pageSize);
     }
-
-
 }
