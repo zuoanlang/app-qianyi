@@ -1,0 +1,60 @@
+server:
+  port: 8080 #����˿�
+  servlet:
+    context-path: /qianyi
+
+web:
+  images-path: B:\qianyiApp\images
+
+spring:
+  thymeleaf:
+    mode: HTML5
+    encoding: UTF-8
+    cache: false
+    settings: template_update_delay=0
+  #指定静态文件的位置
+  resources:
+    static-locations : classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/,file:${web.images-path}
+
+  devtools:
+    restart:
+      trigger-file: trigger.txt
+  # mysql ��������
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+#    url: jdbc:mysql://47.106.103.186:3306/qianyi?useUnicode=true&characterEncoding=UTF-8
+    url: jdbc:mysql://localhost:3306/qianyi?useUnicode=true&characterEncoding=UTF-8
+    username: root
+    password:
+
+################################################################
+################################################################
+#spring����Mybatis����
+#pojo����ɨ���
+mybatis:
+  type-aliases-package: com.master.qianyi.pojo
+################################################################
+################################################################
+# ��ҳ����
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true
+  params: count=countSql
+################################################################
+################################################################
+logging:
+  level:
+    root: info
+    com.master.qianyi.mapper: debug
+  #    org.springframework.web: DEBUG
+  file: /log/log/my_provide.log
+  pattern:
+    console: "%d{yyyy/MM/dd-HH:mm:ss} [%thread] %-5level %logger- %msg%n"
+    file: "%d{yyyy/MM/dd-HH:mm} [%thread] %-5level %logger- %msg%n"
+################################################################
+
+management:
+  security:
+    enabled: false #�Ƿ���actuator��ȫ��֤
