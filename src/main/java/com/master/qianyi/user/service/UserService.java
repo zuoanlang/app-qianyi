@@ -9,6 +9,8 @@ import com.master.qianyi.mapper.TbOrderMapper;
 import com.master.qianyi.mapper.TbUserMapper;
 import com.master.qianyi.pojo.*;
 import com.master.qianyi.user.form.OrderForm;
+import com.master.qianyi.utils.Constants;
+import com.master.qianyi.utils.ResultBean;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -68,7 +70,7 @@ public class UserService {
      * @param user
      * @return
      */
-    public List<TbUser> getFamousTeachers(int pageNum, int pageSize, TbUser user) {
+    public ResultBean getFamousTeachers(int pageNum, int pageSize, TbUser user) {
         TbUserExample example = new TbUserExample();
         // 有效标志为1（有效），删除标志为0（未删除）,是名师
         example.createCriteria().andEffectFlagEqualTo("1").andDeleteFlagEqualTo("0").andIsMasterEqualTo("1");
@@ -83,7 +85,11 @@ public class UserService {
         PageHelper.startPage(pageNum, pageSize);
         List<TbUser> tbUsers = tbuserMapper.selectByExample(example);
         PageInfo pageInfo = new PageInfo<>(tbUsers);
-        return tbUsers;
+        ResultBean bean = new ResultBean();
+        bean.setCode(Constants.code_0);
+        bean.setMsg(Constants.msg_success);
+        bean.setResult(tbUsers);
+        return bean;
     }
 
     /**
@@ -91,7 +97,7 @@ public class UserService {
      * @param orderStatus
      * @return
      */
-    public List<OrderForm> getOrderByUserId(String userId, String orderStatus) {
+    public ResultBean getOrderByUserId(String userId, String orderStatus) {
         // 1. 查询订单表
         TbOrderExample tbOrderExample = new TbOrderExample();
         tbOrderExample.createCriteria()
@@ -131,7 +137,11 @@ public class UserService {
             }
             formList.add(form);
         }
-        return formList;
+        ResultBean bean = new ResultBean();
+        bean.setCode(Constants.code_0);
+        bean.setMsg(Constants.msg_success);
+        bean.setResult(formList);
+        return bean;
     }
 
     /**
@@ -183,7 +193,7 @@ public class UserService {
      * @param orderId
      * @return
      */
-    public OrderForm getOrderDetailByOrderId(String orderId) {
+    public ResultBean getOrderDetailByOrderId(String orderId) {
         // 1. 查询订单表
         TbOrder tbOrder = tbOrderMapper.selectByPrimaryKey(orderId);
         // 2. 查询课程表
@@ -195,6 +205,10 @@ public class UserService {
         form.setCourse_belongTo(tbCourse.getCourseBelongto());
         form.setCoursePrice(tbCourse.getCoursePrice());
         form.setCourseLearningFrequency(tbCourse.getCourseLearningFrequency());
-        return form;
+        ResultBean bean = new ResultBean();
+        bean.setCode(Constants.code_0);
+        bean.setMsg(Constants.msg_success);
+        bean.setResult(form);
+        return bean;
     }
 }

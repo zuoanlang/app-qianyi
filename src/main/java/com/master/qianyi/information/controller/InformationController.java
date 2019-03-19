@@ -1,12 +1,10 @@
 package com.master.qianyi.information.controller;
 
 import com.master.qianyi.information.service.InformationService;
-import com.master.qianyi.manager.pojo.BaseResult;
 import com.master.qianyi.pojo.TbInformation;
+import com.master.qianyi.utils.ResultBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 /**
  * 资讯controller
@@ -29,12 +27,12 @@ public class InformationController {
      */
     @GetMapping("/searchInformations")
     @ResponseBody
-    public List<TbInformation> getInformation(int pageNum, int pageSize, String infoType) {
+    public ResultBean getInformation(int pageNum, int pageSize, String infoType) {
         return service.getInformation(pageNum, pageSize, infoType);
     }
 
     @RequestMapping("/insertInfo")
-    public BaseResult informationAdd(@RequestBody TbInformation information) {
+    public ResultBean informationAdd(@RequestBody TbInformation information) {
         return null;
     }
 }

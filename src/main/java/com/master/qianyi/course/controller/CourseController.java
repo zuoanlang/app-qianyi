@@ -2,11 +2,12 @@ package com.master.qianyi.course.controller;
 
 import com.master.qianyi.course.service.CourseService;
 import com.master.qianyi.pojo.TbCourse;
-import com.master.qianyi.user.form.OrderForm;
+import com.master.qianyi.utils.ResultBean;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * 课程controller
@@ -28,7 +29,7 @@ public class CourseController {
      */
     @GetMapping("/searchCourse")
     @ResponseBody
-    public List<TbCourse> getCourseSearchResult(int pageNum, int pageSize, TbCourse course) {
+    public ResultBean getCourseSearchResult(int pageNum, int pageSize, TbCourse course) {
         return service.getCourseSearchResult(pageNum, pageSize, course);
     }
 
@@ -41,7 +42,7 @@ public class CourseController {
      * @return
      */
     @GetMapping("/getCourseByUserId")
-    public List<TbCourse> getCourseByUserId(String userId, int pageNum, int pageSize) {
+    public ResultBean getCourseByUserId(String userId, int pageNum, int pageSize) {
         return service.getCourseByUserId(userId, pageNum, pageSize);
     }
 }
