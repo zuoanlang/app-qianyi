@@ -6,6 +6,7 @@ import com.master.qianyi.pojo.TbOrder;
 import com.master.qianyi.pojo.TbUser;
 import com.master.qianyi.user.form.OrderForm;
 import com.master.qianyi.user.service.UserService;
+import com.master.qianyi.utils.ResultBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -55,7 +56,7 @@ public class UserController {
      * @return
      */
     @GetMapping("user/getFamousTeachers")
-    public List<TbUser> getFamousTeachers(int pageNum, int pageSize, TbUser user) {
+    public ResultBean getFamousTeachers(int pageNum, int pageSize, TbUser user) {
         return userService.getFamousTeachers(pageNum, pageSize, user);
     }
 
@@ -66,7 +67,7 @@ public class UserController {
      * @return
      */
     @GetMapping("user/getOrderByUserId")
-    public List<OrderForm> getOrderByUserId(String userId, String orderStatus) {
+    public ResultBean getOrderByUserId(String userId, String orderStatus) {
         return userService.getOrderByUserId(userId, orderStatus);
     }
 
@@ -78,7 +79,7 @@ public class UserController {
      * @return
      */
     @GetMapping("/getOrderDetail")
-    public OrderForm getOrderDetailByOrderId(String orderId) {
+    public ResultBean getOrderDetailByOrderId(String orderId) {
         return userService.getOrderDetailByOrderId(orderId);
     }
 

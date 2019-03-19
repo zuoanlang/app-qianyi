@@ -6,6 +6,8 @@ import com.github.pagehelper.util.StringUtil;
 import com.master.qianyi.mapper.TbInformationMapper;
 import com.master.qianyi.pojo.TbInformation;
 import com.master.qianyi.pojo.TbInformationExample;
+import com.master.qianyi.utils.Constants;
+import com.master.qianyi.utils.ResultBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,7 +30,7 @@ public class InformationService {
      * @param infoType 咨询类型
      * @return
      */
-    public List<TbInformation> getInformation(int pageNum, int pageSize, String infoType) {
+    public ResultBean getInformation(int pageNum, int pageSize, String infoType) {
         TbInformationExample example = new TbInformationExample();
         example.createCriteria()
                 // // 有效标志为1（有效）
@@ -44,6 +46,10 @@ public class InformationService {
         PageHelper.startPage(pageNum, pageSize);
         List<TbInformation> tbInformations = mapper.selectByExample(example);
         PageInfo pageInfo = new PageInfo<>(tbInformations);
-        return tbInformations;
+        ResultBean bean = new ResultBean();
+        bean.setCode(Constants.code_0);
+        bean.setMsg(Constants.msg_success);
+        bean.setResult(tbInformations);
+        return bean;
     }
 }

@@ -6,7 +6,12 @@ import com.github.pagehelper.util.StringUtil;
 import com.master.qianyi.mapper.TbCourseMapper;
 import com.master.qianyi.mapper.TbOrderMapper;
 import com.master.qianyi.mapper.TbUserMapper;
-import com.master.qianyi.pojo.*;
+import com.master.qianyi.pojo.TbCourse;
+import com.master.qianyi.pojo.TbCourseExample;
+import com.master.qianyi.pojo.TbOrder;
+import com.master.qianyi.pojo.TbOrderExample;
+import com.master.qianyi.utils.Constants;
+import com.master.qianyi.utils.ResultBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,7 +41,7 @@ public class CourseService {
      * @param course   查询条件
      * @return
      */
-    public List<TbCourse> getCourseSearchResult(int pageNum, int pageSize, TbCourse course) {
+    public ResultBean getCourseSearchResult(int pageNum, int pageSize, TbCourse course) {
         TbCourseExample example = new TbCourseExample();
         // 有效标志为1（有效），删除标志为0（未删除）
         example.createCriteria().andEffectFlagEqualTo("1").andDeleteFlagEqualTo("0");
@@ -63,7 +68,11 @@ public class CourseService {
         // 查询结果集
         List<TbCourse> tbCourses = tbCourseMapper.selectByExample(example);
         PageInfo pageInfo = new PageInfo<>(tbCourses);
-        return tbCourses;
+        ResultBean bean = new ResultBean();
+        bean.setCode(Constants.code_0);
+        bean.setMsg(Constants.msg_success);
+        bean.setResult(tbCourses);
+        return bean;
     }
 
     /**
@@ -74,7 +83,7 @@ public class CourseService {
      * @param pageSize
      * @return
      */
-    public List<TbCourse> getCourseByUserId(String userId, int pageNum, int pageSize) {
+    public ResultBean getCourseByUserId(String userId, int pageNum, int pageSize) {
         // 1.根据用户id查询订单表
         TbOrderExample tbOrderExample = new TbOrderExample();
         // 该用户已完成的订单
@@ -96,7 +105,11 @@ public class CourseService {
                 .andDeleteFlagEqualTo("0")
                 .andCourseIdIn(courseIdList);
         List<TbCourse> tbCourses = tbCourseMapper.selectByExample(tbCourseExample);
-        return tbCourses;
+        ResultBean bean = new ResultBean();
+        bean.setCode(Constants.code_0);
+        bean.setMsg(Constants.msg_success);
+        bean.setResult(tbCourses);
+        return bean;
     }
 
 }
