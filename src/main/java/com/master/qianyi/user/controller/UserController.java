@@ -2,6 +2,7 @@ package com.master.qianyi.user.controller;
 
 import com.github.pagehelper.PageInfo;
 import com.master.qianyi.pojo.TbCourse;
+import com.master.qianyi.pojo.TbOrder;
 import com.master.qianyi.pojo.TbUser;
 import com.master.qianyi.user.form.OrderForm;
 import com.master.qianyi.user.service.UserService;
@@ -53,20 +54,32 @@ public class UserController {
      * @param user
      * @return
      */
-    @GetMapping("/getFamousTeachers")
+    @GetMapping("user/getFamousTeachers")
     public List<TbUser> getFamousTeachers(int pageNum, int pageSize, TbUser user) {
         return userService.getFamousTeachers(pageNum, pageSize, user);
     }
 
     /**
      * 根据用户id查询我的订单详情
+     *
      * @param userId
      * @return
      */
-    @GetMapping("/getOrderByUserId")
-    public List<OrderForm> getOrderByUserId(OrderForm orderForm) {
-        return userService.getOrderByUserId(orderForm);
+    @GetMapping("user/getOrderByUserId")
+    public List<OrderForm> getOrderByUserId(String userId, String orderStatus) {
+        return userService.getOrderByUserId(userId, orderStatus);
     }
 
+
+    /**
+     * 根据订单编号查询订单详情
+     *
+     * @param orderId
+     * @return
+     */
+    @GetMapping("/getOrderDetail")
+    public OrderForm getOrderDetailByOrderId(String orderId) {
+        return userService.getOrderDetailByOrderId(orderId);
+    }
 
 }

@@ -8,9 +8,13 @@ public class OrderForm extends TbOrder {
 
     private String courseName;
 
-    private String coursePrice;
+    private Integer coursePrice;
 
     private String course_belongTo;
+
+    private Long courseLearningFrequency;
+
+    private String courseImg;
 
     public String getCourseId() {
         return courseId;
@@ -28,13 +32,6 @@ public class OrderForm extends TbOrder {
         this.courseName = courseName;
     }
 
-    public String getCoursePrice() {
-        return coursePrice;
-    }
-
-    public void setCoursePrice(String coursePrice) {
-        this.coursePrice = coursePrice;
-    }
 
     public String getCourse_belongTo() {
         return course_belongTo;
@@ -42,5 +39,30 @@ public class OrderForm extends TbOrder {
 
     public void setCourse_belongTo(String course_belongTo) {
         this.course_belongTo = course_belongTo;
+    }
+
+
+    public Integer getCoursePrice() {
+        return coursePrice;
+    }
+
+    public void setCoursePrice(Integer coursePrice) {
+        this.coursePrice = coursePrice;
+    }
+
+    public String getCourseImg() {
+        return courseImg;
+    }
+
+    public void setCourseImg(String courseImg) {
+        this.courseImg = courseImg;
+    }
+
+    public Long getCourseLearningFrequency() {
+        return courseLearningFrequency;
+    }
+
+    public void setCourseLearningFrequency(Long courseLearningFrequency) {
+        this.courseLearningFrequency = courseLearningFrequency;
     }
 }
