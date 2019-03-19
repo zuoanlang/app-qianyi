@@ -197,4 +197,25 @@ public class UserService {
         form.setCourseLearningFrequency(tbCourse.getCourseLearningFrequency());
         return form;
     }
+
+    /**
+     * 根据openid查询用户
+     * @param openid
+     * @param type
+     * @return
+     */
+    public TbUser getUserByOpenId(String openid,String type){
+        TbUserExample userExample = new TbUserExample();
+        TbUserExample.Criteria criteria = userExample.createCriteria();
+        if(type.equals("1")){
+            criteria.andWxOpenidEqualTo(openid);
+        } else {
+            criteria.andQqOppenidEqualTo(openid);
+        }
+        List<TbUser> tbUsers = tbuserMapper.selectByExample(userExample);
+        if(tbUsers != null && tbUsers.size()==1){
+            return tbUsers.get(0);
+        }
+        return new TbUser();
+    }
 }

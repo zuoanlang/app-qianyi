@@ -11,13 +11,13 @@ public class TbUser {
 
     private String userPassword;
 
-    private Date birthday;
+    private String token;
 
     private String idCardNo;
 
     private String isAdministrator;
 
-    private String isMaster;
+    private Date birthday;
 
     private String masterRank;
 
@@ -45,9 +45,15 @@ public class TbUser {
 
     private String qq;
 
-    private Integer sms;
+    private String qqOppenid;
 
     private String weixin;
+
+    private String wxOpenid;
+
+    private String isMaster;
+
+    private Integer sms;
 
     private String asign;
 
@@ -101,12 +107,12 @@ public class TbUser {
         this.userPassword = userPassword == null ? null : userPassword.trim();
     }
 
-    public Date getBirthday() {
-        return birthday;
+    public String getToken() {
+        return token;
     }
 
-    public void setBirthday(Date birthday) {
-        this.birthday = birthday;
+    public void setToken(String token) {
+        this.token = token == null ? null : token.trim();
     }
 
     public String getIdCardNo() {
@@ -125,12 +131,12 @@ public class TbUser {
         this.isAdministrator = isAdministrator == null ? null : isAdministrator.trim();
     }
 
-    public String getIsMaster() {
-        return isMaster;
+    public Date getBirthday() {
+        return birthday;
     }
 
-    public void setIsMaster(String isMaster) {
-        this.isMaster = isMaster == null ? null : isMaster.trim();
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
     }
 
     public String getMasterRank() {
@@ -237,12 +243,12 @@ public class TbUser {
         this.qq = qq == null ? null : qq.trim();
     }
 
-    public Integer getSms() {
-        return sms;
+    public String getQqOppenid() {
+        return qqOppenid;
     }
 
-    public void setSms(Integer sms) {
-        this.sms = sms;
+    public void setQqOppenid(String qqOppenid) {
+        this.qqOppenid = qqOppenid == null ? null : qqOppenid.trim();
     }
 
     public String getWeixin() {
@@ -251,6 +257,30 @@ public class TbUser {
 
     public void setWeixin(String weixin) {
         this.weixin = weixin == null ? null : weixin.trim();
+    }
+
+    public String getWxOpenid() {
+        return wxOpenid;
+    }
+
+    public void setWxOpenid(String wxOpenid) {
+        this.wxOpenid = wxOpenid == null ? null : wxOpenid.trim();
+    }
+
+    public String getIsMaster() {
+        return isMaster;
+    }
+
+    public void setIsMaster(String isMaster) {
+        this.isMaster = isMaster == null ? null : isMaster.trim();
+    }
+
+    public Integer getSms() {
+        return sms;
+    }
+
+    public void setSms(Integer sms) {
+        this.sms = sms;
     }
 
     public String getAsign() {

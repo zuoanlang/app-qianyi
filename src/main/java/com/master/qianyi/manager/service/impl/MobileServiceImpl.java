@@ -120,7 +120,7 @@ public class MobileServiceImpl implements MobileService {
                         bean.setMsg(Constants.msg_failed);
                         bean.setResult("数据库同步失败，请稍后重试！");
                     }
-                } else if(mobileCode==user.getSms()){
+                } else if(mobileCode!=user.getSms()){
                     //注册失败
                     bean.setCode(Constants.code_1);
                     bean.setMsg(Constants.msg_failed);
@@ -151,14 +151,30 @@ public class MobileServiceImpl implements MobileService {
             bean.setMsg(Constants.msg_failed);
             bean.setResult("当前用户不存在，请先注册！");
         } else {
-            if(user.getEffectFlag() == "1"){
+            if(user.getEffectFlag().equals("1")){
                 if(user.getUserPassword().equals(password)) {
-                    //登录成功
-                    bean.setCode(Constants.code_0);
-                    bean.setMsg(Constants.msg_success);
-                    Map<String,String> resultMap = new HashMap<>();
-                    resultMap.put("token",null);
-                    bean.setResult(resultMap);
+                    //1.生成token值
+                    String token = IDUtils.getToken();
+                    user.setToken(token);
+                    user.setLastLoginTime(new Date());
+                    boolean result = userService.updateUserBySelective(user);
+                    if(result){
+                        //2.登录成功
+                        bean.setCode(Constants.code_0);
+                        bean.setMsg(Constants.msg_success);
+                        Map<String,String> resultMap = new HashMap<>();
+                        resultMap.put("token",token);
+                        bean.setResult(resultMap);
+                    } else {
+                        bean.setCode(Constants.code_1);
+                        bean.setMsg(Constants.msg_failed);
+                        bean.setResult("数据库链接失败，请稍后重试！");
+                    }
+
+                } else {
+                    bean.setCode(Constants.code_1);
+                    bean.setMsg(Constants.msg_failed);
+                    bean.setResult("密码错误，请核对后登录！");
                 }
             } else {
                 bean.setCode(Constants.code_1);
@@ -201,6 +217,40 @@ public class MobileServiceImpl implements MobileService {
                 bean.setMsg(Constants.msg_failed);
                 bean.setResult("验证码错误！");
             }
+        }
+        return bean;
+    }
+
+    @Override
+    public ResultBean threePartyLogin(String openid, String type) {
+        ResultBean bean = new ResultBean();
+        //查询用户
+        TbUser user = userService.getUserByOpenId(openid, type);
+        //该用户存在，返回userId and token
+        if(user != null && user.getUserId() != null){
+            bean.setCode(Constants.code_0);
+            bean.setMsg(Constants.msg_success);
+            Map<String,String> resultMap = new HashMap<>();
+            resultMap.put("token",user.getToken());
+            resultMap.put("userId",user.getUserId());
+            bean.setResult(resultMap);
+        } else {
+            //该用户不存在，向数据库插入一条记录
+            user.setUserId(IDUtils.genItemId());
+            user.setToken(IDUtils.getToken());
+            user.setEffectFlag("1");
+            user.setLastLoginTime(new Date());
+            user.setRegisterTime(new Date());
+            boolean result = userService.insertOneUserRecord(user);
+            if(result){
+                bean.setCode(Constants.code_0);
+                bean.setMsg(Constants.msg_success);
+                Map<String,String> resultMap = new HashMap<>();
+                resultMap.put("token",user.getToken());
+                resultMap.put("userId",user.getUserId());
+                bean.setResult(resultMap);
+            }
+
         }
         return bean;
     }

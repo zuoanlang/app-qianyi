@@ -1,6 +1,7 @@
 package com.master.qianyi.utils;
 
 import java.util.Random;
+import java.util.UUID;
 
 /**
  * 各种id生成策略
@@ -44,9 +45,17 @@ public class IDUtils {
 		long id = new Long(str);
 		return Long.toString(id);
 	}
+
+	/**
+	 * 生成token
+	 * @return
+	 */
+	public static String getToken() {
+		return UUID.randomUUID().toString();
+	}
 	
 	public static void main(String[] args) {
 		for(int i=0;i< 100;i++)
-		System.out.println(genItemId());
+		System.out.println(getToken());
 	}
 }

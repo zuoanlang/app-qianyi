@@ -43,4 +43,6 @@ public interface MobileService {
      */
     ResultBean resetPassword(String phoneNumber, int mobileCode, String password);
 
+    ResultBean threePartyLogin(String openid,String type);
+
 }
