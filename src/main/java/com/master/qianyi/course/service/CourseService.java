@@ -87,7 +87,7 @@ public class CourseService {
         // 1.根据用户id查询订单表
         TbOrderExample tbOrderExample = new TbOrderExample();
         // 该用户已完成的订单
-        tbOrderExample.createCriteria().andUserIdEqualTo(userId).andOrderStatusEqualTo("3");
+        tbOrderExample.createCriteria().andUserIdEqualTo(userId).andOrderStatusEqualTo("2");
         // 订单支付时间降序
         tbOrderExample.setOrderByClause("ORDER_PAY_TIME desc");
 
@@ -112,4 +112,18 @@ public class CourseService {
         return bean;
     }
 
+    /**
+     * 根据课程id查询课程信息
+     *
+     * @param couserId
+     * @return
+     */
+    public ResultBean getCourseByCourseId(String couserId) {
+        TbCourse course = tbCourseMapper.selectByPrimaryKey(couserId);
+        ResultBean bean = new ResultBean();
+        bean.setCode(Constants.code_0);
+        bean.setMsg(Constants.msg_success);
+        bean.setResult(course);
+        return bean;
+    }
 }

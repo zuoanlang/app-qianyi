@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.master.qianyi.mapper.TbCatalogMapper" >
+  <resultMap id="BaseResultMap" type="com.master.qianyi.pojo.TbCatalog" >
+    <id column="catalog_id" property="catalogId" jdbcType="VARCHAR" />
+    <result column="course_id" property="courseId" jdbcType="VARCHAR" />
+    <result column="catalog_name" property="catalogName" jdbcType="VARCHAR" />
+    <result column="catalog_order" property="catalogOrder" jdbcType="INTEGER" />
+    <result column="delete_flag" property="deleteFlag" jdbcType="CHAR" />
+    <result column="effect_flag" property="effectFlag" jdbcType="CHAR" />
+    <result column="remark1" property="remark1" jdbcType="VARCHAR" />
+    <result column="remark2" property="remark2" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    catalog_id, course_id, catalog_name, catalog_order, delete_flag, effect_flag, remark1, 
+    remark2
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.master.qianyi.pojo.TbCatalogExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from tb_catalog
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_catalog
+    where catalog_id = #{catalogId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tb_catalog
+    where catalog_id = #{catalogId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.master.qianyi.pojo.TbCatalogExample" >
+    delete from tb_catalog
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.master.qianyi.pojo.TbCatalog" >
+    insert into tb_catalog (catalog_id, course_id, catalog_name, 
+      catalog_order, delete_flag, effect_flag, 
+      remark1, remark2)
+    values (#{catalogId,jdbcType=VARCHAR}, #{courseId,jdbcType=VARCHAR}, #{catalogName,jdbcType=VARCHAR}, 
+      #{catalogOrder,jdbcType=INTEGER}, #{deleteFlag,jdbcType=CHAR}, #{effectFlag,jdbcType=CHAR}, 
+      #{remark1,jdbcType=VARCHAR}, #{remark2,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.master.qianyi.pojo.TbCatalog" >
+    insert into tb_catalog
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="catalogId != null" >
+        catalog_id,
+      </if>
+      <if test="courseId != null" >
+        course_id,
+      </if>
+      <if test="catalogName != null" >
+        catalog_name,
+      </if>
+      <if test="catalogOrder != null" >
+        catalog_order,
+      </if>
+      <if test="deleteFlag != null" >
+        delete_flag,
+      </if>
+      <if test="effectFlag != null" >
+        effect_flag,
+      </if>
+      <if test="remark1 != null" >
+        remark1,
+      </if>
+      <if test="remark2 != null" >
+        remark2,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="catalogId != null" >
+        #{catalogId,jdbcType=VARCHAR},
+      </if>
+      <if test="courseId != null" >
+        #{courseId,jdbcType=VARCHAR},
+      </if>
+      <if test="catalogName != null" >
+        #{catalogName,jdbcType=VARCHAR},
+      </if>
+      <if test="catalogOrder != null" >
+        #{catalogOrder,jdbcType=INTEGER},
+      </if>
+      <if test="deleteFlag != null" >
+        #{deleteFlag,jdbcType=CHAR},
+      </if>
+      <if test="effectFlag != null" >
+        #{effectFlag,jdbcType=CHAR},
+      </if>
+      <if test="remark1 != null" >
+        #{remark1,jdbcType=VARCHAR},
+      </if>
+      <if test="remark2 != null" >
+        #{remark2,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.master.qianyi.pojo.TbCatalogExample" resultType="java.lang.Integer" >
+    select count(*) from tb_catalog
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tb_catalog
+    <set >
+      <if test="record.catalogId != null" >
+        catalog_id = #{record.catalogId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.courseId != null" >
+        course_id = #{record.courseId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.catalogName != null" >
+        catalog_name = #{record.catalogName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.catalogOrder != null" >
+        catalog_order = #{record.catalogOrder,jdbcType=INTEGER},
+      </if>
+      <if test="record.deleteFlag != null" >
+        delete_flag = #{record.deleteFlag,jdbcType=CHAR},
+      </if>
+      <if test="record.effectFlag != null" >
+        effect_flag = #{record.effectFlag,jdbcType=CHAR},
+      </if>
+      <if test="record.remark1 != null" >
+        remark1 = #{record.remark1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark2 != null" >
+        remark2 = #{record.remark2,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tb_catalog
+    set catalog_id = #{record.catalogId,jdbcType=VARCHAR},
+      course_id = #{record.courseId,jdbcType=VARCHAR},
+      catalog_name = #{record.catalogName,jdbcType=VARCHAR},
+      catalog_order = #{record.catalogOrder,jdbcType=INTEGER},
+      delete_flag = #{record.deleteFlag,jdbcType=CHAR},
+      effect_flag = #{record.effectFlag,jdbcType=CHAR},
+      remark1 = #{record.remark1,jdbcType=VARCHAR},
+      remark2 = #{record.remark2,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.master.qianyi.pojo.TbCatalog" >
+    update tb_catalog
+    <set >
+      <if test="courseId != null" >
+        course_id = #{courseId,jdbcType=VARCHAR},
+      </if>
+      <if test="catalogName != null" >
+        catalog_name = #{catalogName,jdbcType=VARCHAR},
+      </if>
+      <if test="catalogOrder != null" >
+        catalog_order = #{catalogOrder,jdbcType=INTEGER},
+      </if>
+      <if test="deleteFlag != null" >
+        delete_flag = #{deleteFlag,jdbcType=CHAR},
+      </if>
+      <if test="effectFlag != null" >
+        effect_flag = #{effectFlag,jdbcType=CHAR},
+      </if>
+      <if test="remark1 != null" >
+        remark1 = #{remark1,jdbcType=VARCHAR},
+      </if>
+      <if test="remark2 != null" >
+        remark2 = #{remark2,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where catalog_id = #{catalogId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.master.qianyi.pojo.TbCatalog" >
+    update tb_catalog
+    set course_id = #{courseId,jdbcType=VARCHAR},
+      catalog_name = #{catalogName,jdbcType=VARCHAR},
+      catalog_order = #{catalogOrder,jdbcType=INTEGER},
+      delete_flag = #{deleteFlag,jdbcType=CHAR},
+      effect_flag = #{effectFlag,jdbcType=CHAR},
+      remark1 = #{remark1,jdbcType=VARCHAR},
+      remark2 = #{remark2,jdbcType=VARCHAR}
+    where catalog_id = #{catalogId,jdbcType=VARCHAR}
+  </update>
+</mapper>

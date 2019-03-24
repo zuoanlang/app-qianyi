@@ -3,7 +3,9 @@ package com.master.qianyi.information.service;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.github.pagehelper.util.StringUtil;
+import com.master.qianyi.mapper.TbCommentMapper;
 import com.master.qianyi.mapper.TbInformationMapper;
+import com.master.qianyi.pojo.TbComment;
 import com.master.qianyi.pojo.TbInformation;
 import com.master.qianyi.pojo.TbInformationExample;
 import com.master.qianyi.utils.Constants;
@@ -11,6 +13,7 @@ import com.master.qianyi.utils.ResultBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -21,6 +24,9 @@ public class InformationService {
 
     @Autowired
     private TbInformationMapper mapper;
+
+    @Autowired
+    private TbCommentMapper tbCommentMapper;
 
     /**
      * 查询资讯
@@ -50,6 +56,36 @@ public class InformationService {
         bean.setCode(Constants.code_0);
         bean.setMsg(Constants.msg_success);
         bean.setResult(tbInformations);
+        return bean;
+    }
+
+    /**
+     * *添加评论（课程评论、资讯评论、订单评论）
+     *
+     * @param id          课程id 或 资讯id 或 订单id
+     * @param userId      用户id
+     * @param commentType 评论类型（1：课程 or 2：资讯 or 3：订单）
+     * @param commentType 评论内容
+     * @return
+     */
+    public ResultBean insertComment(String id, String userId, String commentType, String commentContent) {
+        ResultBean bean = new ResultBean();
+        TbComment tbComment = new TbComment();
+        tbComment.setCommentUserId(userId);
+        tbComment.setCommentarySubjectId(id);
+        tbComment.setCommentType(commentType);
+        tbComment.setCommentContent(commentContent);
+        tbComment.setCommentDateTime(new Date(System.currentTimeMillis()));
+        tbComment.setEffectFlag("1");
+        tbComment.setDeleteFlag("0");
+        int insertFlag = tbCommentMapper.insertSelective(tbComment);
+        if (insertFlag != 1) {
+            bean.setCode(Constants.code_1);
+            bean.setMsg(Constants.msg_failed);
+        } else {
+            bean.setCode(Constants.code_0);
+            bean.setMsg(Constants.msg_success);
+        }
         return bean;
     }
 }
