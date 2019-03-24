@@ -16,21 +16,15 @@ public interface TbCourseMapper {
 
     int insertSelective(TbCourse record);
 
-    List<TbCourse> selectByExampleWithBLOBs(TbCourseExample example);
-
     List<TbCourse> selectByExample(TbCourseExample example);
 
     TbCourse selectByPrimaryKey(String courseId);
 
     int updateByExampleSelective(@Param("record") TbCourse record, @Param("example") TbCourseExample example);
 
-    int updateByExampleWithBLOBs(@Param("record") TbCourse record, @Param("example") TbCourseExample example);
-
     int updateByExample(@Param("record") TbCourse record, @Param("example") TbCourseExample example);
 
     int updateByPrimaryKeySelective(TbCourse record);
-
-    int updateByPrimaryKeyWithBLOBs(TbCourse record);
 
     int updateByPrimaryKey(TbCourse record);
 }

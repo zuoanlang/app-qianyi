@@ -28,20 +28,28 @@
          	<li>
          		<span>用户管理</span>
          		<ul>
-					<li data-options="attributes:{'url':'/pages/user-list'}">用户列表</li>
-	         		<li data-options="attributes:{'url':'/pages/item-add'}">名师列表</li>
-	         		<li data-options="attributes:{'url':'/pages/item-param-list'}">订单管理</li>
+					<li data-options="attributes:{'url':'../pages/user-list'}">用户列表</li>
+	         		<li data-options="attributes:{'url':'../pages/item-add'}">名师列表</li>
+	         		<li data-options="attributes:{'url':'../pages/item-param-list'}">订单管理</li>
 	         	</ul>
          	</li>
 			<li>
 				<span>订单管理</span>
 				<ul>
-					<li data-options="attributes:{'url':'/pages/user-list'}">订单列表</li>
+					<li data-options="attributes:{'url':'../pages/user-list'}">订单列表</li>
+				</ul>
+			</li>
+			<li>
+				<span>课程管理</span>
+				<ul>
+					<li data-options="attributes:{'url':'../pages/course-list'}">课程列表</li>
+					<li data-options="attributes:{'url':'../pages/course-add'}">课程上传</li>
 				</ul>
 			</li>
          	<li>
-         		<span>网站内容管理</span>
+         		<span>APP运维</span>
          		<ul>
+					<li data-options="attributes:{'url':'../pages/item-add'}">课程上传</li>
 	         		<li data-options="attributes:{'url':'../pages/content-category'}">数据字典</li>
 	         		<li data-options="attributes:{'url':'../pages/content'}">APP轮播</li>
 	         	</ul>

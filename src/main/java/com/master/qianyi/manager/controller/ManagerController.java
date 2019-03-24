@@ -36,7 +36,7 @@ public class ManagerController {
      * @return
      */
     @RequestMapping("/loginPage")
-    public String loginPage(Model model, String index){
+    public String loginPage(Model model, String index) {
         if(index != null && index.equals("1")){
             model.addAttribute("result","您的登陆信息已失效，请重新登陆！");
         } else if(index != null && index.equals("2")){
@@ -48,6 +48,10 @@ public class ManagerController {
         return "loginPage";
     }
 
+    @RequestMapping("/sessionTimeOut")
+    public void sessionTimeOut(HttpServletResponse response,HttpServletRequest request) throws IOException {
+        response.sendRedirect(request.getContextPath() + "/loginPage.html");
+    }
     /**
      * 访问主页
      * @return

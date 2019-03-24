@@ -1,4 +1,4 @@
-package com.master.qianyi.order.form;
+package com.master.qianyi.user.form;
 
 import com.master.qianyi.pojo.TbOrder;
 

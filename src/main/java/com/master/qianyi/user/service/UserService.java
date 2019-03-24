@@ -1,5 +1,6 @@
 package com.master.qianyi.user.service;
 
+import com.alibaba.druid.util.StringUtils;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.github.pagehelper.util.StringUtil;
@@ -7,11 +8,14 @@ import com.master.qianyi.mapper.TbCourseMapper;
 import com.master.qianyi.mapper.TbOrderMapper;
 import com.master.qianyi.mapper.TbUserMapper;
 import com.master.qianyi.pojo.*;
+import com.master.qianyi.user.form.OrderForm;
 import com.master.qianyi.utils.Constants;
 import com.master.qianyi.utils.ResultBean;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -88,6 +92,57 @@ public class UserService {
         return bean;
     }
 
+    /**
+     * @param userId
+     * @param orderStatus
+     * @return
+     */
+    public ResultBean getOrderByUserId(String userId, String orderStatus) {
+        // 1. 查询订单表
+        TbOrderExample tbOrderExample = new TbOrderExample();
+        tbOrderExample.createCriteria()
+                .andEffectFlagEqualTo("1")
+                .andDeleteFlagEqualTo("0")
+                .andUserIdEqualTo(userId);
+        // 订单状态（进行中、已完成等）
+        if (StringUtil.isNotEmpty(orderStatus)) {
+            tbOrderExample.getOredCriteria().get(0).andOrderStatusEqualTo(orderStatus);
+        }
+        List<TbOrder> tbOrderList = tbOrderMapper.selectByExample(tbOrderExample);
+
+        // 2. 查询课程表
+        List<String> courseIdList = new ArrayList<>();
+        if (tbOrderList != null && tbOrderList.size() > 0) {
+            for (TbOrder order : tbOrderList) {
+                courseIdList.add(order.getGoodId());
+            }
+        }
+        TbCourseExample tbCourseExample = new TbCourseExample();
+        tbCourseExample.createCriteria().andCourseIdIn(courseIdList);
+        List<TbCourse> courses = tbCourseMapper.selectByExample(tbCourseExample);
+        OrderForm form = null;
+        List<OrderForm> formList = new ArrayList<>();
+        for (TbOrder order : tbOrderList) {
+            form = new OrderForm();
+            BeanUtils.copyProperties(order, form);
+            for (TbCourse course : courses) {
+                if (StringUtils.equals(order.getGoodId(), course.getCourseId())) {
+                    form.setCourseId(course.getCourseId());
+                    form.setCourseName(course.getCourseName());
+                    form.setCourseImg(course.getCourseImg());
+                    form.setCourse_belongTo(course.getCourseBelongto());
+                    form.setCoursePrice(course.getCoursePrice());
+                    form.setCourseLearningFrequency(course.getCourseLearningFrequency());
+                }
+            }
+            formList.add(form);
+        }
+        ResultBean bean = new ResultBean();
+        bean.setCode(Constants.code_0);
+        bean.setMsg(Constants.msg_success);
+        bean.setResult(formList);
+        return bean;
+    }
 
     /**
      * 根据手机号查询用户
@@ -132,7 +187,30 @@ public class UserService {
         return false;
     }
 
-
+    /**
+     * 根据订单id查询订单信息
+     *
+     * @param orderId
+     * @return
+     */
+    public ResultBean getOrderDetailByOrderId(String orderId) {
+        // 1. 查询订单表
+        TbOrder tbOrder = tbOrderMapper.selectByPrimaryKey(orderId);
+        // 2. 查询课程表
+        TbCourse tbCourse = tbCourseMapper.selectByPrimaryKey(tbOrder.getGoodId());
+        OrderForm form = new OrderForm();
+        BeanUtils.copyProperties(tbOrder, form);
+        form.setCourseName(tbCourse.getCourseName());
+        form.setCourseImg(tbCourse.getCourseImg());
+        form.setCourse_belongTo(tbCourse.getCourseBelongto());
+        form.setCoursePrice(tbCourse.getCoursePrice());
+        form.setCourseLearningFrequency(tbCourse.getCourseLearningFrequency());
+        ResultBean bean = new ResultBean();
+        bean.setCode(Constants.code_0);
+        bean.setMsg(Constants.msg_success);
+        bean.setResult(form);
+        return bean;
+    }
 
     /**
      * 根据openid查询用户

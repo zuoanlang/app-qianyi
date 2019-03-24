@@ -53,4 +53,10 @@ public class PagesLoaderController {
         return "/pages/user-param-list";
     }
 
+    //******************课程管理******************
+    @RequestMapping("/course-add")
+    public String courseAdd(){
+        return "/pages/course-add";
+    }
+
 }

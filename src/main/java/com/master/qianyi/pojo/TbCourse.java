@@ -15,8 +15,6 @@ public class TbCourse {
 
     private String courseImg;
 
-    private String courseFilePath;
-
     private String courseDescription;
 
     private Long courseLearningFrequency;
@@ -38,8 +36,6 @@ public class TbCourse {
     private String remark4;
 
     private String remark5;
-
-    private String courseCatalog;
 
     public String getCourseId() {
         return courseId;
@@ -95,14 +91,6 @@ public class TbCourse {
 
     public void setCourseImg(String courseImg) {
         this.courseImg = courseImg == null ? null : courseImg.trim();
-    }
-
-    public String getCourseFilePath() {
-        return courseFilePath;
-    }
-
-    public void setCourseFilePath(String courseFilePath) {
-        this.courseFilePath = courseFilePath == null ? null : courseFilePath.trim();
     }
 
     public String getCourseDescription() {
@@ -191,13 +179,5 @@ public class TbCourse {
 
     public void setRemark5(String remark5) {
         this.remark5 = remark5 == null ? null : remark5.trim();
-    }
-
-    public String getCourseCatalog() {
-        return courseCatalog;
-    }
-
-    public void setCourseCatalog(String courseCatalog) {
-        this.courseCatalog = courseCatalog == null ? null : courseCatalog.trim();
     }
 }

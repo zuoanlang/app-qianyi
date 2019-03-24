@@ -222,23 +222,36 @@ public class MobileServiceImpl implements MobileService {
     }
 
     @Override
-    public ResultBean threePartyLogin(String openid, String type) {
+    public ResultBean threePartyLogin(String openid, String type,String headImg,String nickName) {
         ResultBean bean = new ResultBean();
         //查询用户
         TbUser user = userService.getUserByOpenId(openid, type);
-        //该用户存在，返回userId and token
+        //该用户存在，返回userId and token,重置token
         if(user != null && user.getUserId() != null){
-            bean.setCode(Constants.code_0);
-            bean.setMsg(Constants.msg_success);
-            Map<String,String> resultMap = new HashMap<>();
-            resultMap.put("token",user.getToken());
-            resultMap.put("userId",user.getUserId());
-            bean.setResult(resultMap);
+            TbUser userNewToken = new TbUser();
+            userNewToken.setUserId(user.getUserId());
+            userNewToken.setToken(IDUtils.genItemId());
+            userNewToken.setLastLoginTime(new Date());
+            boolean result = userService.updateUserBySelective(userNewToken);
+            if(result) {
+                bean.setCode(Constants.code_0);
+                bean.setMsg(Constants.msg_success);
+                Map<String,String> resultMap = new HashMap<>();
+                resultMap.put("token",user.getToken());
+                resultMap.put("userId",user.getUserId());
+                bean.setResult(resultMap);
+            } else {
+                bean.setCode(Constants.code_1);
+                bean.setMsg(Constants.msg_failed);
+                bean.setResult("数据库连接异常，请稍后重试！");
+            }
         } else {
             //该用户不存在，向数据库插入一条记录
             user.setUserId(IDUtils.genItemId());
             user.setToken(IDUtils.getToken());
             user.setEffectFlag("1");
+            user.setHeadImg(headImg);
+            user.setNickName(nickName);
             user.setLastLoginTime(new Date());
             user.setRegisterTime(new Date());
             boolean result = userService.insertOneUserRecord(user);
@@ -249,6 +262,10 @@ public class MobileServiceImpl implements MobileService {
                 resultMap.put("token",user.getToken());
                 resultMap.put("userId",user.getUserId());
                 bean.setResult(resultMap);
+            } else {
+                bean.setCode(Constants.code_1);
+                bean.setMsg(Constants.msg_failed);
+                bean.setResult("数据库连接异常，请稍后重试！");
             }
 
         }

@@ -1,6 +1,7 @@
 package com.master.qianyi.inteceptor;
 
 import com.master.qianyi.pojo.TbUser;
+import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -15,9 +16,8 @@ import javax.servlet.http.HttpSession;
  * author:kangkang
  * date: 2019/2/24
  */
-
-public class LoginInterceptor implements HandlerInterceptor {
-
+@Component
+public class ManagerLoginInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -26,12 +26,20 @@ public class LoginInterceptor implements HandlerInterceptor {
         //这里的User是登陆时放入session的
         TbUser user = (TbUser) session.getAttribute("user");
         //如果session中没有user，表示没登陆
-        if (user == null){
+        if (user == null) {
             //这个方法返回false表示忽略当前请求，如果一个用户调用了需要登陆才能使用的接口，如果他没有登陆这里会直接忽略掉
             //当然你可以利用response给用户返回一些提示信息，告诉他没登陆
-            response.sendRedirect(request.getContextPath()+"/manager/loginPage?index=1");
+            response.setCharacterEncoding("UTF-8");
+            if (request.getHeader("x-requested-with") != null
+                    && request.getHeader("x-requested-with").equalsIgnoreCase("XMLHttpRequest")) {
+//                response.setHeader("Content-Type", "text/html;charset=UTF-8");
+                response.getWriter().print("sessionTimeOut"); //打印一个返回值，没这一行，在tabs页中无法跳出（导航栏能跳出），具体原因不明
+            } else {
+                response.sendRedirect(request.getContextPath() + "/loginPage.html");
+            }
+
             return false;
-        }else {
+        } else {
             return true;    //如果session里有user，表示该用户已经登陆，放行，用户即可继续调用自己需要的接口
         }
     }

@@ -1,7 +1,10 @@
 package com.master.qianyi.user.controller;
 
 import com.github.pagehelper.PageInfo;
+import com.master.qianyi.pojo.TbCourse;
+import com.master.qianyi.pojo.TbOrder;
 import com.master.qianyi.pojo.TbUser;
+import com.master.qianyi.user.form.OrderForm;
 import com.master.qianyi.user.service.UserService;
 import com.master.qianyi.utils.ResultBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,6 +58,29 @@ public class UserController {
     @GetMapping("user/getFamousTeachers")
     public ResultBean getFamousTeachers(int pageNum, int pageSize, TbUser user) {
         return userService.getFamousTeachers(pageNum, pageSize, user);
+    }
+
+    /**
+     * 根据用户id查询我的订单详情
+     *
+     * @param userId
+     * @return
+     */
+    @GetMapping("user/getOrderByUserId")
+    public ResultBean getOrderByUserId(String userId, String orderStatus) {
+        return userService.getOrderByUserId(userId, orderStatus);
+    }
+
+
+    /**
+     * 根据订单编号查询订单详情
+     *
+     * @param orderId
+     * @return
+     */
+    @GetMapping("/getOrderDetail")
+    public ResultBean getOrderDetailByOrderId(String orderId) {
+        return userService.getOrderDetailByOrderId(orderId);
     }
 
 }

@@ -102,7 +102,7 @@ var E3 = {
     	});
     },
     
-    // 初始化选择类目组件
+    // 初始化选择类目组件(课程分类)
     initItemCat : function(data){
     	$(".selectItemCat").each(function(i,e){
     		var _ele = $(e);
@@ -123,7 +123,7 @@ var E3 = {
     			    onOpen : function(){
     			    	var _win = this;
     			    	$("ul",_win).tree({
-    			    		url:'/item/cat/list',
+    			    		url:'/qianyi/category/getCourseList',
     			    		animate:true,
     			    		onClick : function(node){
     			    			if($(this).tree("isLeaf",node.target)){

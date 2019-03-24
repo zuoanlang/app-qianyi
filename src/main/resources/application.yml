@@ -1,5 +1,5 @@
 server:
-  port: 8080 #����˿�
+  port: 8080 #端口
   servlet:
     context-path: /qianyi
 
@@ -14,7 +14,7 @@ spring:
     settings: template_update_delay=0
   #指定静态文件的位置
   resources:
-    static-locations : classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/,file:${web.images-path}
+    static-locations : classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/static/*,classpath:/public/,file:${web.images-path}
 
   devtools:
     restart:

@@ -1,7 +1,6 @@
 package com.master.qianyi.information.controller;
 
 import com.master.qianyi.information.service.InformationService;
-import com.master.qianyi.pojo.TbComment;
 import com.master.qianyi.pojo.TbInformation;
 import com.master.qianyi.utils.ResultBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,17 +31,8 @@ public class InformationController {
         return service.getInformation(pageNum, pageSize, infoType);
     }
 
-    /**
-     * *添加评论（课程评论、资讯评论、订单评论）
-     *
-     * @param id          课程id 或 资讯id 或 订单id
-     * @param userId      用户id
-     * @param commentType 评论类型（1：课程 or 2：资讯 or 3：订单）
-     * @param commentType 评论内容
-     * @return
-     */
-    @RequestMapping("/insertComment")
-    public ResultBean insertComment(String id, String userId, String commentType, String commentContent) {
-        return service.insertComment(id, userId, commentType, commentContent);
+    @RequestMapping("/insertInfo")
+    public ResultBean informationAdd(@RequestBody TbInformation information) {
+        return null;
     }
 }

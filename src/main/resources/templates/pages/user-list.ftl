@@ -1,26 +1,33 @@
 <table class="easyui-datagrid" id="itemList" title="用户列表"
-       data-options="singleSelect:false,collapsible:true,pagination:true,url:'/manager/getOrdinaryUserList',method:'get',pageSize:30,toolbar:toolbar">
+       data-options="singleSelect:false,collapsible:true,pagination:true,url:'/qianyi/manager/getOrdinaryUserList',method:'get',pageSize:30,toolbar:toolbar,onLoadError:onLoadError">
     <thead>
         <tr>
         	<th data-options="field:'ck',checkbox:true"></th>
-        	<th data-options="field:'userId',align:'center',width:60">用户ID</th>
+        	<th data-options="field:'userId',align:'center',width:150">用户ID</th>
             <th data-options="field:'userName',align:'center',width:200">用户名</th>
-            <th data-options="field:'handphone',align:'center',width:100">手机号</th>
-            <th data-options="field:'weixin',align:'center',width:100">微信号</th>
+            <th data-options="field:'handphone',align:'center',width:120">手机号</th>
+            <th data-options="field:'weixin',align:'center',width:200">微信号</th>
             <th data-options="field:'qq',align:'center',width:100">QQ</th>
             <#--<th data-options="field:'price',width:70,align:'right',formatter:E3.formatDateTime">价格</th>-->
             <#--<th data-options="field:'num',width:70,align:'right'">库存数量</th>-->
             <#--<th data-options="field:'barcode',width:100">条形码</th>-->
             <#--<th data-options="field:'status',width:60,align:'center',formatter:E3.formatItemStatus">状态</th>-->
             <#--<th data-options="field:'created',width:130,align:'center',formatter:E3.formatDateTime">创建日期</th>-->
-            <th data-options="field:'registerTime',width:130,align:'center',formatter:E3.formatDateTime">注册日期</th>
+            <th data-options="field:'registerTime',width:150,align:'center',formatter:E3.formatDateTime">注册日期</th>
         </tr>
     </thead>
 </table>
 <div id="itemEditWindow" class="easyui-window" title="编辑商品" data-options="modal:true,closed:true,iconCls:'icon-save',href:'/rest/page/item-edit'" style="width:80%;height:80%;padding:10px;">
 </div>
 <script>
+    function onLoadError(data) {
+        if(data.responseText == 'sessionTimeOut'){
+            $.messager.alert('错误','登录信息失效，请重新登录!');
+            window.location.href="http://localhost:8080/qianyi/loginPage.html";
+        }
 
+    }
+    
     function getSelectionsIds(){
     	var itemList = $("#itemList");
     	var sels = itemList.datagrid("getSelections");

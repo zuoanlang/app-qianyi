@@ -18,7 +18,6 @@ public class MobileController {
     /**
      * 发送验证码（用于找回密码、注册）
      *
-     * @param request
      * @param phoneNumber
      * @return
      */
@@ -40,6 +39,11 @@ public class MobileController {
     @PostMapping("/resetPassword")
     public ResultBean resetPassword( String phoneNumber, int mobileCode, String password){
         return mobileService.resetPassword(phoneNumber,mobileCode,password);
+    }
+
+    @PostMapping("/threePartyLogin")
+    public ResultBean threePartyLogin( String openid, String type, String headImg,String nickName){
+        return mobileService.threePartyLogin(openid,type,headImg,nickName);
     }
 
 }

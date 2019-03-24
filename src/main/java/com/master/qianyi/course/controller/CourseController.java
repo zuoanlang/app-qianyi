@@ -34,18 +34,6 @@ public class CourseController {
     }
 
     /**
-     * 根据课程id查询课程信息
-     *
-     * @param couserId
-     * @return
-     */
-    @GetMapping("/searchCourseByCourseId")
-    @ResponseBody
-    public ResultBean getCourseByCourseId(String couserId) {
-        return service.getCourseByCourseId(couserId);
-    }
-
-    /**
      * 根据用户id查询该用户已购买的课程
      *
      * @param userId
