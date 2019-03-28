@@ -81,5 +81,4 @@ public class ManagerController {
         List<TbUser> ordinaryUserList = userService.getOrdinaryUserList(page, rows);
         return ordinaryUserList;
     }
-
 }

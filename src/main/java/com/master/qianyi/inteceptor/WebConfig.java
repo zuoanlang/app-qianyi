@@ -26,7 +26,7 @@ public class WebConfig implements WebMvcConfigurer {
         // addPathPatterns("/**") 表示拦截所有的请求，
         // excludePathPatterns("/login", "/register") 表示除了登陆与注册之外，因为登陆注册不需要登陆也可以访问
         interceptorRegistry.addInterceptor(managerLoginInterceptor).addPathPatterns("/manager/**")
-                .excludePathPatterns("/manager/loginPage", "/manager/login", "/css/*", "/js/*");
+                .excludePathPatterns("/manager/loginPage", "/manager/login", "/css/*", "/js/**");
         //移动端登录拦截器
         interceptorRegistry.addInterceptor(mobileLoginInterceptor).addPathPatterns("/mobile/**")
                 .excludePathPatterns("/mobile/sendSms","/mobile/smsRegister","/mobile/passwordLogin"

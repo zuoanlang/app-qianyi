@@ -10,7 +10,7 @@
 </head>
 <body >
     <div >
-        <form class="login-background" id="loginForm" action="/manager/login" method="post">
+        <form class="login-background" id="loginForm" action="/qianyi/manager/login" method="post">
             <input type="text" name="username" size="35px" id="userName" />
             <br>
             <input type="password" name="password" size="35px" id="password" />

@@ -9,7 +9,6 @@
     <result column="course_is_online" property="courseIsOnline" jdbcType="CHAR" />
     <result column="course_price" property="coursePrice" jdbcType="INTEGER" />
     <result column="course_img" property="courseImg" jdbcType="VARCHAR" />
-    <result column="course_file_path" property="courseFilePath" jdbcType="VARCHAR" />
     <result column="course_description" property="courseDescription" jdbcType="VARCHAR" />
     <result column="course_learning_frequency" property="courseLearningFrequency" jdbcType="BIGINT" />
     <result column="course_belongTo" property="courseBelongto" jdbcType="VARCHAR" />
@@ -21,9 +20,6 @@
     <result column="remark3" property="remark3" jdbcType="VARCHAR" />
     <result column="remark4" property="remark4" jdbcType="VARCHAR" />
     <result column="remark5" property="remark5" jdbcType="VARCHAR" />
-  </resultMap>
-  <resultMap id="ResultMapWithBLOBs" type="com.master.qianyi.pojo.TbCourse" extends="BaseResultMap" >
-    <result column="course_catalog" property="courseCatalog" jdbcType="LONGVARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -85,29 +81,9 @@
   </sql>
   <sql id="Base_Column_List" >
     course_id, course_name, course_type, course_level, course_is_online, course_price, 
-    course_img, course_file_path, course_description, course_learning_frequency, course_belongTo, 
-    course_is_hot, effect_flag, delete_flag, remark1, remark2, remark3, remark4, remark5
+    course_img, course_description, course_learning_frequency, course_belongTo, course_is_hot, 
+    effect_flag, delete_flag, remark1, remark2, remark3, remark4, remark5
   </sql>
-  <sql id="Blob_Column_List" >
-    course_catalog
-  </sql>
-  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.master.qianyi.pojo.TbCourseExample" >
-    select
-    <if test="distinct" >
-      distinct
-    </if>
-    'true' as QUERYID,
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from tb_course
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null" >
-      order by ${orderByClause}
-    </if>
-  </select>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.master.qianyi.pojo.TbCourseExample" >
     select
     <if test="distinct" >
@@ -123,11 +99,9 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
     from tb_course
     where course_id = #{courseId,jdbcType=VARCHAR}
   </select>
@@ -144,19 +118,17 @@
   <insert id="insert" parameterType="com.master.qianyi.pojo.TbCourse" >
     insert into tb_course (course_id, course_name, course_type, 
       course_level, course_is_online, course_price, 
-      course_img, course_file_path, course_description, 
-      course_learning_frequency, course_belongTo, 
-      course_is_hot, effect_flag, delete_flag, 
-      remark1, remark2, remark3, 
-      remark4, remark5, course_catalog
+      course_img, course_description, course_learning_frequency, 
+      course_belongTo, course_is_hot, effect_flag, 
+      delete_flag, remark1, remark2, 
+      remark3, remark4, remark5
       )
     values (#{courseId,jdbcType=VARCHAR}, #{courseName,jdbcType=VARCHAR}, #{courseType,jdbcType=CHAR}, 
       #{courseLevel,jdbcType=CHAR}, #{courseIsOnline,jdbcType=CHAR}, #{coursePrice,jdbcType=INTEGER}, 
-      #{courseImg,jdbcType=VARCHAR}, #{courseFilePath,jdbcType=VARCHAR}, #{courseDescription,jdbcType=VARCHAR}, 
-      #{courseLearningFrequency,jdbcType=BIGINT}, #{courseBelongto,jdbcType=VARCHAR}, 
-      #{courseIsHot,jdbcType=CHAR}, #{effectFlag,jdbcType=CHAR}, #{deleteFlag,jdbcType=CHAR}, 
-      #{remark1,jdbcType=VARCHAR}, #{remark2,jdbcType=VARCHAR}, #{remark3,jdbcType=VARCHAR}, 
-      #{remark4,jdbcType=VARCHAR}, #{remark5,jdbcType=VARCHAR}, #{courseCatalog,jdbcType=LONGVARCHAR}
+      #{courseImg,jdbcType=VARCHAR}, #{courseDescription,jdbcType=VARCHAR}, #{courseLearningFrequency,jdbcType=BIGINT}, 
+      #{courseBelongto,jdbcType=VARCHAR}, #{courseIsHot,jdbcType=CHAR}, #{effectFlag,jdbcType=CHAR}, 
+      #{deleteFlag,jdbcType=CHAR}, #{remark1,jdbcType=VARCHAR}, #{remark2,jdbcType=VARCHAR}, 
+      #{remark3,jdbcType=VARCHAR}, #{remark4,jdbcType=VARCHAR}, #{remark5,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.master.qianyi.pojo.TbCourse" >
@@ -182,9 +154,6 @@
       </if>
       <if test="courseImg != null" >
         course_img,
-      </if>
-      <if test="courseFilePath != null" >
-        course_file_path,
       </if>
       <if test="courseDescription != null" >
         course_description,
@@ -219,9 +188,6 @@
       <if test="remark5 != null" >
         remark5,
       </if>
-      <if test="courseCatalog != null" >
-        course_catalog,
-      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="courseId != null" >
@@ -244,9 +210,6 @@
       </if>
       <if test="courseImg != null" >
         #{courseImg,jdbcType=VARCHAR},
-      </if>
-      <if test="courseFilePath != null" >
-        #{courseFilePath,jdbcType=VARCHAR},
       </if>
       <if test="courseDescription != null" >
         #{courseDescription,jdbcType=VARCHAR},
@@ -281,9 +244,6 @@
       <if test="remark5 != null" >
         #{remark5,jdbcType=VARCHAR},
       </if>
-      <if test="courseCatalog != null" >
-        #{courseCatalog,jdbcType=LONGVARCHAR},
-      </if>
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.master.qianyi.pojo.TbCourseExample" resultType="java.lang.Integer" >
@@ -315,9 +275,6 @@
       </if>
       <if test="record.courseImg != null" >
         course_img = #{record.courseImg,jdbcType=VARCHAR},
-      </if>
-      <if test="record.courseFilePath != null" >
-        course_file_path = #{record.courseFilePath,jdbcType=VARCHAR},
       </if>
       <if test="record.courseDescription != null" >
         course_description = #{record.courseDescription,jdbcType=VARCHAR},
@@ -352,36 +309,7 @@
       <if test="record.remark5 != null" >
         remark5 = #{record.remark5,jdbcType=VARCHAR},
       </if>
-      <if test="record.courseCatalog != null" >
-        course_catalog = #{record.courseCatalog,jdbcType=LONGVARCHAR},
-      </if>
     </set>
-    <if test="_parameter != null" >
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExampleWithBLOBs" parameterType="map" >
-    update tb_course
-    set course_id = #{record.courseId,jdbcType=VARCHAR},
-      course_name = #{record.courseName,jdbcType=VARCHAR},
-      course_type = #{record.courseType,jdbcType=CHAR},
-      course_level = #{record.courseLevel,jdbcType=CHAR},
-      course_is_online = #{record.courseIsOnline,jdbcType=CHAR},
-      course_price = #{record.coursePrice,jdbcType=INTEGER},
-      course_img = #{record.courseImg,jdbcType=VARCHAR},
-      course_file_path = #{record.courseFilePath,jdbcType=VARCHAR},
-      course_description = #{record.courseDescription,jdbcType=VARCHAR},
-      course_learning_frequency = #{record.courseLearningFrequency,jdbcType=BIGINT},
-      course_belongTo = #{record.courseBelongto,jdbcType=VARCHAR},
-      course_is_hot = #{record.courseIsHot,jdbcType=CHAR},
-      effect_flag = #{record.effectFlag,jdbcType=CHAR},
-      delete_flag = #{record.deleteFlag,jdbcType=CHAR},
-      remark1 = #{record.remark1,jdbcType=VARCHAR},
-      remark2 = #{record.remark2,jdbcType=VARCHAR},
-      remark3 = #{record.remark3,jdbcType=VARCHAR},
-      remark4 = #{record.remark4,jdbcType=VARCHAR},
-      remark5 = #{record.remark5,jdbcType=VARCHAR},
-      course_catalog = #{record.courseCatalog,jdbcType=LONGVARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -395,7 +323,6 @@
       course_is_online = #{record.courseIsOnline,jdbcType=CHAR},
       course_price = #{record.coursePrice,jdbcType=INTEGER},
       course_img = #{record.courseImg,jdbcType=VARCHAR},
-      course_file_path = #{record.courseFilePath,jdbcType=VARCHAR},
       course_description = #{record.courseDescription,jdbcType=VARCHAR},
       course_learning_frequency = #{record.courseLearningFrequency,jdbcType=BIGINT},
       course_belongTo = #{record.courseBelongto,jdbcType=VARCHAR},
@@ -432,9 +359,6 @@
       <if test="courseImg != null" >
         course_img = #{courseImg,jdbcType=VARCHAR},
       </if>
-      <if test="courseFilePath != null" >
-        course_file_path = #{courseFilePath,jdbcType=VARCHAR},
-      </if>
       <if test="courseDescription != null" >
         course_description = #{courseDescription,jdbcType=VARCHAR},
       </if>
@@ -468,33 +392,7 @@
       <if test="remark5 != null" >
         remark5 = #{remark5,jdbcType=VARCHAR},
       </if>
-      <if test="courseCatalog != null" >
-        course_catalog = #{courseCatalog,jdbcType=LONGVARCHAR},
-      </if>
     </set>
-    where course_id = #{courseId,jdbcType=VARCHAR}
-  </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.master.qianyi.pojo.TbCourse" >
-    update tb_course
-    set course_name = #{courseName,jdbcType=VARCHAR},
-      course_type = #{courseType,jdbcType=CHAR},
-      course_level = #{courseLevel,jdbcType=CHAR},
-      course_is_online = #{courseIsOnline,jdbcType=CHAR},
-      course_price = #{coursePrice,jdbcType=INTEGER},
-      course_img = #{courseImg,jdbcType=VARCHAR},
-      course_file_path = #{courseFilePath,jdbcType=VARCHAR},
-      course_description = #{courseDescription,jdbcType=VARCHAR},
-      course_learning_frequency = #{courseLearningFrequency,jdbcType=BIGINT},
-      course_belongTo = #{courseBelongto,jdbcType=VARCHAR},
-      course_is_hot = #{courseIsHot,jdbcType=CHAR},
-      effect_flag = #{effectFlag,jdbcType=CHAR},
-      delete_flag = #{deleteFlag,jdbcType=CHAR},
-      remark1 = #{remark1,jdbcType=VARCHAR},
-      remark2 = #{remark2,jdbcType=VARCHAR},
-      remark3 = #{remark3,jdbcType=VARCHAR},
-      remark4 = #{remark4,jdbcType=VARCHAR},
-      remark5 = #{remark5,jdbcType=VARCHAR},
-      course_catalog = #{courseCatalog,jdbcType=LONGVARCHAR}
     where course_id = #{courseId,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.master.qianyi.pojo.TbCourse" >
@@ -505,7 +403,6 @@
       course_is_online = #{courseIsOnline,jdbcType=CHAR},
       course_price = #{coursePrice,jdbcType=INTEGER},
       course_img = #{courseImg,jdbcType=VARCHAR},
-      course_file_path = #{courseFilePath,jdbcType=VARCHAR},
       course_description = #{courseDescription,jdbcType=VARCHAR},
       course_learning_frequency = #{courseLearningFrequency,jdbcType=BIGINT},
       course_belongTo = #{courseBelongto,jdbcType=VARCHAR},

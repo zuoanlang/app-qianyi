@@ -2,6 +2,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <title>乾易后台管理系统</title>
 <link rel="stylesheet" type="text/css" href="../js/jquery-easyui-1.4.1/themes/gray/easyui.css" />
 <link rel="stylesheet" type="text/css" href="../js/jquery-easyui-1.4.1/themes/icon.css" />
@@ -11,6 +12,16 @@
 <script type="text/javascript" src="../js/jquery-easyui-1.4.1/jquery.easyui.min.js"></script>
 <script type="text/javascript" src="../js/jquery-easyui-1.4.1/locale/easyui-lang-zh_CN.js"></script>
 <script type="text/javascript" src="../js/common.js"></script>
+
+<#--browser upload-->
+<script type="text/javascript" src="../js/aliyun-oss-sdk/aliyun-oss-sdk.js"></script>
+<#--引入element-ui-->
+<!-- 引入样式 -->
+<link rel="stylesheet" href="../plugins/element-ui/lib/theme-chalk/index.css">
+<!-- 引入组件库 -->
+<script src="../plugins/vue/vue.min.js"></script>
+<script src="../plugins/element-ui/lib/index.js"></script>
+
 <style type="text/css">
 	.content {
 		padding: 10px 10px 10px 10px;
@@ -28,20 +39,28 @@
          	<li>
          		<span>用户管理</span>
          		<ul>
-					<li data-options="attributes:{'url':'/pages/user-list'}">用户列表</li>
-	         		<li data-options="attributes:{'url':'/pages/item-add'}">名师列表</li>
-	         		<li data-options="attributes:{'url':'/pages/item-param-list'}">订单管理</li>
+					<li data-options="attributes:{'url':'../pages/user-list'}">用户列表</li>
+	         		<li data-options="attributes:{'url':'../pages/item-add'}">名师列表</li>
+	         		<li data-options="attributes:{'url':'../pages/item-param-list'}">订单管理</li>
 	         	</ul>
          	</li>
 			<li>
 				<span>订单管理</span>
 				<ul>
-					<li data-options="attributes:{'url':'/pages/user-list'}">订单列表</li>
+					<li data-options="attributes:{'url':'../pages/user-list'}">订单列表</li>
+				</ul>
+			</li>
+			<li>
+				<span>课程管理</span>
+				<ul>
+					<li data-options="attributes:{'url':'../pages/course-list'}">课程列表</li>
+					<li data-options="attributes:{'url':'../pages/course-add'}">课程上传</li>
 				</ul>
 			</li>
          	<li>
-         		<span>网站内容管理</span>
+         		<span>APP运维</span>
          		<ul>
+					<li data-options="attributes:{'url':'../pages/item-add'}">课程上传</li>
 	         		<li data-options="attributes:{'url':'../pages/content-category'}">数据字典</li>
 	         		<li data-options="attributes:{'url':'../pages/content'}">APP轮播</li>
 	         	</ul>

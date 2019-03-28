@@ -59,8 +59,12 @@ var E3 = {
     init : function(data){
     	// 初始化图片上传组件
     	this.initPicUpload(data);
-    	// 初始化选择类目组件
+    	// 初始化选择类目组件（课程分类）
     	this.initItemCat(data);
+		// 初始化选择类目组件（课程级别）
+		this.selectCourseLevel(data);
+		// 初始化选择类目组件（授课方式）
+		this.selectTeachMethods(data)
     },
     // 初始化图片上传组件
     initPicUpload : function(data){
@@ -115,7 +119,7 @@ var E3 = {
     			$("<div>").css({padding:"5px"}).html("<ul>")
     			.window({
     				width:'500',
-    			    height:"450",
+    			    height:"250",
     			    modal:true,
     			    closed:true,
     			    iconCls:'icon-save',
@@ -145,6 +149,92 @@ var E3 = {
     		});
     	});
     },
+	//课程级别
+	selectCourseLevel : function(data){
+		$(".selectCourseLevel").each(function(i,e){
+			var _ele = $(e);
+			if(data && data.cid){
+				_ele.after("<span style='margin-left:10px;'>"+data.cid+"</span>");
+			}else{
+				_ele.after("<span style='margin-left:10px;'></span>");
+			}
+			_ele.unbind('click').click(function(){
+				$("<div>").css({padding:"5px"}).html("<ul>")
+					.window({
+						width:'500',
+						height:"250",
+						modal:true,
+						closed:true,
+						iconCls:'icon-save',
+						title:'选择类目',
+						onOpen : function(){
+							var _win = this;
+							$("ul",_win).tree({
+								url:'/qianyi/category/getCourseLevelList',
+								animate:true,
+								onClick : function(node){
+									if($(this).tree("isLeaf",node.target)){
+										// 填写到cid中
+										_ele.parent().find("[name=cid]").val(node.id);
+										_ele.next().text(node.text).attr("cid",node.id);
+										$(_win).window('close');
+										if(data && data.fun){
+											data.fun.call(this,node);
+										}
+									}
+								}
+							});
+						},
+						onClose : function(){
+							$(this).window("destroy");
+						}
+					}).window('open');
+			});
+		});
+	},
+	//授课方式
+	selectTeachMethods : function(data){
+		$(".selectTeachMethods").each(function(i,e){
+			var _ele = $(e);
+			if(data && data.cid){
+				_ele.after("<span style='margin-left:10px;'>"+data.cid+"</span>");
+			}else{
+				_ele.after("<span style='margin-left:10px;'></span>");
+			}
+			_ele.unbind('click').click(function(){
+				$("<div>").css({padding:"5px"}).html("<ul>")
+					.window({
+						width:'500',
+						height:"250",
+						modal:true,
+						closed:true,
+						iconCls:'icon-save',
+						title:'选择类目',
+						onOpen : function(){
+							var _win = this;
+							$("ul",_win).tree({
+								url:'/qianyi/category/getTeachMethods',
+								animate:true,
+								onClick : function(node){
+									if($(this).tree("isLeaf",node.target)){
+										// 填写到cid中
+										_ele.parent().find("[name=cid]").val(node.id);
+										_ele.next().text(node.text).attr("cid",node.id);
+										$(_win).window('close');
+										if(data && data.fun){
+											data.fun.call(this,node);
+										}
+									}
+								}
+							});
+						},
+						onClose : function(){
+							$(this).window("destroy");
+						}
+					}).window('open');
+			});
+		});
+	},
     
     createEditor : function(select){
     	return KindEditor.create(select, E3.kingEditorParams);

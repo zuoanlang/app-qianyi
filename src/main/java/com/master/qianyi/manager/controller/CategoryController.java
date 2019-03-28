@@ -40,17 +40,44 @@ public class CategoryController {
     }
 
     /**
-     * 查询数据字典(全部)
+     * 查询数据字典(课程分类)
      * @param parentId
      * @return
      */
     @RequestMapping("/category/getCourseList")
     @ResponseBody
     public List<EasyUITreeNode> getCourseList(
-            @RequestParam(name = "id", defaultValue = "1") Long parentId) {
+            @RequestParam(name = "id", defaultValue = "2") Long parentId) {
         List<EasyUITreeNode> list = categoryServiceImpl.getContentCatList(parentId);
         return list;
     }
+
+    /**
+     * 查询数据字典(课程级别)
+     * @param parentId
+     * @return
+     */
+    @RequestMapping("/category/getCourseLevelList")
+    @ResponseBody
+    public List<EasyUITreeNode> getCourseLevelList(
+            @RequestParam(name = "id", defaultValue = "3") Long parentId) {
+        List<EasyUITreeNode> list = categoryServiceImpl.getContentCatList(parentId);
+        return list;
+    }
+
+    /**
+     * 查询数据字典(授课方式)
+     * @param parentId
+     * @return
+     */
+    @RequestMapping("/category/getTeachMethods")
+    @ResponseBody
+    public List<EasyUITreeNode> getTeachMethods(
+            @RequestParam(name = "id", defaultValue = "4") Long parentId) {
+        List<EasyUITreeNode> list = categoryServiceImpl.getContentCatList(parentId);
+        return list;
+    }
+
 
     /**
      * 添加分类节点

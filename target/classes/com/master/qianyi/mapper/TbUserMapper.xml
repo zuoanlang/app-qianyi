@@ -6,10 +6,10 @@
     <result column="user_name" property="userName" jdbcType="VARCHAR" />
     <result column="nick_name" property="nickName" jdbcType="VARCHAR" />
     <result column="user_password" property="userPassword" jdbcType="VARCHAR" />
-    <result column="birthday" property="birthday" jdbcType="DATE" />
+    <result column="token" property="token" jdbcType="VARCHAR" />
     <result column="id_card_no" property="idCardNo" jdbcType="VARCHAR" />
     <result column="is_administrator" property="isAdministrator" jdbcType="CHAR" />
-    <result column="is_master" property="isMaster" jdbcType="CHAR" />
+    <result column="birthday" property="birthday" jdbcType="DATE" />
     <result column="master_rank" property="masterRank" jdbcType="CHAR" />
     <result column="is_official" property="isOfficial" jdbcType="CHAR" />
     <result column="master_introduction" property="masterIntroduction" jdbcType="VARCHAR" />
@@ -23,8 +23,11 @@
     <result column="handphone" property="handphone" jdbcType="VARCHAR" />
     <result column="telephone" property="telephone" jdbcType="VARCHAR" />
     <result column="qq" property="qq" jdbcType="VARCHAR" />
-    <result column="sms" property="sms" jdbcType="INTEGER" />
+    <result column="qq_oppenid" property="qqOppenid" jdbcType="VARCHAR" />
     <result column="weixin" property="weixin" jdbcType="VARCHAR" />
+    <result column="wx_openid" property="wxOpenid" jdbcType="VARCHAR" />
+    <result column="is_master" property="isMaster" jdbcType="CHAR" />
+    <result column="sms" property="sms" jdbcType="INTEGER" />
     <result column="asign" property="asign" jdbcType="VARCHAR" />
     <result column="profession" property="profession" jdbcType="VARCHAR" />
     <result column="major" property="major" jdbcType="VARCHAR" />
@@ -95,11 +98,11 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    user_id, user_name, nick_name, user_password, birthday, id_card_no, is_administrator, 
-    is_master, master_rank, is_official, master_introduction, sex, effect_flag, delete_flag, 
-    id_card_img1, id_card_img2, head_img, hobby, handphone, telephone, qq, sms, weixin, 
-    asign, profession, major, register_time, last_login_time, remark1, remark2, remark3, 
-    remark4, remark5
+    user_id, user_name, nick_name, user_password, token, id_card_no, is_administrator, 
+    birthday, master_rank, is_official, master_introduction, sex, effect_flag, delete_flag, 
+    id_card_img1, id_card_img2, head_img, hobby, handphone, telephone, qq, qq_oppenid, 
+    weixin, wx_openid, is_master, sms, asign, profession, major, register_time, last_login_time, 
+    remark1, remark2, remark3, remark4, remark5
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.master.qianyi.pojo.TbUserExample" >
     select
@@ -134,25 +137,27 @@
   </delete>
   <insert id="insert" parameterType="com.master.qianyi.pojo.TbUser" >
     insert into tb_user (user_id, user_name, nick_name, 
-      user_password, birthday, id_card_no, 
-      is_administrator, is_master, master_rank, 
+      user_password, token, id_card_no, 
+      is_administrator, birthday, master_rank, 
       is_official, master_introduction, sex, 
       effect_flag, delete_flag, id_card_img1, 
       id_card_img2, head_img, hobby, 
       handphone, telephone, qq, 
-      sms, weixin, asign, 
+      qq_oppenid, weixin, wx_openid, 
+      is_master, sms, asign, 
       profession, major, register_time, 
       last_login_time, remark1, remark2, 
       remark3, remark4, remark5
       )
     values (#{userId,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{nickName,jdbcType=VARCHAR}, 
-      #{userPassword,jdbcType=VARCHAR}, #{birthday,jdbcType=DATE}, #{idCardNo,jdbcType=VARCHAR}, 
-      #{isAdministrator,jdbcType=CHAR}, #{isMaster,jdbcType=CHAR}, #{masterRank,jdbcType=CHAR}, 
+      #{userPassword,jdbcType=VARCHAR}, #{token,jdbcType=VARCHAR}, #{idCardNo,jdbcType=VARCHAR}, 
+      #{isAdministrator,jdbcType=CHAR}, #{birthday,jdbcType=DATE}, #{masterRank,jdbcType=CHAR}, 
       #{isOfficial,jdbcType=CHAR}, #{masterIntroduction,jdbcType=VARCHAR}, #{sex,jdbcType=CHAR}, 
       #{effectFlag,jdbcType=CHAR}, #{deleteFlag,jdbcType=CHAR}, #{idCardImg1,jdbcType=VARCHAR}, 
       #{idCardImg2,jdbcType=VARCHAR}, #{headImg,jdbcType=VARCHAR}, #{hobby,jdbcType=VARCHAR}, 
       #{handphone,jdbcType=VARCHAR}, #{telephone,jdbcType=VARCHAR}, #{qq,jdbcType=VARCHAR}, 
-      #{sms,jdbcType=INTEGER}, #{weixin,jdbcType=VARCHAR}, #{asign,jdbcType=VARCHAR}, 
+      #{qqOppenid,jdbcType=VARCHAR}, #{weixin,jdbcType=VARCHAR}, #{wxOpenid,jdbcType=VARCHAR}, 
+      #{isMaster,jdbcType=CHAR}, #{sms,jdbcType=INTEGER}, #{asign,jdbcType=VARCHAR}, 
       #{profession,jdbcType=VARCHAR}, #{major,jdbcType=VARCHAR}, #{registerTime,jdbcType=TIMESTAMP}, 
       #{lastLoginTime,jdbcType=TIMESTAMP}, #{remark1,jdbcType=VARCHAR}, #{remark2,jdbcType=VARCHAR}, 
       #{remark3,jdbcType=VARCHAR}, #{remark4,jdbcType=VARCHAR}, #{remark5,jdbcType=VARCHAR}
@@ -173,8 +178,8 @@
       <if test="userPassword != null" >
         user_password,
       </if>
-      <if test="birthday != null" >
-        birthday,
+      <if test="token != null" >
+        token,
       </if>
       <if test="idCardNo != null" >
         id_card_no,
@@ -182,8 +187,8 @@
       <if test="isAdministrator != null" >
         is_administrator,
       </if>
-      <if test="isMaster != null" >
-        is_master,
+      <if test="birthday != null" >
+        birthday,
       </if>
       <if test="masterRank != null" >
         master_rank,
@@ -224,11 +229,20 @@
       <if test="qq != null" >
         qq,
       </if>
-      <if test="sms != null" >
-        sms,
+      <if test="qqOppenid != null" >
+        qq_oppenid,
       </if>
       <if test="weixin != null" >
         weixin,
+      </if>
+      <if test="wxOpenid != null" >
+        wx_openid,
+      </if>
+      <if test="isMaster != null" >
+        is_master,
+      </if>
+      <if test="sms != null" >
+        sms,
       </if>
       <if test="asign != null" >
         asign,
@@ -274,8 +288,8 @@
       <if test="userPassword != null" >
         #{userPassword,jdbcType=VARCHAR},
       </if>
-      <if test="birthday != null" >
-        #{birthday,jdbcType=DATE},
+      <if test="token != null" >
+        #{token,jdbcType=VARCHAR},
       </if>
       <if test="idCardNo != null" >
         #{idCardNo,jdbcType=VARCHAR},
@@ -283,8 +297,8 @@
       <if test="isAdministrator != null" >
         #{isAdministrator,jdbcType=CHAR},
       </if>
-      <if test="isMaster != null" >
-        #{isMaster,jdbcType=CHAR},
+      <if test="birthday != null" >
+        #{birthday,jdbcType=DATE},
       </if>
       <if test="masterRank != null" >
         #{masterRank,jdbcType=CHAR},
@@ -325,11 +339,20 @@
       <if test="qq != null" >
         #{qq,jdbcType=VARCHAR},
       </if>
-      <if test="sms != null" >
-        #{sms,jdbcType=INTEGER},
+      <if test="qqOppenid != null" >
+        #{qqOppenid,jdbcType=VARCHAR},
       </if>
       <if test="weixin != null" >
         #{weixin,jdbcType=VARCHAR},
+      </if>
+      <if test="wxOpenid != null" >
+        #{wxOpenid,jdbcType=VARCHAR},
+      </if>
+      <if test="isMaster != null" >
+        #{isMaster,jdbcType=CHAR},
+      </if>
+      <if test="sms != null" >
+        #{sms,jdbcType=INTEGER},
       </if>
       <if test="asign != null" >
         #{asign,jdbcType=VARCHAR},
@@ -384,8 +407,8 @@
       <if test="record.userPassword != null" >
         user_password = #{record.userPassword,jdbcType=VARCHAR},
       </if>
-      <if test="record.birthday != null" >
-        birthday = #{record.birthday,jdbcType=DATE},
+      <if test="record.token != null" >
+        token = #{record.token,jdbcType=VARCHAR},
       </if>
       <if test="record.idCardNo != null" >
         id_card_no = #{record.idCardNo,jdbcType=VARCHAR},
@@ -393,8 +416,8 @@
       <if test="record.isAdministrator != null" >
         is_administrator = #{record.isAdministrator,jdbcType=CHAR},
       </if>
-      <if test="record.isMaster != null" >
-        is_master = #{record.isMaster,jdbcType=CHAR},
+      <if test="record.birthday != null" >
+        birthday = #{record.birthday,jdbcType=DATE},
       </if>
       <if test="record.masterRank != null" >
         master_rank = #{record.masterRank,jdbcType=CHAR},
@@ -435,11 +458,20 @@
       <if test="record.qq != null" >
         qq = #{record.qq,jdbcType=VARCHAR},
       </if>
-      <if test="record.sms != null" >
-        sms = #{record.sms,jdbcType=INTEGER},
+      <if test="record.qqOppenid != null" >
+        qq_oppenid = #{record.qqOppenid,jdbcType=VARCHAR},
       </if>
       <if test="record.weixin != null" >
         weixin = #{record.weixin,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wxOpenid != null" >
+        wx_openid = #{record.wxOpenid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isMaster != null" >
+        is_master = #{record.isMaster,jdbcType=CHAR},
+      </if>
+      <if test="record.sms != null" >
+        sms = #{record.sms,jdbcType=INTEGER},
       </if>
       <if test="record.asign != null" >
         asign = #{record.asign,jdbcType=VARCHAR},
@@ -482,10 +514,10 @@
       user_name = #{record.userName,jdbcType=VARCHAR},
       nick_name = #{record.nickName,jdbcType=VARCHAR},
       user_password = #{record.userPassword,jdbcType=VARCHAR},
-      birthday = #{record.birthday,jdbcType=DATE},
+      token = #{record.token,jdbcType=VARCHAR},
       id_card_no = #{record.idCardNo,jdbcType=VARCHAR},
       is_administrator = #{record.isAdministrator,jdbcType=CHAR},
-      is_master = #{record.isMaster,jdbcType=CHAR},
+      birthday = #{record.birthday,jdbcType=DATE},
       master_rank = #{record.masterRank,jdbcType=CHAR},
       is_official = #{record.isOfficial,jdbcType=CHAR},
       master_introduction = #{record.masterIntroduction,jdbcType=VARCHAR},
@@ -499,8 +531,11 @@
       handphone = #{record.handphone,jdbcType=VARCHAR},
       telephone = #{record.telephone,jdbcType=VARCHAR},
       qq = #{record.qq,jdbcType=VARCHAR},
-      sms = #{record.sms,jdbcType=INTEGER},
+      qq_oppenid = #{record.qqOppenid,jdbcType=VARCHAR},
       weixin = #{record.weixin,jdbcType=VARCHAR},
+      wx_openid = #{record.wxOpenid,jdbcType=VARCHAR},
+      is_master = #{record.isMaster,jdbcType=CHAR},
+      sms = #{record.sms,jdbcType=INTEGER},
       asign = #{record.asign,jdbcType=VARCHAR},
       profession = #{record.profession,jdbcType=VARCHAR},
       major = #{record.major,jdbcType=VARCHAR},
@@ -527,8 +562,8 @@
       <if test="userPassword != null" >
         user_password = #{userPassword,jdbcType=VARCHAR},
       </if>
-      <if test="birthday != null" >
-        birthday = #{birthday,jdbcType=DATE},
+      <if test="token != null" >
+        token = #{token,jdbcType=VARCHAR},
       </if>
       <if test="idCardNo != null" >
         id_card_no = #{idCardNo,jdbcType=VARCHAR},
@@ -536,8 +571,8 @@
       <if test="isAdministrator != null" >
         is_administrator = #{isAdministrator,jdbcType=CHAR},
       </if>
-      <if test="isMaster != null" >
-        is_master = #{isMaster,jdbcType=CHAR},
+      <if test="birthday != null" >
+        birthday = #{birthday,jdbcType=DATE},
       </if>
       <if test="masterRank != null" >
         master_rank = #{masterRank,jdbcType=CHAR},
@@ -578,11 +613,20 @@
       <if test="qq != null" >
         qq = #{qq,jdbcType=VARCHAR},
       </if>
-      <if test="sms != null" >
-        sms = #{sms,jdbcType=INTEGER},
+      <if test="qqOppenid != null" >
+        qq_oppenid = #{qqOppenid,jdbcType=VARCHAR},
       </if>
       <if test="weixin != null" >
         weixin = #{weixin,jdbcType=VARCHAR},
+      </if>
+      <if test="wxOpenid != null" >
+        wx_openid = #{wxOpenid,jdbcType=VARCHAR},
+      </if>
+      <if test="isMaster != null" >
+        is_master = #{isMaster,jdbcType=CHAR},
+      </if>
+      <if test="sms != null" >
+        sms = #{sms,jdbcType=INTEGER},
       </if>
       <if test="asign != null" >
         asign = #{asign,jdbcType=VARCHAR},
@@ -622,10 +666,10 @@
     set user_name = #{userName,jdbcType=VARCHAR},
       nick_name = #{nickName,jdbcType=VARCHAR},
       user_password = #{userPassword,jdbcType=VARCHAR},
-      birthday = #{birthday,jdbcType=DATE},
+      token = #{token,jdbcType=VARCHAR},
       id_card_no = #{idCardNo,jdbcType=VARCHAR},
       is_administrator = #{isAdministrator,jdbcType=CHAR},
-      is_master = #{isMaster,jdbcType=CHAR},
+      birthday = #{birthday,jdbcType=DATE},
       master_rank = #{masterRank,jdbcType=CHAR},
       is_official = #{isOfficial,jdbcType=CHAR},
       master_introduction = #{masterIntroduction,jdbcType=VARCHAR},
@@ -639,8 +683,11 @@
       handphone = #{handphone,jdbcType=VARCHAR},
       telephone = #{telephone,jdbcType=VARCHAR},
       qq = #{qq,jdbcType=VARCHAR},
-      sms = #{sms,jdbcType=INTEGER},
+      qq_oppenid = #{qqOppenid,jdbcType=VARCHAR},
       weixin = #{weixin,jdbcType=VARCHAR},
+      wx_openid = #{wxOpenid,jdbcType=VARCHAR},
+      is_master = #{isMaster,jdbcType=CHAR},
+      sms = #{sms,jdbcType=INTEGER},
       asign = #{asign,jdbcType=VARCHAR},
       profession = #{profession,jdbcType=VARCHAR},
       major = #{major,jdbcType=VARCHAR},
