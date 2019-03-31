@@ -202,7 +202,7 @@ public class UserService {
         if (insertFlag > 0) {
             // 更新用户表
             int updateUser = updateUserAccountBalance(userId, tradeType, tradeAmount);
-            if (updateUser != 1) {
+            if (updateUser < 0) {
                 bean.setCode(Constants.code_1);
                 bean.setMsg(Constants.msg_failed);
             }
@@ -216,14 +216,14 @@ public class UserService {
     }
 
     /**
-     * 更新用户表
+     * 更新用户表账户余额
      *
      * @param userId      用户id
      * @param tradeType   交易类型：1充值，2提现
      * @param tradeAmount 交易金额
      * @return
      */
-    public int updateUserAccountBalance(String userId, String tradeType, int tradeAmount) {
+    private int updateUserAccountBalance(String userId, String tradeType, int tradeAmount) {
         int updateFlag = -1;
         TbUserExample example = new TbUserExample();
         example.createCriteria()
@@ -263,6 +263,7 @@ public class UserService {
         if (StringUtil.isEmpty(userId)) {
             bean.setCode(Constants.code_1);
             bean.setMsg(Constants.msg_failed);
+            return bean;
         }
         TbReceiptionExample example = new TbReceiptionExample();
         example.createCriteria()
@@ -273,6 +274,79 @@ public class UserService {
         bean.setCode(Constants.code_0);
         bean.setMsg(Constants.msg_success);
         bean.setResult(receiptions);
+        return bean;
+    }
+
+    /**
+     * 更新用户信息（个人资料编辑和入驻）
+     *
+     * @param user
+     * @return
+     */
+    public ResultBean updateUserInfo(TbUser user) {
+        ResultBean bean = new ResultBean();
+        if (StringUtil.isEmpty(user.getUserId())) {
+            bean.setCode(Constants.code_1);
+            bean.setMsg(Constants.msg_failed);
+            return bean;
+        }
+        TbUserExample tbUserExample = new TbUserExample();
+        tbUserExample.createCriteria()
+                .andUserIdEqualTo(user.getUserId())
+                .andEffectFlagEqualTo("1")
+                .andDeleteFlagEqualTo("0");
+        List<TbUser> users = tbuserMapper.selectByExample(tbUserExample);
+        if (users != null) {
+            TbUser tbUser = users.get(0);
+            // 真实姓名
+            if (StringUtil.isNotEmpty(user.getUserName())) {
+                tbUser.setUserName(user.getUserName());
+            }
+            // 联系电话
+            if (StringUtil.isNotEmpty(user.getTelephone())) {
+                tbUser.setTelephone(user.getTelephone());
+            }
+            // 职业
+            if (StringUtil.isNotEmpty(user.getProfession())) {
+                tbUser.setProfession(user.getProfession());
+            }
+            // 擅长分类
+            if (StringUtil.isNotEmpty(user.getMajor())) {
+                tbUser.setMajor(user.getMajor());
+            }
+            // 证件照片（正反面）
+            if (StringUtil.isNotEmpty(user.getIdCardImg1()) && StringUtil.isNotEmpty(user.getIdCardImg2())) {
+                tbUser.setIdCardImg1(user.getIdCardImg1());
+                tbUser.setIdCardImg2(user.getIdCardImg2());
+            }
+            // 名师简介（个人介绍）
+            if (StringUtil.isNotEmpty(user.getMasterIntroduction())) {
+                tbUser.setMasterIntroduction(user.getMasterIntroduction());
+            }
+            // 头像
+            if (StringUtil.isNotEmpty(user.getHeadImg())) {
+                tbUser.setHeadImg(user.getHeadImg());
+            }
+            // 昵称
+            if (StringUtil.isNotEmpty(user.getNickName())) {
+                tbUser.setNickName(user.getNickName());
+            }
+            // 个性签名
+            if (StringUtil.isNotEmpty(user.getAsign())) {
+                tbUser.setAsign(user.getAsign());
+            }
+            int update = tbuserMapper.updateByExampleSelective(tbUser, tbUserExample);
+            if (update > 0) {
+                bean.setCode(Constants.code_0);
+                bean.setMsg(Constants.msg_success);
+            } else {
+                bean.setCode(Constants.code_1);
+                bean.setMsg(Constants.msg_failed);
+            }
+        } else {
+            bean.setCode(Constants.code_1);
+            bean.setMsg(Constants.msg_failed);
+        }
         return bean;
     }
 }

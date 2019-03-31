@@ -84,4 +84,15 @@ public class UserController {
     public ResultBean getReceiptionDetail(String userId) {
         return userService.getReceiptionDetail(userId);
     }
+
+    /**
+     * 更新用户信息
+     *
+     * @param user
+     * @return
+     */
+    @GetMapping("user/updateUserInfo")
+    public ResultBean updateUserInfo(TbUser user) {
+        return userService.updateUserInfo(user);
+    }
 }
