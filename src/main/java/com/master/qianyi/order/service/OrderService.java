@@ -3,13 +3,12 @@ package com.master.qianyi.order.service;
 import com.alibaba.druid.util.StringUtils;
 import com.github.pagehelper.util.StringUtil;
 import com.master.qianyi.mapper.TbCourseMapper;
+import com.master.qianyi.mapper.TbMessageMapper;
 import com.master.qianyi.mapper.TbOrderMapper;
-import com.master.qianyi.pojo.TbCourse;
-import com.master.qianyi.pojo.TbCourseExample;
-import com.master.qianyi.pojo.TbOrder;
-import com.master.qianyi.pojo.TbOrderExample;
+import com.master.qianyi.pojo.*;
 import com.master.qianyi.order.form.OrderForm;
 import com.master.qianyi.utils.Constants;
+import com.master.qianyi.utils.IDUtils;
 import com.master.qianyi.utils.ResultBean;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +26,9 @@ public class OrderService {
 
     @Autowired
     private TbCourseMapper tbCourseMapper;
+
+    @Autowired
+    private TbMessageMapper tbMessageMapper;
 
     /**
      * @param userId
@@ -179,5 +181,89 @@ public class OrderService {
         bean.setCode(Constants.code_0);
         bean.setMsg(Constants.msg_success);
         return bean;
+    }
+
+    /**
+     * 退款
+     *
+     * @param userId            用户id
+     * @param orderId           订单id
+     * @param orderRefundReason 退款原因
+     * @return
+     */
+    public ResultBean refund(String userId, String orderId, String orderRefundReason) {
+        ResultBean bean = new ResultBean();
+        if (StringUtil.isEmpty(orderId)) {
+            bean.setCode(Constants.code_1);
+            bean.setMsg(Constants.msg_failed);
+            return bean;
+        }
+        TbOrderExample tbOrderExample = new TbOrderExample();
+        tbOrderExample.createCriteria()
+                .andEffectFlagEqualTo("1")
+                .andDeleteFlagEqualTo("0")
+                .andOrderIdEqualTo(orderId);
+        List<TbOrder> orders = tbOrderMapper.selectByExample(tbOrderExample);
+        if (orders != null) {
+            TbOrder order = orders.get(0);
+            // 状态设置为4：退款中
+            order.setOrderStatus("4");
+            // 退款理由
+            order.setOrderRefundReason(orderRefundReason);
+            // 订单审核人为admin
+            order.setOrderAuditor("admin");
+            int updateFlag = tbOrderMapper.updateByExampleSelective(order, tbOrderExample);
+            if (updateFlag > 0) {
+                // 消息内容
+                String messageContent = "用户" + userId + "发起退款。退款原因：" + orderRefundReason;
+                // 发消息给订单审核人admin
+                int insert = insertMessage(userId, order.getGoodId(), messageContent);
+                if (insert > 0) {
+                    bean.setCode(Constants.code_0);
+                    bean.setMsg(Constants.msg_success);
+                } else {
+                    bean.setCode(Constants.code_1);
+                    bean.setMsg(Constants.msg_failed);
+                }
+            } else {
+                bean.setCode(Constants.code_1);
+                bean.setMsg(Constants.msg_failed);
+            }
+        } else {
+            bean.setCode(Constants.code_1);
+            bean.setMsg(Constants.msg_failed);
+        }
+        return bean;
+    }
+
+    /**
+     * 发送给admin的系统消息
+     *
+     * @param userId
+     * @param courseId
+     * @param messageContent
+     * @return
+     */
+    private int insertMessage(String userId, String courseId, String messageContent) {
+        // 发消息给订单审核人admin
+        TbMessage message = new TbMessage();
+        message.setMessageId(IDUtils.genItemId());
+        message.setCourseId(courseId);
+        // 1:系统消息
+        message.setMessageType("1");
+        message.setMessageSender(userId);
+        // 消息接收者为admin
+        message.setMessageReceiver("admin");
+        message.setMessageContent(messageContent);
+        message.setMessageDateTime(new Date(System.currentTimeMillis()));
+        message.setIsRead("0");
+        message.setEffectFlag("1");
+        message.setDeleteFlag("0");
+        int insert = tbMessageMapper.insert(message);
+        if (insert > 0) {
+            return 1;
+        } else {
+            return -1;
+        }
     }
 }

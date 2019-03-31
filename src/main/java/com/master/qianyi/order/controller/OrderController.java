@@ -64,4 +64,18 @@ public class OrderController {
         return orderService.updateOrderState(orderId, modeOfPaymentint, orderAmount);
     }
 
+
+    /**
+     * 退款
+     *
+     * @param userId            用户id
+     * @param orderId           订单id
+     * @param orderRefundReason 退款原因
+     * @return
+     */
+    @GetMapping("/refund")
+    public ResultBean refund(String userId, String orderId, String orderRefundReason) {
+        return orderService.refund(userId, orderId, orderRefundReason);
+    }
+
 }

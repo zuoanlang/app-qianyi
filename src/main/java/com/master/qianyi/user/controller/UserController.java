@@ -7,6 +7,7 @@ import com.master.qianyi.utils.ResultBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -57,4 +58,41 @@ public class UserController {
         return userService.getFamousTeachers(pageNum, pageSize, user);
     }
 
+
+    /**
+     * 用户充值和提现
+     *
+     * @param userId      用户id
+     * @param tradeType   交易类型：1充值，2提现
+     * @param tradeAmount 交易金额
+     * @param tradeSource 交易来源（去向）：1.支付宝，2微信
+     * @return
+     */
+    @GetMapping("user/rechargeAndWithdraw")
+    public ResultBean rechargeAndWithdraw(String userId, String tradeType, int tradeAmount, String tradeSource) {
+        return userService.rechargeAndWithdraw(userId, tradeType, tradeAmount, tradeSource);
+    }
+
+    /**
+     * 根据用户id查询收支明细
+     *
+     * @param userId 用户id
+     * @return
+     */
+    @GetMapping("user/getReceiptionDetail")
+    @ResponseBody
+    public ResultBean getReceiptionDetail(String userId) {
+        return userService.getReceiptionDetail(userId);
+    }
+
+    /**
+     * 更新用户信息（个人资料编辑和入驻）
+     *
+     * @param user
+     * @return
+     */
+    @GetMapping("user/updateUserInfo")
+    public ResultBean updateUserInfo(TbUser user) {
+        return userService.updateUserInfo(user);
+    }
 }

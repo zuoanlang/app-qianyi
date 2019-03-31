@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.master.qianyi.mapper.TbMessageMapper" >
+  <resultMap id="BaseResultMap" type="com.master.qianyi.pojo.TbMessage" >
+    <id column="message_id" property="messageId" jdbcType="VARCHAR" />
+    <result column="course_id" property="courseId" jdbcType="VARCHAR" />
+    <result column="message_type" property="messageType" jdbcType="CHAR" />
+    <result column="message_sender" property="messageSender" jdbcType="VARCHAR" />
+    <result column="message_receiver" property="messageReceiver" jdbcType="VARCHAR" />
+    <result column="message_content" property="messageContent" jdbcType="VARCHAR" />
+    <result column="message_date_time" property="messageDateTime" jdbcType="TIMESTAMP" />
+    <result column="is_read" property="isRead" jdbcType="CHAR" />
+    <result column="effect_flag" property="effectFlag" jdbcType="CHAR" />
+    <result column="delete_flag" property="deleteFlag" jdbcType="CHAR" />
+    <result column="remark1" property="remark1" jdbcType="VARCHAR" />
+    <result column="remark2" property="remark2" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    message_id, course_id, message_type, message_sender, message_receiver, message_content, 
+    message_date_time, is_read, effect_flag, delete_flag, remark1, remark2
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.master.qianyi.pojo.TbMessageExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from tb_message
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_message
+    where message_id = #{messageId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tb_message
+    where message_id = #{messageId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.master.qianyi.pojo.TbMessageExample" >
+    delete from tb_message
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.master.qianyi.pojo.TbMessage" >
+    insert into tb_message (message_id, course_id, message_type, 
+      message_sender, message_receiver, message_content, 
+      message_date_time, is_read, effect_flag, 
+      delete_flag, remark1, remark2
+      )
+    values (#{messageId,jdbcType=VARCHAR}, #{courseId,jdbcType=VARCHAR}, #{messageType,jdbcType=CHAR}, 
+      #{messageSender,jdbcType=VARCHAR}, #{messageReceiver,jdbcType=VARCHAR}, #{messageContent,jdbcType=VARCHAR}, 
+      #{messageDateTime,jdbcType=TIMESTAMP}, #{isRead,jdbcType=CHAR}, #{effectFlag,jdbcType=CHAR}, 
+      #{deleteFlag,jdbcType=CHAR}, #{remark1,jdbcType=VARCHAR}, #{remark2,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.master.qianyi.pojo.TbMessage" >
+    insert into tb_message
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="messageId != null" >
+        message_id,
+      </if>
+      <if test="courseId != null" >
+        course_id,
+      </if>
+      <if test="messageType != null" >
+        message_type,
+      </if>
+      <if test="messageSender != null" >
+        message_sender,
+      </if>
+      <if test="messageReceiver != null" >
+        message_receiver,
+      </if>
+      <if test="messageContent != null" >
+        message_content,
+      </if>
+      <if test="messageDateTime != null" >
+        message_date_time,
+      </if>
+      <if test="isRead != null" >
+        is_read,
+      </if>
+      <if test="effectFlag != null" >
+        effect_flag,
+      </if>
+      <if test="deleteFlag != null" >
+        delete_flag,
+      </if>
+      <if test="remark1 != null" >
+        remark1,
+      </if>
+      <if test="remark2 != null" >
+        remark2,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="messageId != null" >
+        #{messageId,jdbcType=VARCHAR},
+      </if>
+      <if test="courseId != null" >
+        #{courseId,jdbcType=VARCHAR},
+      </if>
+      <if test="messageType != null" >
+        #{messageType,jdbcType=CHAR},
+      </if>
+      <if test="messageSender != null" >
+        #{messageSender,jdbcType=VARCHAR},
+      </if>
+      <if test="messageReceiver != null" >
+        #{messageReceiver,jdbcType=VARCHAR},
+      </if>
+      <if test="messageContent != null" >
+        #{messageContent,jdbcType=VARCHAR},
+      </if>
+      <if test="messageDateTime != null" >
+        #{messageDateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isRead != null" >
+        #{isRead,jdbcType=CHAR},
+      </if>
+      <if test="effectFlag != null" >
+        #{effectFlag,jdbcType=CHAR},
+      </if>
+      <if test="deleteFlag != null" >
+        #{deleteFlag,jdbcType=CHAR},
+      </if>
+      <if test="remark1 != null" >
+        #{remark1,jdbcType=VARCHAR},
+      </if>
+      <if test="remark2 != null" >
+        #{remark2,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.master.qianyi.pojo.TbMessageExample" resultType="java.lang.Integer" >
+    select count(*) from tb_message
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tb_message
+    <set >
+      <if test="record.messageId != null" >
+        message_id = #{record.messageId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.courseId != null" >
+        course_id = #{record.courseId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.messageType != null" >
+        message_type = #{record.messageType,jdbcType=CHAR},
+      </if>
+      <if test="record.messageSender != null" >
+        message_sender = #{record.messageSender,jdbcType=VARCHAR},
+      </if>
+      <if test="record.messageReceiver != null" >
+        message_receiver = #{record.messageReceiver,jdbcType=VARCHAR},
+      </if>
+      <if test="record.messageContent != null" >
+        message_content = #{record.messageContent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.messageDateTime != null" >
+        message_date_time = #{record.messageDateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.isRead != null" >
+        is_read = #{record.isRead,jdbcType=CHAR},
+      </if>
+      <if test="record.effectFlag != null" >
+        effect_flag = #{record.effectFlag,jdbcType=CHAR},
+      </if>
+      <if test="record.deleteFlag != null" >
+        delete_flag = #{record.deleteFlag,jdbcType=CHAR},
+      </if>
+      <if test="record.remark1 != null" >
+        remark1 = #{record.remark1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark2 != null" >
+        remark2 = #{record.remark2,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tb_message
+    set message_id = #{record.messageId,jdbcType=VARCHAR},
+      course_id = #{record.courseId,jdbcType=VARCHAR},
+      message_type = #{record.messageType,jdbcType=CHAR},
+      message_sender = #{record.messageSender,jdbcType=VARCHAR},
+      message_receiver = #{record.messageReceiver,jdbcType=VARCHAR},
+      message_content = #{record.messageContent,jdbcType=VARCHAR},
+      message_date_time = #{record.messageDateTime,jdbcType=TIMESTAMP},
+      is_read = #{record.isRead,jdbcType=CHAR},
+      effect_flag = #{record.effectFlag,jdbcType=CHAR},
+      delete_flag = #{record.deleteFlag,jdbcType=CHAR},
+      remark1 = #{record.remark1,jdbcType=VARCHAR},
+      remark2 = #{record.remark2,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.master.qianyi.pojo.TbMessage" >
+    update tb_message
+    <set >
+      <if test="courseId != null" >
+        course_id = #{courseId,jdbcType=VARCHAR},
+      </if>
+      <if test="messageType != null" >
+        message_type = #{messageType,jdbcType=CHAR},
+      </if>
+      <if test="messageSender != null" >
+        message_sender = #{messageSender,jdbcType=VARCHAR},
+      </if>
+      <if test="messageReceiver != null" >
+        message_receiver = #{messageReceiver,jdbcType=VARCHAR},
+      </if>
+      <if test="messageContent != null" >
+        message_content = #{messageContent,jdbcType=VARCHAR},
+      </if>
+      <if test="messageDateTime != null" >
+        message_date_time = #{messageDateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isRead != null" >
+        is_read = #{isRead,jdbcType=CHAR},
+      </if>
+      <if test="effectFlag != null" >
+        effect_flag = #{effectFlag,jdbcType=CHAR},
+      </if>
+      <if test="deleteFlag != null" >
+        delete_flag = #{deleteFlag,jdbcType=CHAR},
+      </if>
+      <if test="remark1 != null" >
+        remark1 = #{remark1,jdbcType=VARCHAR},
+      </if>
+      <if test="remark2 != null" >
+        remark2 = #{remark2,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where message_id = #{messageId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.master.qianyi.pojo.TbMessage" >
+    update tb_message
+    set course_id = #{courseId,jdbcType=VARCHAR},
+      message_type = #{messageType,jdbcType=CHAR},
+      message_sender = #{messageSender,jdbcType=VARCHAR},
+      message_receiver = #{messageReceiver,jdbcType=VARCHAR},
+      message_content = #{messageContent,jdbcType=VARCHAR},
+      message_date_time = #{messageDateTime,jdbcType=TIMESTAMP},
+      is_read = #{isRead,jdbcType=CHAR},
+      effect_flag = #{effectFlag,jdbcType=CHAR},
+      delete_flag = #{deleteFlag,jdbcType=CHAR},
+      remark1 = #{remark1,jdbcType=VARCHAR},
+      remark2 = #{remark2,jdbcType=VARCHAR}
+    where message_id = #{messageId,jdbcType=VARCHAR}
+  </update>
+</mapper>
