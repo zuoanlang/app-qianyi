@@ -34,13 +34,8 @@ function check_object_radio() {
 
 function get_dirname()
 {
-    dir = document.getElementById("dirname").value;
-    if (dir != '' && dir.indexOf('/') != dir.length - 1)
-    {
-        dir = dir + '/'
-    }
-    //alert(dir)
-    g_dirname = dir
+    var idNum = $("#idNum").val();
+    g_dirname = 'qianyi/course/'+idNum+'/';
 }
 
 function random_string(len) {
@@ -113,31 +108,54 @@ function set_upload_param(up, filename, ret)
 
     up.start();
 }
-
+var multi_selection_fm = false;
 var uploader = new plupload.Uploader({
 	runtimes : 'html5,flash,silverlight,html4',
 	browse_button : 'selectfiles', 
-    multi_selection: true,
+    multi_selection: multi_selection_fm,
 	container: document.getElementById('container'),
 	flash_swf_url : 'lib/plupload-2.1.2/js/Moxie.swf',
 	silverlight_xap_url : 'lib/plupload-2.1.2/js/Moxie.xap',
     url : 'http://oss.aliyuncs.com',
+    filters: {
+        mime_types: [ //只允许上传图片文件
+            { title: "图片文件", extensions: "jpg,gif,png" }
+        ]
+    },
 
 	init: {
 		PostInit: function() {
 			document.getElementById('ossfile').innerHTML = '';
 			document.getElementById('postfiles').onclick = function() {
-            set_upload_param(uploader, '', false);
-            return false;
+                var idNum = $("#idNum").val();
+                if(idNum.length != 18){
+                    $.messager.alert('错误','请核对身份证号码!');
+                    return false;
+                }
+                set_upload_param(uploader, '', false);
+                return false;
 			};
 		},
 
 		FilesAdded: function(up, files) {
-			plupload.each(files, function(file) {
-				document.getElementById('ossfile').innerHTML += '<div id="' + file.id + '">' + file.name + ' (' + plupload.formatSize(file.size) + ')<b></b>'
-				+'<div class="progress"><div class="progress-bar" style="width: 0%"></div></div>'
-				+'</div>';
-			});
+		    //单文件
+            if(!multi_selection_fm){
+                if(uploader.files.length>1){
+                    uploader.files.splice(0, 1);
+                }
+                
+                plupload.each(files, function(file) {
+                    document.getElementById('ossfile').innerHTML = '<div id="' + file.id + '">' + file.name + ' (' + plupload.formatSize(file.size) + ')<b></b>'
+                        +'<div class="progress"><div class="progress-bar" style="width: 0%"></div></div>'
+                        +'</div>';
+                });
+            } else {
+                plupload.each(files, function(file) {
+                    document.getElementById('ossfile').innerHTML += '<div id="' + file.id + '">' + file.name + ' (' + plupload.formatSize(file.size) + ')<b></b>'
+                        +'<div class="progress"><div class="progress-bar" style="width: 0%"></div></div>'
+                        +'</div>';
+                });
+            }
 		},
 
 		BeforeUpload: function(up, file) {
@@ -171,5 +189,87 @@ var uploader = new plupload.Uploader({
 		}
 	}
 });
+//上传课程视频文件
+var courseUploader = new plupload.Uploader({
+    runtimes : 'html5,flash,silverlight,html4',
+    browse_button : 'selectfiles-course',
+    multi_selection: multi_selection_fm,
+    container: document.getElementById('container'),
+    flash_swf_url : 'lib/plupload-2.1.2/js/Moxie.swf',
+    silverlight_xap_url : 'lib/plupload-2.1.2/js/Moxie.xap',
+    url : 'http://oss.aliyuncs.com',
+    filters: {
+        mime_types: [ //只允许上传视频文件
+            { title: "视频文件", extensions: "mp4" }
+        ]
+    },
+
+    init: {
+        PostInit: function() {
+            document.getElementById('ossfile-course').innerHTML = '';
+            document.getElementById('postfiles-course').onclick = function() {
+                var idNum = $("#idNum").val();
+                if(idNum.length != 18){
+                    $.messager.alert('错误','请核对身份证号码!');
+                    return false;
+                }
+                set_upload_param(courseUploader, '', false);
+                return false;
+            };
+        },
+
+        FilesAdded: function(up, files) {
+            //单文件
+            if(!multi_selection_fm){
+                if(courseUploader.files.length>1){
+                    courseUploader.files.splice(0, 1);
+                }
+
+                plupload.each(files, function(file) {
+                    document.getElementById('ossfile-course').innerHTML = '<div id="' + file.id + '">' + file.name + ' (' + plupload.formatSize(file.size) + ')<b></b>'
+                        +'<div class="progress"><div class="progress-bar" style="width: 0%"></div></div>'
+                        +'</div>';
+                });
+            } else {
+                plupload.each(files, function(file) {
+                    document.getElementById('ossfile-course').innerHTML += '<div id="' + file.id + '">' + file.name + ' (' + plupload.formatSize(file.size) + ')<b></b>'
+                        +'<div class="progress"><div class="progress-bar" style="width: 0%"></div></div>'
+                        +'</div>';
+                });
+            }
+        },
+
+        BeforeUpload: function(up, file) {
+            check_object_radio();
+            get_dirname();
+            set_upload_param(up, file.name, true);
+        },
+
+        UploadProgress: function(up, file) {
+            var d = document.getElementById(file.id);
+            d.getElementsByTagName('b')[0].innerHTML = '<span>' + file.percent + "%</span>";
+            var prog = d.getElementsByTagName('div')[0];
+            var progBar = prog.getElementsByTagName('div')[0]
+            progBar.style.width= 2*file.percent+'px';
+            progBar.setAttribute('aria-valuenow', file.percent);
+        },
+
+        FileUploaded: function(up, file, info) {
+            if (info.status == 200)
+            {
+                document.getElementById(file.id).getElementsByTagName('b')[0].innerHTML = 'upload to oss success, object name:' + get_uploaded_object_name(file.name);
+            }
+            else
+            {
+                document.getElementById(file.id).getElementsByTagName('b')[0].innerHTML = info.response;
+            }
+        },
+
+        Error: function(up, err) {
+            document.getElementById('console').appendChild(document.createTextNode("\nError xml:" + err.response));
+        }
+    }
+});
 
 uploader.init();
+courseUploader.init();

@@ -1,5 +1,5 @@
 server:
-  port: 8080 #端口
+  port: 443 #端口
   servlet:
     context-path: /qianyi
 
@@ -24,9 +24,9 @@ spring:
     driver-class-name: com.mysql.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
 #    url: jdbc:mysql://47.106.103.186:3306/qianyi?useUnicode=true&characterEncoding=UTF-8
-    url: jdbc:mysql://localhost:3306/qianyi?useUnicode=true&characterEncoding=UTF-8
+    url: jdbc:mysql://120.78.3.204:3306/qianyi?useUnicode=true&characterEncoding=UTF-8
     username: root
-    password:
+    password: root
 
 ################################################################
 ################################################################

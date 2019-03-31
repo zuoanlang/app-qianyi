@@ -10,7 +10,7 @@ public interface TbCatalogMapper {
 
     int deleteByExample(TbCatalogExample example);
 
-    int deleteByPrimaryKey(String catalogId);
+    int deleteByPrimaryKey(Long catalogId);
 
     int insert(TbCatalog record);
 
@@ -18,7 +18,7 @@ public interface TbCatalogMapper {
 
     List<TbCatalog> selectByExample(TbCatalogExample example);
 
-    TbCatalog selectByPrimaryKey(String catalogId);
+    TbCatalog selectByPrimaryKey(Long catalogId);
 
     int updateByExampleSelective(@Param("record") TbCatalog record, @Param("example") TbCatalogExample example);
 

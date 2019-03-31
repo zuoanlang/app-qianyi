@@ -315,6 +315,66 @@ public class TbReceiptionExample {
             return (Criteria) this;
         }
 
+        public Criteria andTradeAmountIsNull() {
+            addCriterion("trade_amount is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTradeAmountIsNotNull() {
+            addCriterion("trade_amount is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTradeAmountEqualTo(Integer value) {
+            addCriterion("trade_amount =", value, "tradeAmount");
+            return (Criteria) this;
+        }
+
+        public Criteria andTradeAmountNotEqualTo(Integer value) {
+            addCriterion("trade_amount <>", value, "tradeAmount");
+            return (Criteria) this;
+        }
+
+        public Criteria andTradeAmountGreaterThan(Integer value) {
+            addCriterion("trade_amount >", value, "tradeAmount");
+            return (Criteria) this;
+        }
+
+        public Criteria andTradeAmountGreaterThanOrEqualTo(Integer value) {
+            addCriterion("trade_amount >=", value, "tradeAmount");
+            return (Criteria) this;
+        }
+
+        public Criteria andTradeAmountLessThan(Integer value) {
+            addCriterion("trade_amount <", value, "tradeAmount");
+            return (Criteria) this;
+        }
+
+        public Criteria andTradeAmountLessThanOrEqualTo(Integer value) {
+            addCriterion("trade_amount <=", value, "tradeAmount");
+            return (Criteria) this;
+        }
+
+        public Criteria andTradeAmountIn(List<Integer> values) {
+            addCriterion("trade_amount in", values, "tradeAmount");
+            return (Criteria) this;
+        }
+
+        public Criteria andTradeAmountNotIn(List<Integer> values) {
+            addCriterion("trade_amount not in", values, "tradeAmount");
+            return (Criteria) this;
+        }
+
+        public Criteria andTradeAmountBetween(Integer value1, Integer value2) {
+            addCriterion("trade_amount between", value1, value2, "tradeAmount");
+            return (Criteria) this;
+        }
+
+        public Criteria andTradeAmountNotBetween(Integer value1, Integer value2) {
+            addCriterion("trade_amount not between", value1, value2, "tradeAmount");
+            return (Criteria) this;
+        }
+
         public Criteria andTradeDateTimeIsNull() {
             addCriterion("trade_date_time is null");
             return (Criteria) this;
@@ -725,76 +785,6 @@ public class TbReceiptionExample {
             return (Criteria) this;
         }
 
-        public Criteria andRemark5IsNull() {
-            addCriterion("remark5 is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andRemark5IsNotNull() {
-            addCriterion("remark5 is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andRemark5EqualTo(String value) {
-            addCriterion("remark5 =", value, "remark5");
-            return (Criteria) this;
-        }
-
-        public Criteria andRemark5NotEqualTo(String value) {
-            addCriterion("remark5 <>", value, "remark5");
-            return (Criteria) this;
-        }
-
-        public Criteria andRemark5GreaterThan(String value) {
-            addCriterion("remark5 >", value, "remark5");
-            return (Criteria) this;
-        }
-
-        public Criteria andRemark5GreaterThanOrEqualTo(String value) {
-            addCriterion("remark5 >=", value, "remark5");
-            return (Criteria) this;
-        }
-
-        public Criteria andRemark5LessThan(String value) {
-            addCriterion("remark5 <", value, "remark5");
-            return (Criteria) this;
-        }
-
-        public Criteria andRemark5LessThanOrEqualTo(String value) {
-            addCriterion("remark5 <=", value, "remark5");
-            return (Criteria) this;
-        }
-
-        public Criteria andRemark5Like(String value) {
-            addCriterion("remark5 like", value, "remark5");
-            return (Criteria) this;
-        }
-
-        public Criteria andRemark5NotLike(String value) {
-            addCriterion("remark5 not like", value, "remark5");
-            return (Criteria) this;
-        }
-
-        public Criteria andRemark5In(List<String> values) {
-            addCriterion("remark5 in", values, "remark5");
-            return (Criteria) this;
-        }
-
-        public Criteria andRemark5NotIn(List<String> values) {
-            addCriterion("remark5 not in", values, "remark5");
-            return (Criteria) this;
-        }
-
-        public Criteria andRemark5Between(String value1, String value2) {
-            addCriterion("remark5 between", value1, value2, "remark5");
-            return (Criteria) this;
-        }
-
-        public Criteria andRemark5NotBetween(String value1, String value2) {
-            addCriterion("remark5 not between", value1, value2, "remark5");
-            return (Criteria) this;
-        }
-
         public Criteria andRemark3IsNull() {
             addCriterion("remark3 is null");
             return (Criteria) this;
@@ -1002,6 +992,76 @@ public class TbReceiptionExample {
 
         public Criteria andRemark4NotBetween(String value1, String value2) {
             addCriterion("remark4 not between", value1, value2, "remark4");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemark5IsNull() {
+            addCriterion("remark5 is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemark5IsNotNull() {
+            addCriterion("remark5 is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemark5EqualTo(String value) {
+            addCriterion("remark5 =", value, "remark5");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemark5NotEqualTo(String value) {
+            addCriterion("remark5 <>", value, "remark5");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemark5GreaterThan(String value) {
+            addCriterion("remark5 >", value, "remark5");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemark5GreaterThanOrEqualTo(String value) {
+            addCriterion("remark5 >=", value, "remark5");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemark5LessThan(String value) {
+            addCriterion("remark5 <", value, "remark5");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemark5LessThanOrEqualTo(String value) {
+            addCriterion("remark5 <=", value, "remark5");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemark5Like(String value) {
+            addCriterion("remark5 like", value, "remark5");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemark5NotLike(String value) {
+            addCriterion("remark5 not like", value, "remark5");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemark5In(List<String> values) {
+            addCriterion("remark5 in", values, "remark5");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemark5NotIn(List<String> values) {
+            addCriterion("remark5 not in", values, "remark5");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemark5Between(String value1, String value2) {
+            addCriterion("remark5 between", value1, value2, "remark5");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemark5NotBetween(String value1, String value2) {
+            addCriterion("remark5 not between", value1, value2, "remark5");
             return (Criteria) this;
         }
     }

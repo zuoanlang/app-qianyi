@@ -892,6 +892,66 @@ public class TbUserExample {
             return (Criteria) this;
         }
 
+        public Criteria andUserAccountBalanceIsNull() {
+            addCriterion("user_account_balance is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserAccountBalanceIsNotNull() {
+            addCriterion("user_account_balance is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserAccountBalanceEqualTo(Integer value) {
+            addCriterion("user_account_balance =", value, "userAccountBalance");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserAccountBalanceNotEqualTo(Integer value) {
+            addCriterion("user_account_balance <>", value, "userAccountBalance");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserAccountBalanceGreaterThan(Integer value) {
+            addCriterion("user_account_balance >", value, "userAccountBalance");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserAccountBalanceGreaterThanOrEqualTo(Integer value) {
+            addCriterion("user_account_balance >=", value, "userAccountBalance");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserAccountBalanceLessThan(Integer value) {
+            addCriterion("user_account_balance <", value, "userAccountBalance");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserAccountBalanceLessThanOrEqualTo(Integer value) {
+            addCriterion("user_account_balance <=", value, "userAccountBalance");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserAccountBalanceIn(List<Integer> values) {
+            addCriterion("user_account_balance in", values, "userAccountBalance");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserAccountBalanceNotIn(List<Integer> values) {
+            addCriterion("user_account_balance not in", values, "userAccountBalance");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserAccountBalanceBetween(Integer value1, Integer value2) {
+            addCriterion("user_account_balance between", value1, value2, "userAccountBalance");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserAccountBalanceNotBetween(Integer value1, Integer value2) {
+            addCriterion("user_account_balance not between", value1, value2, "userAccountBalance");
+            return (Criteria) this;
+        }
+
         public Criteria andSexIsNull() {
             addCriterion("sex is null");
             return (Criteria) this;

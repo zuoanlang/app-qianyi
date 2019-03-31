@@ -25,6 +25,8 @@ public class TbUser {
 
     private String masterIntroduction;
 
+    private Integer userAccountBalance;
+
     private String sex;
 
     private String effectFlag;
@@ -161,6 +163,14 @@ public class TbUser {
 
     public void setMasterIntroduction(String masterIntroduction) {
         this.masterIntroduction = masterIntroduction == null ? null : masterIntroduction.trim();
+    }
+
+    public Integer getUserAccountBalance() {
+        return userAccountBalance;
+    }
+
+    public void setUserAccountBalance(Integer userAccountBalance) {
+        this.userAccountBalance = userAccountBalance;
     }
 
     public String getSex() {

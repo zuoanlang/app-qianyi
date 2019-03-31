@@ -114,63 +114,113 @@ public class TbCatalogExample {
             return (Criteria) this;
         }
 
-        public Criteria andCatalogIdEqualTo(String value) {
+        public Criteria andCatalogIdEqualTo(Long value) {
             addCriterion("catalog_id =", value, "catalogId");
             return (Criteria) this;
         }
 
-        public Criteria andCatalogIdNotEqualTo(String value) {
+        public Criteria andCatalogIdNotEqualTo(Long value) {
             addCriterion("catalog_id <>", value, "catalogId");
             return (Criteria) this;
         }
 
-        public Criteria andCatalogIdGreaterThan(String value) {
+        public Criteria andCatalogIdGreaterThan(Long value) {
             addCriterion("catalog_id >", value, "catalogId");
             return (Criteria) this;
         }
 
-        public Criteria andCatalogIdGreaterThanOrEqualTo(String value) {
+        public Criteria andCatalogIdGreaterThanOrEqualTo(Long value) {
             addCriterion("catalog_id >=", value, "catalogId");
             return (Criteria) this;
         }
 
-        public Criteria andCatalogIdLessThan(String value) {
+        public Criteria andCatalogIdLessThan(Long value) {
             addCriterion("catalog_id <", value, "catalogId");
             return (Criteria) this;
         }
 
-        public Criteria andCatalogIdLessThanOrEqualTo(String value) {
+        public Criteria andCatalogIdLessThanOrEqualTo(Long value) {
             addCriterion("catalog_id <=", value, "catalogId");
             return (Criteria) this;
         }
 
-        public Criteria andCatalogIdLike(String value) {
-            addCriterion("catalog_id like", value, "catalogId");
-            return (Criteria) this;
-        }
-
-        public Criteria andCatalogIdNotLike(String value) {
-            addCriterion("catalog_id not like", value, "catalogId");
-            return (Criteria) this;
-        }
-
-        public Criteria andCatalogIdIn(List<String> values) {
+        public Criteria andCatalogIdIn(List<Long> values) {
             addCriterion("catalog_id in", values, "catalogId");
             return (Criteria) this;
         }
 
-        public Criteria andCatalogIdNotIn(List<String> values) {
+        public Criteria andCatalogIdNotIn(List<Long> values) {
             addCriterion("catalog_id not in", values, "catalogId");
             return (Criteria) this;
         }
 
-        public Criteria andCatalogIdBetween(String value1, String value2) {
+        public Criteria andCatalogIdBetween(Long value1, Long value2) {
             addCriterion("catalog_id between", value1, value2, "catalogId");
             return (Criteria) this;
         }
 
-        public Criteria andCatalogIdNotBetween(String value1, String value2) {
+        public Criteria andCatalogIdNotBetween(Long value1, Long value2) {
             addCriterion("catalog_id not between", value1, value2, "catalogId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCatalogParentIdIsNull() {
+            addCriterion("catalog_parent_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCatalogParentIdIsNotNull() {
+            addCriterion("catalog_parent_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCatalogParentIdEqualTo(Long value) {
+            addCriterion("catalog_parent_id =", value, "catalogParentId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCatalogParentIdNotEqualTo(Long value) {
+            addCriterion("catalog_parent_id <>", value, "catalogParentId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCatalogParentIdGreaterThan(Long value) {
+            addCriterion("catalog_parent_id >", value, "catalogParentId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCatalogParentIdGreaterThanOrEqualTo(Long value) {
+            addCriterion("catalog_parent_id >=", value, "catalogParentId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCatalogParentIdLessThan(Long value) {
+            addCriterion("catalog_parent_id <", value, "catalogParentId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCatalogParentIdLessThanOrEqualTo(Long value) {
+            addCriterion("catalog_parent_id <=", value, "catalogParentId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCatalogParentIdIn(List<Long> values) {
+            addCriterion("catalog_parent_id in", values, "catalogParentId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCatalogParentIdNotIn(List<Long> values) {
+            addCriterion("catalog_parent_id not in", values, "catalogParentId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCatalogParentIdBetween(Long value1, Long value2) {
+            addCriterion("catalog_parent_id between", value1, value2, "catalogParentId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCatalogParentIdNotBetween(Long value1, Long value2) {
+            addCriterion("catalog_parent_id not between", value1, value2, "catalogParentId");
             return (Criteria) this;
         }
 
@@ -241,6 +291,66 @@ public class TbCatalogExample {
 
         public Criteria andCourseIdNotBetween(String value1, String value2) {
             addCriterion("course_id not between", value1, value2, "courseId");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsParentIsNull() {
+            addCriterion("is_parent is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsParentIsNotNull() {
+            addCriterion("is_parent is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsParentEqualTo(Boolean value) {
+            addCriterion("is_parent =", value, "isParent");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsParentNotEqualTo(Boolean value) {
+            addCriterion("is_parent <>", value, "isParent");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsParentGreaterThan(Boolean value) {
+            addCriterion("is_parent >", value, "isParent");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsParentGreaterThanOrEqualTo(Boolean value) {
+            addCriterion("is_parent >=", value, "isParent");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsParentLessThan(Boolean value) {
+            addCriterion("is_parent <", value, "isParent");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsParentLessThanOrEqualTo(Boolean value) {
+            addCriterion("is_parent <=", value, "isParent");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsParentIn(List<Boolean> values) {
+            addCriterion("is_parent in", values, "isParent");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsParentNotIn(List<Boolean> values) {
+            addCriterion("is_parent not in", values, "isParent");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsParentBetween(Boolean value1, Boolean value2) {
+            addCriterion("is_parent between", value1, value2, "isParent");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsParentNotBetween(Boolean value1, Boolean value2) {
+            addCriterion("is_parent not between", value1, value2, "isParent");
             return (Criteria) this;
         }
 

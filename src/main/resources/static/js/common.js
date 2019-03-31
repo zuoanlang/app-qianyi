@@ -130,10 +130,11 @@ var E3 = {
     			    		url:'/qianyi/category/getCourseList',
     			    		animate:true,
     			    		onClick : function(node){
+    			    			debugger
     			    			if($(this).tree("isLeaf",node.target)){
     			    				// 填写到cid中
-    			    				_ele.parent().find("[name=cid]").val(node.id);
-    			    				_ele.next().text(node.text).attr("cid",node.id);
+    			    				_ele.parent().find("[name=courseType]").val(node.id);
+    			    				_ele.next().text(node.text).attr("courseType",node.id);
     			    				$(_win).window('close');
     			    				if(data && data.fun){
     			    					data.fun.call(this,node);
@@ -175,8 +176,8 @@ var E3 = {
 								onClick : function(node){
 									if($(this).tree("isLeaf",node.target)){
 										// 填写到cid中
-										_ele.parent().find("[name=cid]").val(node.id);
-										_ele.next().text(node.text).attr("cid",node.id);
+										_ele.parent().find("[name=courseLevel]").val(node.id);
+										_ele.next().text(node.text).attr("courseLevel",node.id);
 										$(_win).window('close');
 										if(data && data.fun){
 											data.fun.call(this,node);
@@ -218,8 +219,8 @@ var E3 = {
 								onClick : function(node){
 									if($(this).tree("isLeaf",node.target)){
 										// 填写到cid中
-										_ele.parent().find("[name=cid]").val(node.id);
-										_ele.next().text(node.text).attr("cid",node.id);
+										_ele.parent().find("[name=courseIsOnline]").val(node.id);
+										_ele.next().text(node.text).attr("courseIsOnline",node.id);
 										$(_win).window('close');
 										if(data && data.fun){
 											data.fun.call(this,node);

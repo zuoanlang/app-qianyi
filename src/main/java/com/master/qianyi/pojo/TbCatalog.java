@@ -1,9 +1,13 @@
 package com.master.qianyi.pojo;
 
 public class TbCatalog {
-    private String catalogId;
+    private Long catalogId;
+
+    private Long catalogParentId;
 
     private String courseId;
+
+    private Boolean isParent;
 
     private String catalogName;
 
@@ -17,12 +21,20 @@ public class TbCatalog {
 
     private String remark2;
 
-    public String getCatalogId() {
+    public Long getCatalogId() {
         return catalogId;
     }
 
-    public void setCatalogId(String catalogId) {
-        this.catalogId = catalogId == null ? null : catalogId.trim();
+    public void setCatalogId(Long catalogId) {
+        this.catalogId = catalogId;
+    }
+
+    public Long getCatalogParentId() {
+        return catalogParentId;
+    }
+
+    public void setCatalogParentId(Long catalogParentId) {
+        this.catalogParentId = catalogParentId;
     }
 
     public String getCourseId() {
@@ -31,6 +43,14 @@ public class TbCatalog {
 
     public void setCourseId(String courseId) {
         this.courseId = courseId == null ? null : courseId.trim();
+    }
+
+    public Boolean getIsParent() {
+        return isParent;
+    }
+
+    public void setIsParent(Boolean isParent) {
+        this.isParent = isParent;
     }
 
     public String getCatalogName() {

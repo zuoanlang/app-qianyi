@@ -9,6 +9,8 @@ public class TbReceiption {
 
     private String tradeType;
 
+    private Integer tradeAmount;
+
     private Date tradeDateTime;
 
     private String tradeSource;
@@ -21,13 +23,13 @@ public class TbReceiption {
 
     private String remark1;
 
-    private String remark5;
-
     private String remark3;
 
     private String remark2;
 
     private String remark4;
+
+    private String remark5;
 
     public String getReceiptId() {
         return receiptId;
@@ -51,6 +53,14 @@ public class TbReceiption {
 
     public void setTradeType(String tradeType) {
         this.tradeType = tradeType == null ? null : tradeType.trim();
+    }
+
+    public Integer getTradeAmount() {
+        return tradeAmount;
+    }
+
+    public void setTradeAmount(Integer tradeAmount) {
+        this.tradeAmount = tradeAmount;
     }
 
     public Date getTradeDateTime() {
@@ -101,14 +111,6 @@ public class TbReceiption {
         this.remark1 = remark1 == null ? null : remark1.trim();
     }
 
-    public String getRemark5() {
-        return remark5;
-    }
-
-    public void setRemark5(String remark5) {
-        this.remark5 = remark5 == null ? null : remark5.trim();
-    }
-
     public String getRemark3() {
         return remark3;
     }
@@ -131,5 +133,13 @@ public class TbReceiption {
 
     public void setRemark4(String remark4) {
         this.remark4 = remark4 == null ? null : remark4.trim();
+    }
+
+    public String getRemark5() {
+        return remark5;
+    }
+
+    public void setRemark5(String remark5) {
+        this.remark5 = remark5 == null ? null : remark5.trim();
     }
 }
