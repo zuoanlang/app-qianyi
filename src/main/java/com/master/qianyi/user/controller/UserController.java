@@ -86,7 +86,7 @@ public class UserController {
     }
 
     /**
-     * 更新用户信息
+     * 更新用户信息（个人资料编辑和入驻）
      *
      * @param user
      * @return

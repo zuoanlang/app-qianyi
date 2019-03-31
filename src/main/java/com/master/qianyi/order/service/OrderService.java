@@ -214,21 +214,10 @@ public class OrderService {
             order.setOrderAuditor("admin");
             int updateFlag = tbOrderMapper.updateByExampleSelective(order, tbOrderExample);
             if (updateFlag > 0) {
+                // 消息内容
+                String messageContent = "用户" + userId + "发起退款。退款原因：" + orderRefundReason;
                 // 发消息给订单审核人admin
-                TbMessage message = new TbMessage();
-                message.setMessageId(IDUtils.genItemId());
-                message.setCourseId(order.getGoodId());
-                // 1:系统消息
-                message.setMessageType("1");
-                message.setMessageSender(userId);
-                // 消息接收者为admin
-                message.setMessageReceiver("admin");
-                message.setMessageContent("用户" + userId + "发起退款。退款原因：" + orderRefundReason);
-                message.setMessageDateTime(new Date(System.currentTimeMillis()));
-                message.setIsRead("0");
-                message.setEffectFlag("1");
-                message.setDeleteFlag("0");
-                int insert = tbMessageMapper.insert(message);
+                int insert = insertMessage(userId, order.getGoodId(), messageContent);
                 if (insert > 0) {
                     bean.setCode(Constants.code_0);
                     bean.setMsg(Constants.msg_success);
@@ -245,5 +234,36 @@ public class OrderService {
             bean.setMsg(Constants.msg_failed);
         }
         return bean;
+    }
+
+    /**
+     * 发送给admin的系统消息
+     *
+     * @param userId
+     * @param courseId
+     * @param messageContent
+     * @return
+     */
+    private int insertMessage(String userId, String courseId, String messageContent) {
+        // 发消息给订单审核人admin
+        TbMessage message = new TbMessage();
+        message.setMessageId(IDUtils.genItemId());
+        message.setCourseId(courseId);
+        // 1:系统消息
+        message.setMessageType("1");
+        message.setMessageSender(userId);
+        // 消息接收者为admin
+        message.setMessageReceiver("admin");
+        message.setMessageContent(messageContent);
+        message.setMessageDateTime(new Date(System.currentTimeMillis()));
+        message.setIsRead("0");
+        message.setEffectFlag("1");
+        message.setDeleteFlag("0");
+        int insert = tbMessageMapper.insert(message);
+        if (insert > 0) {
+            return 1;
+        } else {
+            return -1;
+        }
     }
 }
