@@ -118,6 +118,7 @@ public class OrderService {
         ResultBean bean = new ResultBean();
         if (StringUtil.isNotEmpty(userId) && StringUtil.isNotEmpty((courseId))) {
             TbOrder tbOrder = new TbOrder();
+            tbOrder.setOrderId(IDUtils.genItemId());
             tbOrder.setUserId(userId);
             tbOrder.setGoodId(courseId);
             tbOrder.setOrderCreateTime(new Date(System.currentTimeMillis()));
