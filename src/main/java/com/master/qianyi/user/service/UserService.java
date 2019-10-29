@@ -1103,7 +1103,8 @@ public class UserService {
         tbService.setServiceName(serviceName);
         TbServiceExample example = new TbServiceExample();
         TbServiceExample.Criteria criteria = example.createCriteria();
-        criteria.andServiceNameEqualTo(serviceNameTemp);
+        criteria.andServiceNameEqualTo(serviceNameTemp)
+                .andUserIdEqualTo(userId);
         List<TbService> tbServices = serviceMapper.selectByExample(example);
         if (tbServices.size()>0){
             infoMap.put("code","1");
