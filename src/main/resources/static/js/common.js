@@ -34,6 +34,14 @@ var E3 = {
 		var now = new Date(val);
     	return now.format("yyyy-MM-dd hh:mm:ss");
 	},
+	// 格式化生日
+	formatBirthday : function(val,row){
+		if(val == null){
+			return "未填写"
+		}
+		var now = new Date(val);
+		return now.format("yyyy-MM-dd");
+	},
 	// 格式化连接
 	formatUrl : function(val,row){
 		if(val){
@@ -43,7 +51,10 @@ var E3 = {
 	},
 	// 格式化价格
 	formatPrice : function(val,row){
-		return (val/1000).toFixed(2);
+		return (val/100).toFixed(2);
+	},
+	formatPriceList : function(val,row){
+		return (val).toFixed(2);
 	},
 	// 格式化商品的状态
 	formatItemStatus : function formatStatus(val,row){
@@ -55,16 +66,137 @@ var E3 = {
         	return '未知';
         }
     },
+	// 格式化是否状态
+	formatIsOrNotStatus : function (val,row){
+		if (val == 1){
+			return '是';
+		} else if(val == 0){
+			return '<span style="color:red;">否</span>';
+		} else {
+			return '未知';
+		}
+	},
+	// 格式化是课程状态
+	formatEffectStatus : function(val,row){
+		if (val == 1){
+			return '上架';
+		} else if(val == 2){
+			return '<span style="color:red;">下架</span>';
+		} else {
+			return '未知';
+		}
+	},// 格式化是用户状态
+	formatIsAdminStatus : function(val,row){
+		if (val == 1){
+			return '是';
+		} else if(val == 2){
+			return '名师';
+		} else {
+			return '否';
+		}
+	},
+	formatSex : function(val,row){
+		if (val == 1){
+			return '男';
+		} else if(val == 0){
+			return '女';
+		} else {
+			return '未填写';
+		}
+	},
+	// 格式化是订单状态
+	formatOrderStatus : function (val,row){
+		if (val == 1){
+			return '<span style="color:red;">已下单(未付款)</span>';
+		} else if(val == 2){
+			return '已付款(待评价)';
+		} else if(val == 3){
+			return '已评价(已完成)';
+		} else if(val == 4){
+			return '待审核(退款中)';
+		} else if(val == 5){
+			return '已退款';
+		} else {
+			return '已失效';
+		}
+	},
+	// 格式化是支付方式
+	formatPayment : function (val,row){
+		if (val == 1){
+			return '支付宝';
+		} else if(val == 2){
+			return '微信';
+		} else if(val == 3){
+			return '金币';
+		}
+	},
+	// 格式化是订单类型
+	formatOrderType : function (val,row){
+		if (val == 1){
+			return '课程购买';
+		} else if(val == 2){
+			return '测算服务';
+		}
+	},
+	formatApproveStatus : function(val,row){
+		if (val == 0){
+			return '待审批';
+		} else if(val == 2){
+			return '已审批';
+		} else if(val == 3){
+			return '已驳回';
+		}
+	},
+	formatSettledApproveStatus : function(val,row){
+		if (val == 1){
+			return '待审批';
+		} else if(val == 2){
+			return '已审批';
+		} else if(val == 3){
+			return '已驳回';
+		}
+	},
+	//1.订单评论,2.资讯评论,3,.课程评论
+	formatCommentType : function(val,row){
+		if (val == 1){
+			return '订单评论';
+		} else if(val == 2){
+			return '资讯评论';
+		} else if(val == 3){
+			return '课程评论';
+		}
+	},
+	//订单状态：0,全部订单，1已下单，2已付款，3已评价，4待审核，5已退款，6已失效,7已驳回
+	orderApproveStatus : function(val,row){
+		if (val == 4){
+			return '待审批';
+		} else if(val == 5){
+			return '已退款';
+		} else if(val == 7){
+			return '已驳回';
+		}
+	},
+	formatProfession : function(val,row){
+		if (val == 1){
+			return '全职名师';
+		} else if(val == 2){
+			return '兼职名师';
+		}
+	},
     
     init : function(data){
     	// 初始化图片上传组件
     	this.initPicUpload(data);
     	// 初始化选择类目组件（课程分类）
     	this.initItemCat(data);
+		// 初始化选择类目组件（资讯分类）
+		this.selectInfoType(data)
 		// 初始化选择类目组件（课程级别）
 		this.selectCourseLevel(data);
 		// 初始化选择类目组件（授课方式）
 		this.selectTeachMethods(data)
+		// 初始化选择类目组件（测算服务）
+		this.initItemService(data)
     },
     // 初始化图片上传组件
     initPicUpload : function(data){
@@ -110,8 +242,10 @@ var E3 = {
     initItemCat : function(data){
     	$(".selectItemCat").each(function(i,e){
     		var _ele = $(e);
-    		if(data && data.cid){
-    			_ele.after("<span style='margin-left:10px;'>"+data.cid+"</span>");
+    		if(data && data.courseType){
+    			_ele.after("<span style='margin-left:10px;'>"+data.courseType+"</span>");
+				_ele.parent().find("[name=courseType]").val(data.remark1);
+
     		}else{
     			_ele.after("<span style='margin-left:10px;'></span>");
     		}
@@ -130,7 +264,6 @@ var E3 = {
     			    		url:'/qianyi/category/getCourseList',
     			    		animate:true,
     			    		onClick : function(node){
-    			    			debugger
     			    			if($(this).tree("isLeaf",node.target)){
     			    				// 填写到cid中
     			    				_ele.parent().find("[name=courseType]").val(node.id);
@@ -150,12 +283,102 @@ var E3 = {
     		});
     	});
     },
+	// 初始化选择类目组件(服务名称)
+	initItemService : function(data){
+		$(".selectItemService").each(function(i,e){
+			var _ele = $(e);
+			if(data && data.serviceName){
+				_ele.after("<span style='margin-left:10px;'>"+data.serviceName+"</span>");
+				_ele.parent().find("[name=serviceName]").val(data.remark1);
+
+			}else{
+				_ele.after("<span style='margin-left:10px;'></span>");
+			}
+			_ele.unbind('click').click(function(){
+				$("<div>").css({padding:"5px"}).html("<ul>")
+					.window({
+						width:'500',
+						height:"250",
+						modal:true,
+						closed:true,
+						iconCls:'icon-save',
+						title:'选择类目',
+						onOpen : function(){
+							var _win = this;
+							$("ul",_win).tree({
+								url:'/qianyi/category/getServiceList',
+								animate:true,
+								onClick : function(node){
+									if($(this).tree("isLeaf",node.target)){
+										// 填写到cid中
+										_ele.parent().find("[name=serviceName]").val(node.id);
+										_ele.next().text(node.text).attr("serviceName",node.id);
+										$(_win).window('close');
+										if(data && data.fun){
+											data.fun.call(this,node);
+										}
+									}
+								}
+							});
+						},
+						onClose : function(){
+							$(this).window("destroy");
+						}
+					}).window('open');
+			});
+		});
+	},
+	// 初始化选择类目组件(资讯分类)
+	selectInfoType : function(data){
+		$(".selectInfoType").each(function(i,e){
+			var _ele = $(e);
+			if(data && data.remark1){
+				_ele.after("<span style='margin-left:10px;'>"+data.infoType+"</span>");
+				_ele.parent().find("[name=infoType]").val(data.remark1);
+			}else{
+				_ele.after("<span style='margin-left:10px;'></span>");
+			}
+			_ele.unbind('click').click(function(){
+				$("<div>").css({padding:"5px"}).html("<ul>")
+					.window({
+						width:'500',
+						height:"250",
+						modal:true,
+						closed:true,
+						iconCls:'icon-save',
+						title:'选择类目',
+						onOpen : function(){
+							var _win = this;
+							$("ul",_win).tree({
+								url:'/qianyi/category/getCourseList',
+								animate:true,
+								onClick : function(node){
+									if($(this).tree("isLeaf",node.target)){
+										// 填写到cid中
+										_ele.parent().find("[name=infoType]").val(node.id);
+										_ele.next().text(node.text).attr("infoType",node.id);
+										$(_win).window('close');
+										if(data && data.fun){
+											data.fun.call(this,node);
+										}
+									}
+								}
+							});
+						},
+						onClose : function(){
+							$(this).window("destroy");
+						}
+					}).window('open');
+			});
+		});
+	},
 	//课程级别
 	selectCourseLevel : function(data){
 		$(".selectCourseLevel").each(function(i,e){
 			var _ele = $(e);
-			if(data && data.cid){
-				_ele.after("<span style='margin-left:10px;'>"+data.cid+"</span>");
+			if(data && data.courseLevel){
+				_ele.after("<span style='margin-left:10px;'>"+data.courseLevel+"</span>");
+				_ele.parent().find("[name=courseLevel]").val(data.remark2);
 			}else{
 				_ele.after("<span style='margin-left:10px;'></span>");
 			}
@@ -197,8 +420,13 @@ var E3 = {
 	selectTeachMethods : function(data){
 		$(".selectTeachMethods").each(function(i,e){
 			var _ele = $(e);
-			if(data && data.cid){
-				_ele.after("<span style='margin-left:10px;'>"+data.cid+"</span>");
+			if(data && data.courseIsOnline){
+				_ele.after("<span style='margin-left:10px;'>"+data.courseIsOnline+"</span>");
+				_ele.parent().find("[name=courseIsOnline]").val(data.remark3);
+				if(data.remark3 == "23"){
+					$(".online").hide();
+					$(".underline").show();
+				}
 			}else{
 				_ele.after("<span style='margin-left:10px;'></span>");
 			}
@@ -221,6 +449,15 @@ var E3 = {
 										// 填写到cid中
 										_ele.parent().find("[name=courseIsOnline]").val(node.id);
 										_ele.next().text(node.text).attr("courseIsOnline",node.id);
+										//线上
+										if(node.id == 22){
+											$(".online").show();
+											$(".underline").hide();
+										} else {
+											//线下
+											$(".online").hide();
+											$(".underline").show();
+										}
 										$(_win).window('close');
 										if(data && data.fun){
 											data.fun.call(this,node);

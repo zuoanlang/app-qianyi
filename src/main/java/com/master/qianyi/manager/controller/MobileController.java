@@ -3,10 +3,7 @@ package com.master.qianyi.manager.controller;
 import com.master.qianyi.manager.service.MobileService;
 import com.master.qianyi.utils.ResultBean;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/mobile")
@@ -21,8 +18,8 @@ public class MobileController {
      * @param phoneNumber
      * @return
      */
-    @GetMapping("/sendSms")
-    public ResultBean sendMessage(String phoneNumber) {
+    @PostMapping("/sendSms")
+    public ResultBean sendMessage(@RequestParam(value="phoneNumber")String phoneNumber) {
         return mobileService.mobileSendSms(phoneNumber);
     }
 
@@ -37,13 +34,27 @@ public class MobileController {
     }
 
     @PostMapping("/resetPassword")
-    public ResultBean resetPassword( String phoneNumber, int mobileCode, String password){
+    public ResultBean resetPassword( @RequestParam(value="phoneNumber")String phoneNumber,
+                                     @RequestParam(value="mobileCode")int mobileCode,
+                                     @RequestParam(value="password")String password){
         return mobileService.resetPassword(phoneNumber,mobileCode,password);
     }
 
     @PostMapping("/threePartyLogin")
-    public ResultBean threePartyLogin( String openid, String type, String headImg,String nickName){
+    public ResultBean threePartyLogin( @RequestParam(value="openid")String openid,
+                                       @RequestParam(value="type")String type,
+                                       @RequestParam(value="headImg")String headImg,
+                                       @RequestParam(value="nickName")String nickName){
         return mobileService.threePartyLogin(openid,type,headImg,nickName);
     }
+
+    @PostMapping("/bindPhoneNumber")
+    public ResultBean bindPhoneNumber(  @RequestParam(value="phoneNumber")String phoneNumber,
+                                        @RequestParam(value="mobileCode")int mobileCode,
+                                        @RequestParam(value="openid")String openid,
+                                        @RequestParam(value="type")String type){
+        return mobileService.bindPhoneNumber(phoneNumber,mobileCode,openid,type);
+    }
+
 
 }

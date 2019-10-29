@@ -4,7 +4,7 @@
 <script type="text/javascript" charset="utf-8" src="/js/kindeditor-4.1.10/lang/zh_CN.js"></script>
 <div style="padding:10px 10px 10px 10px">
 	<form id="itemeEditForm" class="itemForm" method="post">
-		<input type="hidden" name="id"/>
+		<input type="hidden" name="infoId"/>
 	    <table cellpadding="5">
 	        <tr>
 	            <td>商品类目:</td>

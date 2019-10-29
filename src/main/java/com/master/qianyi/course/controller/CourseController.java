@@ -4,10 +4,7 @@ import com.master.qianyi.course.service.CourseService;
 import com.master.qianyi.pojo.TbCourse;
 import com.master.qianyi.utils.ResultBean;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * 课程controller
@@ -25,24 +22,25 @@ public class CourseController {
      * @param pageNum  当前页码
      * @param pageSize 每页条数
      * @param course   查询条件
-     * @return
+     * @return ResultBean
      */
     @GetMapping("/searchCourse")
     @ResponseBody
-    public ResultBean getCourseSearchResult(int pageNum, int pageSize, TbCourse course) {
+    public ResultBean getCourseSearchResult(@RequestParam(value="pageNum", defaultValue="1") int pageNum,
+                                            @RequestParam(value="pageSize", defaultValue="15")int pageSize, TbCourse course) {
         return service.getCourseSearchResult(pageNum, pageSize, course);
     }
 
     /**
      * 根据课程id查询课程信息
      *
-     * @param couserId
-     * @return
+     * @param courseId 课程id
+     * @return ResultBean
      */
-    @GetMapping("/searchCourseByCourseId")
+    @GetMapping("/getDetailsByCourseId")
     @ResponseBody
-    public ResultBean getCourseByCourseId(String couserId) {
-        return service.getCourseByCourseId(couserId);
+    public ResultBean getDetailsByCourseId(String courseId,String userId) {
+        return service.getDetailsByCourseId(courseId,userId);
     }
 
     /**
@@ -54,7 +52,83 @@ public class CourseController {
      * @return
      */
     @GetMapping("/getCourseByUserId")
-    public ResultBean getCourseByUserId(String userId, int pageNum, int pageSize) {
-        return service.getCourseByUserId(userId, pageNum, pageSize);
+    public ResultBean getCourseByUserId(@RequestParam(value="userId")String userId,
+                                        @RequestParam(value="token")String token,
+                                        @RequestParam(value="pageNum",defaultValue = "1")int pageNum,
+                                        @RequestParam(value="pageSize",defaultValue = "10")int pageSize) {
+        return service.getCourseByUserId(userId, token,pageNum, pageSize);
+    }
+
+    /**
+     * 课程每点击一次，学习次数加一
+     *
+     * @param catalogId 目录的id
+     * @return
+     */
+    @PostMapping("/addLearningTimes")
+    public ResultBean addLearningTimes(@RequestParam(value="catalogId")Long catalogId) {
+        return service.addLearningTimes(catalogId);
+    }
+
+    /**
+     * 取首页课程轮播图
+     * @return
+     */
+    @GetMapping("/getCarouselList")
+    @ResponseBody
+    public ResultBean getCarouselList() {
+        return service.getCarouselList();
+    }
+
+    /**
+     * 取课程分类（名师擅长专业相同接口）
+     */
+    @GetMapping("/getCourseTypeList")
+    public ResultBean getCourseType(){
+        return service.getCourseType();
+    }
+
+    /**
+     * 根据课程courseId取课程目录
+     * @param courseId 课程id
+     * @return ResultBean 结果
+     */
+    @GetMapping("/getCourseCatalogList")
+    public ResultBean getCourseCatalogList(@RequestParam(value="courseId") String courseId,String userId,String token){
+        return service.getCourseCatalogList(courseId,userId,token);
+    }
+
+    /**
+     * 根据课程catalogId取课程目录视屏的播放连接及记录的播放秒数
+     * @param catalogId     课程目录id
+     * @return ResultBean   结果
+     */
+    @GetMapping("/getCatalogVideoInfo")
+    public ResultBean getCatalogVideoInfo(@RequestParam(value="courseId") String courseId,
+                                          @RequestParam(value="catalogId") String catalogId,
+                                          @RequestParam(value="userId")String userId,
+                                          @RequestParam(value="token")String token){
+        return service.getCatalogVideoInfo(courseId,catalogId,userId,token);
+    }
+
+    /**
+     * 根据课程catalogId取课程目录文稿代码块
+     * @param catalogId     课程目录id
+     * @return ResultBean   结果
+     */
+    @GetMapping("/getCatalogDraft")
+    public ResultBean getCatalogDraft(@RequestParam(value="catalogId") String catalogId){
+        return service.getCatalogDraft(catalogId);
+    }
+
+    /**
+     * 取线下课程列表
+     * @param catalogId     课程目录id
+     * @return ResultBean   结果
+     */
+    @GetMapping("/getUnderlineCourseList")
+    public ResultBean getUnderlineCourseList(@RequestParam(value="pageNum",defaultValue = "1")int pageNum,
+                                      @RequestParam(value="pageSize",defaultValue = "10")int pageSize){
+        return service.getUnderlineCourseList(pageNum,pageSize);
     }
 }

@@ -13,6 +13,16 @@ public class TbCatalog {
 
     private Integer catalogOrder;
 
+    private String videoPath;
+
+    private String videoTime;
+
+    private String videoName;
+
+    private Long learningTimes;
+
+    private String isAuditioning;
+
     private String deleteFlag;
 
     private String effectFlag;
@@ -20,6 +30,8 @@ public class TbCatalog {
     private String remark1;
 
     private String remark2;
+
+    private String videoDraft;
 
     public Long getCatalogId() {
         return catalogId;
@@ -69,6 +81,46 @@ public class TbCatalog {
         this.catalogOrder = catalogOrder;
     }
 
+    public String getVideoPath() {
+        return videoPath;
+    }
+
+    public void setVideoPath(String videoPath) {
+        this.videoPath = videoPath == null ? null : videoPath.trim();
+    }
+
+    public String getVideoTime() {
+        return videoTime;
+    }
+
+    public void setVideoTime(String videoTime) {
+        this.videoTime = videoTime == null ? null : videoTime.trim();
+    }
+
+    public String getVideoName() {
+        return videoName;
+    }
+
+    public void setVideoName(String videoName) {
+        this.videoName = videoName == null ? null : videoName.trim();
+    }
+
+    public Long getLearningTimes() {
+        return learningTimes;
+    }
+
+    public void setLearningTimes(Long learningTimes) {
+        this.learningTimes = learningTimes;
+    }
+
+    public String getIsAuditioning() {
+        return isAuditioning;
+    }
+
+    public void setIsAuditioning(String isAuditioning) {
+        this.isAuditioning = isAuditioning == null ? null : isAuditioning.trim();
+    }
+
     public String getDeleteFlag() {
         return deleteFlag;
     }
@@ -99,5 +151,13 @@ public class TbCatalog {
 
     public void setRemark2(String remark2) {
         this.remark2 = remark2 == null ? null : remark2.trim();
+    }
+
+    public String getVideoDraft() {
+        return videoDraft;
+    }
+
+    public void setVideoDraft(String videoDraft) {
+        this.videoDraft = videoDraft == null ? null : videoDraft.trim();
     }
 }

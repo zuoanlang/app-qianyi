@@ -11,6 +11,10 @@ public class TbCategory {
 
     private Integer status;
 
+    private String keyWords;
+
+    private String imgPath;
+
     private Integer sortOrder;
 
     private Boolean isParent;
@@ -49,6 +53,22 @@ public class TbCategory {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public String getKeyWords() {
+        return keyWords;
+    }
+
+    public void setKeyWords(String keyWords) {
+        this.keyWords = keyWords == null ? null : keyWords.trim();
+    }
+
+    public String getImgPath() {
+        return imgPath;
+    }
+
+    public void setImgPath(String imgPath) {
+        this.imgPath = imgPath == null ? null : imgPath.trim();
     }
 
     public Integer getSortOrder() {

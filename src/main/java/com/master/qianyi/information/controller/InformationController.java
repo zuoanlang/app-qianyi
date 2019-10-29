@@ -1,8 +1,6 @@
 package com.master.qianyi.information.controller;
 
 import com.master.qianyi.information.service.InformationService;
-import com.master.qianyi.pojo.TbComment;
-import com.master.qianyi.pojo.TbInformation;
 import com.master.qianyi.utils.ResultBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -26,14 +24,15 @@ public class InformationController {
      * @param infoType 咨询类型（为空查询全部类型）
      * @return
      */
-    @GetMapping("/searchInformations")
+    @GetMapping("/getInformationList")
     @ResponseBody
-    public ResultBean getInformation(int pageNum, int pageSize, String infoType) {
+    public ResultBean getInformation(@RequestParam(value="pageNum", defaultValue="1") int pageNum,
+                                     @RequestParam(value="pageSize", defaultValue="1")  int pageSize, String infoType) {
         return service.getInformation(pageNum, pageSize, infoType);
     }
 
     /**
-     * 根据资讯id查找资讯(加上评论)
+     * 后台根据资讯id查找资讯details
      *
      * @param infoId
      * @return
@@ -45,16 +44,24 @@ public class InformationController {
     }
 
     /**
-     * *添加评论（课程评论、资讯评论、订单评论）
+     * app根据资讯id查找资讯details
      *
-     * @param id          课程id 或 资讯id 或 订单id
-     * @param userId      用户id
-     * @param commentType 评论类型（1：课程 or 2：资讯 or 3：订单）
-     * @param commentType 评论内容
+     * @param infoId
      * @return
      */
-    @RequestMapping("/insertComment")
-    public ResultBean insertComment(String id, String userId, String commentType, String commentContent) {
-        return service.insertComment(id, userId, commentType, commentContent);
+    @RequestMapping("/getInfoDetails")
+    @ResponseBody
+    public ResultBean getInfoDetails(@RequestParam(value="infoId") String infoId) {
+        return service.getInfoDetails(infoId);
     }
+
+    /**
+     * 调用时，改条资讯的阅读数+1
+     * @return
+     */
+    @RequestMapping("/addInfoViewTimes")
+    public ResultBean addInfoViewTimes(@RequestParam(value="infoId") String infoId){
+        return service.addInfoViewTimes(infoId);
+    }
+
 }

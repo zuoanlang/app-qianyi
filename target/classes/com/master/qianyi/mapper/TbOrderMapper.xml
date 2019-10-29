@@ -3,13 +3,20 @@
 <mapper namespace="com.master.qianyi.mapper.TbOrderMapper" >
   <resultMap id="BaseResultMap" type="com.master.qianyi.pojo.TbOrder" >
     <id column="order_id" property="orderId" jdbcType="VARCHAR" />
+    <result column="third_tradeNo" property="thirdTradeno" jdbcType="VARCHAR" />
     <result column="user_id" property="userId" jdbcType="VARCHAR" />
     <result column="good_id" property="goodId" jdbcType="VARCHAR" />
+    <result column="good_name" property="goodName" jdbcType="VARCHAR" />
+    <result column="good_belong_to" property="goodBelongTo" jdbcType="VARCHAR" />
     <result column="order_create_time" property="orderCreateTime" jdbcType="TIMESTAMP" />
+    <result column="order_refund_stime" property="orderRefundStime" jdbcType="TIMESTAMP" />
+    <result column="order_refund_etime" property="orderRefundEtime" jdbcType="TIMESTAMP" />
+    <result column="order_comment_time" property="orderCommentTime" jdbcType="TIMESTAMP" />
     <result column="order_pay_time" property="orderPayTime" jdbcType="TIMESTAMP" />
     <result column="mode_of_payment" property="modeOfPayment" jdbcType="CHAR" />
     <result column="order_status" property="orderStatus" jdbcType="CHAR" />
     <result column="order_refund_reason" property="orderRefundReason" jdbcType="VARCHAR" />
+    <result column="order_type" property="orderType" jdbcType="CHAR" />
     <result column="order_auditor" property="orderAuditor" jdbcType="VARCHAR" />
     <result column="order_amount" property="orderAmount" jdbcType="INTEGER" />
     <result column="order_comment" property="orderComment" jdbcType="VARCHAR" />
@@ -21,6 +28,10 @@
     <result column="remark3" property="remark3" jdbcType="VARCHAR" />
     <result column="remark4" property="remark4" jdbcType="VARCHAR" />
     <result column="remark2" property="remark2" jdbcType="VARCHAR" />
+    <result column="buyer_logon_id" property="buyerLogonId" jdbcType="VARCHAR" />
+    <result column="total_amount" property="totalAmount" jdbcType="DOUBLE" />
+    <result column="receipt_amount" property="receiptAmount" jdbcType="DOUBLE" />
+    <result column="buyer_pay_amount" property="buyerPayAmount" jdbcType="DOUBLE" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -81,9 +92,11 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    order_id, user_id, good_id, order_create_time, order_pay_time, mode_of_payment, order_status, 
-    order_refund_reason, order_auditor, order_amount, order_comment, order_rank, effect_flag, 
-    delete_flag, remark1, remark5, remark3, remark4, remark2
+    order_id, third_tradeNo, user_id, good_id, good_name, good_belong_to, order_create_time, 
+    order_refund_stime, order_refund_etime, order_comment_time, order_pay_time, mode_of_payment, 
+    order_status, order_refund_reason, order_type, order_auditor, order_amount, order_comment, 
+    order_rank, effect_flag, delete_flag, remark1, remark5, remark3, remark4, remark2, 
+    buyer_logon_id, total_amount, receipt_amount, buyer_pay_amount
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.master.qianyi.pojo.TbOrderExample" >
     select
@@ -117,20 +130,28 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.master.qianyi.pojo.TbOrder" >
-    insert into tb_order (order_id, user_id, good_id, 
-      order_create_time, order_pay_time, mode_of_payment, 
-      order_status, order_refund_reason, order_auditor, 
+    insert into tb_order (order_id, third_tradeNo, user_id, 
+      good_id, good_name, good_belong_to, 
+      order_create_time, order_refund_stime, 
+      order_refund_etime, order_comment_time, 
+      order_pay_time, mode_of_payment, order_status, 
+      order_refund_reason, order_type, order_auditor, 
       order_amount, order_comment, order_rank, 
       effect_flag, delete_flag, remark1, 
       remark5, remark3, remark4, 
-      remark2)
-    values (#{orderId,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{goodId,jdbcType=VARCHAR}, 
-      #{orderCreateTime,jdbcType=TIMESTAMP}, #{orderPayTime,jdbcType=TIMESTAMP}, #{modeOfPayment,jdbcType=CHAR}, 
-      #{orderStatus,jdbcType=CHAR}, #{orderRefundReason,jdbcType=VARCHAR}, #{orderAuditor,jdbcType=VARCHAR}, 
+      remark2, buyer_logon_id, total_amount, 
+      receipt_amount, buyer_pay_amount)
+    values (#{orderId,jdbcType=VARCHAR}, #{thirdTradeno,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, 
+      #{goodId,jdbcType=VARCHAR}, #{goodName,jdbcType=VARCHAR}, #{goodBelongTo,jdbcType=VARCHAR}, 
+      #{orderCreateTime,jdbcType=TIMESTAMP}, #{orderRefundStime,jdbcType=TIMESTAMP}, 
+      #{orderRefundEtime,jdbcType=TIMESTAMP}, #{orderCommentTime,jdbcType=TIMESTAMP}, 
+      #{orderPayTime,jdbcType=TIMESTAMP}, #{modeOfPayment,jdbcType=CHAR}, #{orderStatus,jdbcType=CHAR}, 
+      #{orderRefundReason,jdbcType=VARCHAR}, #{orderType,jdbcType=CHAR}, #{orderAuditor,jdbcType=VARCHAR}, 
       #{orderAmount,jdbcType=INTEGER}, #{orderComment,jdbcType=VARCHAR}, #{orderRank,jdbcType=CHAR}, 
       #{effectFlag,jdbcType=CHAR}, #{deleteFlag,jdbcType=CHAR}, #{remark1,jdbcType=VARCHAR}, 
       #{remark5,jdbcType=VARCHAR}, #{remark3,jdbcType=VARCHAR}, #{remark4,jdbcType=VARCHAR}, 
-      #{remark2,jdbcType=VARCHAR})
+      #{remark2,jdbcType=VARCHAR}, #{buyerLogonId,jdbcType=VARCHAR}, #{totalAmount,jdbcType=DOUBLE}, 
+      #{receiptAmount,jdbcType=DOUBLE}, #{buyerPayAmount,jdbcType=DOUBLE})
   </insert>
   <insert id="insertSelective" parameterType="com.master.qianyi.pojo.TbOrder" >
     insert into tb_order
@@ -138,14 +159,32 @@
       <if test="orderId != null" >
         order_id,
       </if>
+      <if test="thirdTradeno != null" >
+        third_tradeNo,
+      </if>
       <if test="userId != null" >
         user_id,
       </if>
       <if test="goodId != null" >
         good_id,
       </if>
+      <if test="goodName != null" >
+        good_name,
+      </if>
+      <if test="goodBelongTo != null" >
+        good_belong_to,
+      </if>
       <if test="orderCreateTime != null" >
         order_create_time,
+      </if>
+      <if test="orderRefundStime != null" >
+        order_refund_stime,
+      </if>
+      <if test="orderRefundEtime != null" >
+        order_refund_etime,
+      </if>
+      <if test="orderCommentTime != null" >
+        order_comment_time,
       </if>
       <if test="orderPayTime != null" >
         order_pay_time,
@@ -158,6 +197,9 @@
       </if>
       <if test="orderRefundReason != null" >
         order_refund_reason,
+      </if>
+      <if test="orderType != null" >
+        order_type,
       </if>
       <if test="orderAuditor != null" >
         order_auditor,
@@ -192,10 +234,25 @@
       <if test="remark2 != null" >
         remark2,
       </if>
+      <if test="buyerLogonId != null" >
+        buyer_logon_id,
+      </if>
+      <if test="totalAmount != null" >
+        total_amount,
+      </if>
+      <if test="receiptAmount != null" >
+        receipt_amount,
+      </if>
+      <if test="buyerPayAmount != null" >
+        buyer_pay_amount,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="orderId != null" >
         #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="thirdTradeno != null" >
+        #{thirdTradeno,jdbcType=VARCHAR},
       </if>
       <if test="userId != null" >
         #{userId,jdbcType=VARCHAR},
@@ -203,8 +260,23 @@
       <if test="goodId != null" >
         #{goodId,jdbcType=VARCHAR},
       </if>
+      <if test="goodName != null" >
+        #{goodName,jdbcType=VARCHAR},
+      </if>
+      <if test="goodBelongTo != null" >
+        #{goodBelongTo,jdbcType=VARCHAR},
+      </if>
       <if test="orderCreateTime != null" >
         #{orderCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderRefundStime != null" >
+        #{orderRefundStime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderRefundEtime != null" >
+        #{orderRefundEtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderCommentTime != null" >
+        #{orderCommentTime,jdbcType=TIMESTAMP},
       </if>
       <if test="orderPayTime != null" >
         #{orderPayTime,jdbcType=TIMESTAMP},
@@ -217,6 +289,9 @@
       </if>
       <if test="orderRefundReason != null" >
         #{orderRefundReason,jdbcType=VARCHAR},
+      </if>
+      <if test="orderType != null" >
+        #{orderType,jdbcType=CHAR},
       </if>
       <if test="orderAuditor != null" >
         #{orderAuditor,jdbcType=VARCHAR},
@@ -251,6 +326,18 @@
       <if test="remark2 != null" >
         #{remark2,jdbcType=VARCHAR},
       </if>
+      <if test="buyerLogonId != null" >
+        #{buyerLogonId,jdbcType=VARCHAR},
+      </if>
+      <if test="totalAmount != null" >
+        #{totalAmount,jdbcType=DOUBLE},
+      </if>
+      <if test="receiptAmount != null" >
+        #{receiptAmount,jdbcType=DOUBLE},
+      </if>
+      <if test="buyerPayAmount != null" >
+        #{buyerPayAmount,jdbcType=DOUBLE},
+      </if>
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.master.qianyi.pojo.TbOrderExample" resultType="java.lang.Integer" >
@@ -265,14 +352,32 @@
       <if test="record.orderId != null" >
         order_id = #{record.orderId,jdbcType=VARCHAR},
       </if>
+      <if test="record.thirdTradeno != null" >
+        third_tradeNo = #{record.thirdTradeno,jdbcType=VARCHAR},
+      </if>
       <if test="record.userId != null" >
         user_id = #{record.userId,jdbcType=VARCHAR},
       </if>
       <if test="record.goodId != null" >
         good_id = #{record.goodId,jdbcType=VARCHAR},
       </if>
+      <if test="record.goodName != null" >
+        good_name = #{record.goodName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goodBelongTo != null" >
+        good_belong_to = #{record.goodBelongTo,jdbcType=VARCHAR},
+      </if>
       <if test="record.orderCreateTime != null" >
         order_create_time = #{record.orderCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.orderRefundStime != null" >
+        order_refund_stime = #{record.orderRefundStime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.orderRefundEtime != null" >
+        order_refund_etime = #{record.orderRefundEtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.orderCommentTime != null" >
+        order_comment_time = #{record.orderCommentTime,jdbcType=TIMESTAMP},
       </if>
       <if test="record.orderPayTime != null" >
         order_pay_time = #{record.orderPayTime,jdbcType=TIMESTAMP},
@@ -285,6 +390,9 @@
       </if>
       <if test="record.orderRefundReason != null" >
         order_refund_reason = #{record.orderRefundReason,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderType != null" >
+        order_type = #{record.orderType,jdbcType=CHAR},
       </if>
       <if test="record.orderAuditor != null" >
         order_auditor = #{record.orderAuditor,jdbcType=VARCHAR},
@@ -319,6 +427,18 @@
       <if test="record.remark2 != null" >
         remark2 = #{record.remark2,jdbcType=VARCHAR},
       </if>
+      <if test="record.buyerLogonId != null" >
+        buyer_logon_id = #{record.buyerLogonId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.totalAmount != null" >
+        total_amount = #{record.totalAmount,jdbcType=DOUBLE},
+      </if>
+      <if test="record.receiptAmount != null" >
+        receipt_amount = #{record.receiptAmount,jdbcType=DOUBLE},
+      </if>
+      <if test="record.buyerPayAmount != null" >
+        buyer_pay_amount = #{record.buyerPayAmount,jdbcType=DOUBLE},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -327,13 +447,20 @@
   <update id="updateByExample" parameterType="map" >
     update tb_order
     set order_id = #{record.orderId,jdbcType=VARCHAR},
+      third_tradeNo = #{record.thirdTradeno,jdbcType=VARCHAR},
       user_id = #{record.userId,jdbcType=VARCHAR},
       good_id = #{record.goodId,jdbcType=VARCHAR},
+      good_name = #{record.goodName,jdbcType=VARCHAR},
+      good_belong_to = #{record.goodBelongTo,jdbcType=VARCHAR},
       order_create_time = #{record.orderCreateTime,jdbcType=TIMESTAMP},
+      order_refund_stime = #{record.orderRefundStime,jdbcType=TIMESTAMP},
+      order_refund_etime = #{record.orderRefundEtime,jdbcType=TIMESTAMP},
+      order_comment_time = #{record.orderCommentTime,jdbcType=TIMESTAMP},
       order_pay_time = #{record.orderPayTime,jdbcType=TIMESTAMP},
       mode_of_payment = #{record.modeOfPayment,jdbcType=CHAR},
       order_status = #{record.orderStatus,jdbcType=CHAR},
       order_refund_reason = #{record.orderRefundReason,jdbcType=VARCHAR},
+      order_type = #{record.orderType,jdbcType=CHAR},
       order_auditor = #{record.orderAuditor,jdbcType=VARCHAR},
       order_amount = #{record.orderAmount,jdbcType=INTEGER},
       order_comment = #{record.orderComment,jdbcType=VARCHAR},
@@ -344,7 +471,11 @@
       remark5 = #{record.remark5,jdbcType=VARCHAR},
       remark3 = #{record.remark3,jdbcType=VARCHAR},
       remark4 = #{record.remark4,jdbcType=VARCHAR},
-      remark2 = #{record.remark2,jdbcType=VARCHAR}
+      remark2 = #{record.remark2,jdbcType=VARCHAR},
+      buyer_logon_id = #{record.buyerLogonId,jdbcType=VARCHAR},
+      total_amount = #{record.totalAmount,jdbcType=DOUBLE},
+      receipt_amount = #{record.receiptAmount,jdbcType=DOUBLE},
+      buyer_pay_amount = #{record.buyerPayAmount,jdbcType=DOUBLE}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -352,14 +483,32 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.master.qianyi.pojo.TbOrder" >
     update tb_order
     <set >
+      <if test="thirdTradeno != null" >
+        third_tradeNo = #{thirdTradeno,jdbcType=VARCHAR},
+      </if>
       <if test="userId != null" >
         user_id = #{userId,jdbcType=VARCHAR},
       </if>
       <if test="goodId != null" >
         good_id = #{goodId,jdbcType=VARCHAR},
       </if>
+      <if test="goodName != null" >
+        good_name = #{goodName,jdbcType=VARCHAR},
+      </if>
+      <if test="goodBelongTo != null" >
+        good_belong_to = #{goodBelongTo,jdbcType=VARCHAR},
+      </if>
       <if test="orderCreateTime != null" >
         order_create_time = #{orderCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderRefundStime != null" >
+        order_refund_stime = #{orderRefundStime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderRefundEtime != null" >
+        order_refund_etime = #{orderRefundEtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderCommentTime != null" >
+        order_comment_time = #{orderCommentTime,jdbcType=TIMESTAMP},
       </if>
       <if test="orderPayTime != null" >
         order_pay_time = #{orderPayTime,jdbcType=TIMESTAMP},
@@ -372,6 +521,9 @@
       </if>
       <if test="orderRefundReason != null" >
         order_refund_reason = #{orderRefundReason,jdbcType=VARCHAR},
+      </if>
+      <if test="orderType != null" >
+        order_type = #{orderType,jdbcType=CHAR},
       </if>
       <if test="orderAuditor != null" >
         order_auditor = #{orderAuditor,jdbcType=VARCHAR},
@@ -406,18 +558,37 @@
       <if test="remark2 != null" >
         remark2 = #{remark2,jdbcType=VARCHAR},
       </if>
+      <if test="buyerLogonId != null" >
+        buyer_logon_id = #{buyerLogonId,jdbcType=VARCHAR},
+      </if>
+      <if test="totalAmount != null" >
+        total_amount = #{totalAmount,jdbcType=DOUBLE},
+      </if>
+      <if test="receiptAmount != null" >
+        receipt_amount = #{receiptAmount,jdbcType=DOUBLE},
+      </if>
+      <if test="buyerPayAmount != null" >
+        buyer_pay_amount = #{buyerPayAmount,jdbcType=DOUBLE},
+      </if>
     </set>
     where order_id = #{orderId,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.master.qianyi.pojo.TbOrder" >
     update tb_order
-    set user_id = #{userId,jdbcType=VARCHAR},
+    set third_tradeNo = #{thirdTradeno,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=VARCHAR},
       good_id = #{goodId,jdbcType=VARCHAR},
+      good_name = #{goodName,jdbcType=VARCHAR},
+      good_belong_to = #{goodBelongTo,jdbcType=VARCHAR},
       order_create_time = #{orderCreateTime,jdbcType=TIMESTAMP},
+      order_refund_stime = #{orderRefundStime,jdbcType=TIMESTAMP},
+      order_refund_etime = #{orderRefundEtime,jdbcType=TIMESTAMP},
+      order_comment_time = #{orderCommentTime,jdbcType=TIMESTAMP},
       order_pay_time = #{orderPayTime,jdbcType=TIMESTAMP},
       mode_of_payment = #{modeOfPayment,jdbcType=CHAR},
       order_status = #{orderStatus,jdbcType=CHAR},
       order_refund_reason = #{orderRefundReason,jdbcType=VARCHAR},
+      order_type = #{orderType,jdbcType=CHAR},
       order_auditor = #{orderAuditor,jdbcType=VARCHAR},
       order_amount = #{orderAmount,jdbcType=INTEGER},
       order_comment = #{orderComment,jdbcType=VARCHAR},
@@ -428,7 +599,11 @@
       remark5 = #{remark5,jdbcType=VARCHAR},
       remark3 = #{remark3,jdbcType=VARCHAR},
       remark4 = #{remark4,jdbcType=VARCHAR},
-      remark2 = #{remark2,jdbcType=VARCHAR}
+      remark2 = #{remark2,jdbcType=VARCHAR},
+      buyer_logon_id = #{buyerLogonId,jdbcType=VARCHAR},
+      total_amount = #{totalAmount,jdbcType=DOUBLE},
+      receipt_amount = #{receiptAmount,jdbcType=DOUBLE},
+      buyer_pay_amount = #{buyerPayAmount,jdbcType=DOUBLE}
     where order_id = #{orderId,jdbcType=VARCHAR}
   </update>
 </mapper>

@@ -5,11 +5,23 @@ import java.util.Date;
 public class TbOrder {
     private String orderId;
 
+    private String thirdTradeno;
+
     private String userId;
 
     private String goodId;
 
+    private String goodName;
+
+    private String goodBelongTo;
+
     private Date orderCreateTime;
+
+    private Date orderRefundStime;
+
+    private Date orderRefundEtime;
+
+    private Date orderCommentTime;
 
     private Date orderPayTime;
 
@@ -18,6 +30,8 @@ public class TbOrder {
     private String orderStatus;
 
     private String orderRefundReason;
+
+    private String orderType;
 
     private String orderAuditor;
 
@@ -41,12 +55,28 @@ public class TbOrder {
 
     private String remark2;
 
+    private String buyerLogonId;
+
+    private Double totalAmount;
+
+    private Double receiptAmount;
+
+    private Double buyerPayAmount;
+
     public String getOrderId() {
         return orderId;
     }
 
     public void setOrderId(String orderId) {
         this.orderId = orderId == null ? null : orderId.trim();
+    }
+
+    public String getThirdTradeno() {
+        return thirdTradeno;
+    }
+
+    public void setThirdTradeno(String thirdTradeno) {
+        this.thirdTradeno = thirdTradeno == null ? null : thirdTradeno.trim();
     }
 
     public String getUserId() {
@@ -65,12 +95,52 @@ public class TbOrder {
         this.goodId = goodId == null ? null : goodId.trim();
     }
 
+    public String getGoodName() {
+        return goodName;
+    }
+
+    public void setGoodName(String goodName) {
+        this.goodName = goodName == null ? null : goodName.trim();
+    }
+
+    public String getGoodBelongTo() {
+        return goodBelongTo;
+    }
+
+    public void setGoodBelongTo(String goodBelongTo) {
+        this.goodBelongTo = goodBelongTo == null ? null : goodBelongTo.trim();
+    }
+
     public Date getOrderCreateTime() {
         return orderCreateTime;
     }
 
     public void setOrderCreateTime(Date orderCreateTime) {
         this.orderCreateTime = orderCreateTime;
+    }
+
+    public Date getOrderRefundStime() {
+        return orderRefundStime;
+    }
+
+    public void setOrderRefundStime(Date orderRefundStime) {
+        this.orderRefundStime = orderRefundStime;
+    }
+
+    public Date getOrderRefundEtime() {
+        return orderRefundEtime;
+    }
+
+    public void setOrderRefundEtime(Date orderRefundEtime) {
+        this.orderRefundEtime = orderRefundEtime;
+    }
+
+    public Date getOrderCommentTime() {
+        return orderCommentTime;
+    }
+
+    public void setOrderCommentTime(Date orderCommentTime) {
+        this.orderCommentTime = orderCommentTime;
     }
 
     public Date getOrderPayTime() {
@@ -103,6 +173,14 @@ public class TbOrder {
 
     public void setOrderRefundReason(String orderRefundReason) {
         this.orderRefundReason = orderRefundReason == null ? null : orderRefundReason.trim();
+    }
+
+    public String getOrderType() {
+        return orderType;
+    }
+
+    public void setOrderType(String orderType) {
+        this.orderType = orderType == null ? null : orderType.trim();
     }
 
     public String getOrderAuditor() {
@@ -191,5 +269,37 @@ public class TbOrder {
 
     public void setRemark2(String remark2) {
         this.remark2 = remark2 == null ? null : remark2.trim();
+    }
+
+    public String getBuyerLogonId() {
+        return buyerLogonId;
+    }
+
+    public void setBuyerLogonId(String buyerLogonId) {
+        this.buyerLogonId = buyerLogonId == null ? null : buyerLogonId.trim();
+    }
+
+    public Double getTotalAmount() {
+        return totalAmount;
+    }
+
+    public void setTotalAmount(Double totalAmount) {
+        this.totalAmount = totalAmount;
+    }
+
+    public Double getReceiptAmount() {
+        return receiptAmount;
+    }
+
+    public void setReceiptAmount(Double receiptAmount) {
+        this.receiptAmount = receiptAmount;
+    }
+
+    public Double getBuyerPayAmount() {
+        return buyerPayAmount;
+    }
+
+    public void setBuyerPayAmount(Double buyerPayAmount) {
+        this.buyerPayAmount = buyerPayAmount;
     }
 }

@@ -1,38 +1,38 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.master.qianyi.mapper.TbChapterMapper">
-  <resultMap id="BaseResultMap" type="com.master.qianyi.pojo.TbChapter">
-    <id column="chapter_id" jdbcType="VARCHAR" property="chapterId" />
-    <result column="catalog_id" jdbcType="VARCHAR" property="catalogId" />
-    <result column="chapter_order" jdbcType="INTEGER" property="chapterOrder" />
-    <result column="chapter_name" jdbcType="VARCHAR" property="chapterName" />
-    <result column="learning_times" jdbcType="INTEGER" property="learningTimes" />
-    <result column="video_path" jdbcType="VARCHAR" property="videoPath" />
-    <result column="manuscript" jdbcType="VARCHAR" property="manuscript" />
-    <result column="delete_flag" jdbcType="CHAR" property="deleteFlag" />
-    <result column="effect_flag" jdbcType="CHAR" property="effectFlag" />
-    <result column="remark1" jdbcType="VARCHAR" property="remark1" />
-    <result column="remark2" jdbcType="VARCHAR" property="remark2" />
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.master.qianyi.mapper.TbChapterMapper" >
+  <resultMap id="BaseResultMap" type="com.master.qianyi.pojo.TbChapter" >
+    <id column="chapter_id" property="chapterId" jdbcType="VARCHAR" />
+    <result column="catalog_id" property="catalogId" jdbcType="VARCHAR" />
+    <result column="chapter_order" property="chapterOrder" jdbcType="INTEGER" />
+    <result column="chapter_name" property="chapterName" jdbcType="VARCHAR" />
+    <result column="learning_times" property="learningTimes" jdbcType="INTEGER" />
+    <result column="video_path" property="videoPath" jdbcType="VARCHAR" />
+    <result column="manuscript" property="manuscript" jdbcType="VARCHAR" />
+    <result column="delete_flag" property="deleteFlag" jdbcType="CHAR" />
+    <result column="effect_flag" property="effectFlag" jdbcType="CHAR" />
+    <result column="remark1" property="remark1" jdbcType="VARCHAR" />
+    <result column="remark2" property="remark2" jdbcType="VARCHAR" />
   </resultMap>
-  <sql id="Example_Where_Clause">
-    <where>
-      <foreach collection="oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
                   and ${criterion.condition}
                 </when>
-                <when test="criterion.singleValue">
+                <when test="criterion.singleValue" >
                   and ${criterion.condition} #{criterion.value}
                 </when>
-                <when test="criterion.betweenValue">
+                <when test="criterion.betweenValue" >
                   and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
                 </when>
-                <when test="criterion.listValue">
+                <when test="criterion.listValue" >
                   and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
                     #{listItem}
                   </foreach>
                 </when>
@@ -43,25 +43,25 @@
       </foreach>
     </where>
   </sql>
-  <sql id="Update_By_Example_Where_Clause">
-    <where>
-      <foreach collection="example.oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
                   and ${criterion.condition}
                 </when>
-                <when test="criterion.singleValue">
+                <when test="criterion.singleValue" >
                   and ${criterion.condition} #{criterion.value}
                 </when>
-                <when test="criterion.betweenValue">
+                <when test="criterion.betweenValue" >
                   and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
                 </when>
-                <when test="criterion.listValue">
+                <when test="criterion.listValue" >
                   and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
                     #{listItem}
                   </foreach>
                 </when>
@@ -72,42 +72,42 @@
       </foreach>
     </where>
   </sql>
-  <sql id="Base_Column_List">
+  <sql id="Base_Column_List" >
     chapter_id, catalog_id, chapter_order, chapter_name, learning_times, video_path, 
     manuscript, delete_flag, effect_flag, remark1, remark2
   </sql>
-  <select id="selectByExample" parameterType="com.master.qianyi.pojo.TbChapterExample" resultMap="BaseResultMap">
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.master.qianyi.pojo.TbChapterExample" >
     select
-    <if test="distinct">
+    <if test="distinct" >
       distinct
     </if>
     'true' as QUERYID,
     <include refid="Base_Column_List" />
     from tb_chapter
-    <if test="_parameter != null">
+    <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
-    <if test="orderByClause != null">
+    <if test="orderByClause != null" >
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
     from tb_chapter
     where chapter_id = #{chapterId,jdbcType=VARCHAR}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from tb_chapter
     where chapter_id = #{chapterId,jdbcType=VARCHAR}
   </delete>
-  <delete id="deleteByExample" parameterType="com.master.qianyi.pojo.TbChapterExample">
+  <delete id="deleteByExample" parameterType="com.master.qianyi.pojo.TbChapterExample" >
     delete from tb_chapter
-    <if test="_parameter != null">
+    <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.master.qianyi.pojo.TbChapter">
+  <insert id="insert" parameterType="com.master.qianyi.pojo.TbChapter" >
     insert into tb_chapter (chapter_id, catalog_id, chapter_order, 
       chapter_name, learning_times, video_path, 
       manuscript, delete_flag, effect_flag, 
@@ -117,127 +117,127 @@
       #{manuscript,jdbcType=VARCHAR}, #{deleteFlag,jdbcType=CHAR}, #{effectFlag,jdbcType=CHAR}, 
       #{remark1,jdbcType=VARCHAR}, #{remark2,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.master.qianyi.pojo.TbChapter">
+  <insert id="insertSelective" parameterType="com.master.qianyi.pojo.TbChapter" >
     insert into tb_chapter
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="chapterId != null">
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="chapterId != null" >
         chapter_id,
       </if>
-      <if test="catalogId != null">
+      <if test="catalogId != null" >
         catalog_id,
       </if>
-      <if test="chapterOrder != null">
+      <if test="chapterOrder != null" >
         chapter_order,
       </if>
-      <if test="chapterName != null">
+      <if test="chapterName != null" >
         chapter_name,
       </if>
-      <if test="learningTimes != null">
+      <if test="learningTimes != null" >
         learning_times,
       </if>
-      <if test="videoPath != null">
+      <if test="videoPath != null" >
         video_path,
       </if>
-      <if test="manuscript != null">
+      <if test="manuscript != null" >
         manuscript,
       </if>
-      <if test="deleteFlag != null">
+      <if test="deleteFlag != null" >
         delete_flag,
       </if>
-      <if test="effectFlag != null">
+      <if test="effectFlag != null" >
         effect_flag,
       </if>
-      <if test="remark1 != null">
+      <if test="remark1 != null" >
         remark1,
       </if>
-      <if test="remark2 != null">
+      <if test="remark2 != null" >
         remark2,
       </if>
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="chapterId != null">
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="chapterId != null" >
         #{chapterId,jdbcType=VARCHAR},
       </if>
-      <if test="catalogId != null">
+      <if test="catalogId != null" >
         #{catalogId,jdbcType=VARCHAR},
       </if>
-      <if test="chapterOrder != null">
+      <if test="chapterOrder != null" >
         #{chapterOrder,jdbcType=INTEGER},
       </if>
-      <if test="chapterName != null">
+      <if test="chapterName != null" >
         #{chapterName,jdbcType=VARCHAR},
       </if>
-      <if test="learningTimes != null">
+      <if test="learningTimes != null" >
         #{learningTimes,jdbcType=INTEGER},
       </if>
-      <if test="videoPath != null">
+      <if test="videoPath != null" >
         #{videoPath,jdbcType=VARCHAR},
       </if>
-      <if test="manuscript != null">
+      <if test="manuscript != null" >
         #{manuscript,jdbcType=VARCHAR},
       </if>
-      <if test="deleteFlag != null">
+      <if test="deleteFlag != null" >
         #{deleteFlag,jdbcType=CHAR},
       </if>
-      <if test="effectFlag != null">
+      <if test="effectFlag != null" >
         #{effectFlag,jdbcType=CHAR},
       </if>
-      <if test="remark1 != null">
+      <if test="remark1 != null" >
         #{remark1,jdbcType=VARCHAR},
       </if>
-      <if test="remark2 != null">
+      <if test="remark2 != null" >
         #{remark2,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.master.qianyi.pojo.TbChapterExample" resultType="java.lang.Integer">
+  <select id="countByExample" parameterType="com.master.qianyi.pojo.TbChapterExample" resultType="java.lang.Integer" >
     select count(*) from tb_chapter
-    <if test="_parameter != null">
+    <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
-  <update id="updateByExampleSelective" parameterType="map">
+  <update id="updateByExampleSelective" parameterType="map" >
     update tb_chapter
-    <set>
-      <if test="record.chapterId != null">
+    <set >
+      <if test="record.chapterId != null" >
         chapter_id = #{record.chapterId,jdbcType=VARCHAR},
       </if>
-      <if test="record.catalogId != null">
+      <if test="record.catalogId != null" >
         catalog_id = #{record.catalogId,jdbcType=VARCHAR},
       </if>
-      <if test="record.chapterOrder != null">
+      <if test="record.chapterOrder != null" >
         chapter_order = #{record.chapterOrder,jdbcType=INTEGER},
       </if>
-      <if test="record.chapterName != null">
+      <if test="record.chapterName != null" >
         chapter_name = #{record.chapterName,jdbcType=VARCHAR},
       </if>
-      <if test="record.learningTimes != null">
+      <if test="record.learningTimes != null" >
         learning_times = #{record.learningTimes,jdbcType=INTEGER},
       </if>
-      <if test="record.videoPath != null">
+      <if test="record.videoPath != null" >
         video_path = #{record.videoPath,jdbcType=VARCHAR},
       </if>
-      <if test="record.manuscript != null">
+      <if test="record.manuscript != null" >
         manuscript = #{record.manuscript,jdbcType=VARCHAR},
       </if>
-      <if test="record.deleteFlag != null">
+      <if test="record.deleteFlag != null" >
         delete_flag = #{record.deleteFlag,jdbcType=CHAR},
       </if>
-      <if test="record.effectFlag != null">
+      <if test="record.effectFlag != null" >
         effect_flag = #{record.effectFlag,jdbcType=CHAR},
       </if>
-      <if test="record.remark1 != null">
+      <if test="record.remark1 != null" >
         remark1 = #{record.remark1,jdbcType=VARCHAR},
       </if>
-      <if test="record.remark2 != null">
+      <if test="record.remark2 != null" >
         remark2 = #{record.remark2,jdbcType=VARCHAR},
       </if>
     </set>
-    <if test="_parameter != null">
+    <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByExample" parameterType="map">
+  <update id="updateByExample" parameterType="map" >
     update tb_chapter
     set chapter_id = #{record.chapterId,jdbcType=VARCHAR},
       catalog_id = #{record.catalogId,jdbcType=VARCHAR},
@@ -250,350 +250,47 @@
       effect_flag = #{record.effectFlag,jdbcType=CHAR},
       remark1 = #{record.remark1,jdbcType=VARCHAR},
       remark2 = #{record.remark2,jdbcType=VARCHAR}
-    <if test="_parameter != null">
+    <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.master.qianyi.pojo.TbChapter">
+  <update id="updateByPrimaryKeySelective" parameterType="com.master.qianyi.pojo.TbChapter" >
     update tb_chapter
-    <set>
-      <if test="catalogId != null">
+    <set >
+      <if test="catalogId != null" >
         catalog_id = #{catalogId,jdbcType=VARCHAR},
       </if>
-      <if test="chapterOrder != null">
+      <if test="chapterOrder != null" >
         chapter_order = #{chapterOrder,jdbcType=INTEGER},
       </if>
-      <if test="chapterName != null">
+      <if test="chapterName != null" >
         chapter_name = #{chapterName,jdbcType=VARCHAR},
       </if>
-      <if test="learningTimes != null">
+      <if test="learningTimes != null" >
         learning_times = #{learningTimes,jdbcType=INTEGER},
       </if>
-      <if test="videoPath != null">
+      <if test="videoPath != null" >
         video_path = #{videoPath,jdbcType=VARCHAR},
       </if>
-      <if test="manuscript != null">
+      <if test="manuscript != null" >
         manuscript = #{manuscript,jdbcType=VARCHAR},
       </if>
-      <if test="deleteFlag != null">
+      <if test="deleteFlag != null" >
         delete_flag = #{deleteFlag,jdbcType=CHAR},
       </if>
-      <if test="effectFlag != null">
+      <if test="effectFlag != null" >
         effect_flag = #{effectFlag,jdbcType=CHAR},
       </if>
-      <if test="remark1 != null">
+      <if test="remark1 != null" >
         remark1 = #{remark1,jdbcType=VARCHAR},
       </if>
-      <if test="remark2 != null">
+      <if test="remark2 != null" >
         remark2 = #{remark2,jdbcType=VARCHAR},
       </if>
     </set>
     where chapter_id = #{chapterId,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.master.qianyi.pojo.TbChapter">
-    update tb_chapter
-    set catalog_id = #{catalogId,jdbcType=VARCHAR},
-      chapter_order = #{chapterOrder,jdbcType=INTEGER},
-      chapter_name = #{chapterName,jdbcType=VARCHAR},
-      learning_times = #{learningTimes,jdbcType=INTEGER},
-      video_path = #{videoPath,jdbcType=VARCHAR},
-      manuscript = #{manuscript,jdbcType=VARCHAR},
-      delete_flag = #{deleteFlag,jdbcType=CHAR},
-      effect_flag = #{effectFlag,jdbcType=CHAR},
-      remark1 = #{remark1,jdbcType=VARCHAR},
-      remark2 = #{remark2,jdbcType=VARCHAR}
-    where chapter_id = #{chapterId,jdbcType=VARCHAR}
-  </update>
-  <resultMap id="BaseResultMap" type="com.master.qianyi.pojo.TbChapter">
-    <id column="chapter_id" jdbcType="VARCHAR" property="chapterId" />
-    <result column="catalog_id" jdbcType="VARCHAR" property="catalogId" />
-    <result column="chapter_order" jdbcType="INTEGER" property="chapterOrder" />
-    <result column="chapter_name" jdbcType="VARCHAR" property="chapterName" />
-    <result column="learning_times" jdbcType="INTEGER" property="learningTimes" />
-    <result column="video_path" jdbcType="VARCHAR" property="videoPath" />
-    <result column="manuscript" jdbcType="VARCHAR" property="manuscript" />
-    <result column="delete_flag" jdbcType="CHAR" property="deleteFlag" />
-    <result column="effect_flag" jdbcType="CHAR" property="effectFlag" />
-    <result column="remark1" jdbcType="VARCHAR" property="remark1" />
-    <result column="remark2" jdbcType="VARCHAR" property="remark2" />
-  </resultMap>
-  <sql id="Example_Where_Clause">
-    <where>
-      <foreach collection="oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue">
-                  and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Update_By_Example_Where_Clause">
-    <where>
-      <foreach collection="example.oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue">
-                  and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Base_Column_List">
-    chapter_id, catalog_id, chapter_order, chapter_name, learning_times, video_path, 
-    manuscript, delete_flag, effect_flag, remark1, remark2
-  </sql>
-  <select id="selectByExample" parameterType="com.master.qianyi.pojo.TbChapterExample" resultMap="BaseResultMap">
-    select
-    <if test="distinct">
-      distinct
-    </if>
-    'true' as QUERYID,
-    <include refid="Base_Column_List" />
-    from tb_chapter
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null">
-      order by ${orderByClause}
-    </if>
-  </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from tb_chapter
-    where chapter_id = #{chapterId,jdbcType=VARCHAR}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-    delete from tb_chapter
-    where chapter_id = #{chapterId,jdbcType=VARCHAR}
-  </delete>
-  <delete id="deleteByExample" parameterType="com.master.qianyi.pojo.TbChapterExample">
-    delete from tb_chapter
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-  </delete>
-  <insert id="insert" parameterType="com.master.qianyi.pojo.TbChapter">
-    insert into tb_chapter (chapter_id, catalog_id, chapter_order, 
-      chapter_name, learning_times, video_path, 
-      manuscript, delete_flag, effect_flag, 
-      remark1, remark2)
-    values (#{chapterId,jdbcType=VARCHAR}, #{catalogId,jdbcType=VARCHAR}, #{chapterOrder,jdbcType=INTEGER}, 
-      #{chapterName,jdbcType=VARCHAR}, #{learningTimes,jdbcType=INTEGER}, #{videoPath,jdbcType=VARCHAR}, 
-      #{manuscript,jdbcType=VARCHAR}, #{deleteFlag,jdbcType=CHAR}, #{effectFlag,jdbcType=CHAR}, 
-      #{remark1,jdbcType=VARCHAR}, #{remark2,jdbcType=VARCHAR})
-  </insert>
-  <insert id="insertSelective" parameterType="com.master.qianyi.pojo.TbChapter">
-    insert into tb_chapter
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="chapterId != null">
-        chapter_id,
-      </if>
-      <if test="catalogId != null">
-        catalog_id,
-      </if>
-      <if test="chapterOrder != null">
-        chapter_order,
-      </if>
-      <if test="chapterName != null">
-        chapter_name,
-      </if>
-      <if test="learningTimes != null">
-        learning_times,
-      </if>
-      <if test="videoPath != null">
-        video_path,
-      </if>
-      <if test="manuscript != null">
-        manuscript,
-      </if>
-      <if test="deleteFlag != null">
-        delete_flag,
-      </if>
-      <if test="effectFlag != null">
-        effect_flag,
-      </if>
-      <if test="remark1 != null">
-        remark1,
-      </if>
-      <if test="remark2 != null">
-        remark2,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="chapterId != null">
-        #{chapterId,jdbcType=VARCHAR},
-      </if>
-      <if test="catalogId != null">
-        #{catalogId,jdbcType=VARCHAR},
-      </if>
-      <if test="chapterOrder != null">
-        #{chapterOrder,jdbcType=INTEGER},
-      </if>
-      <if test="chapterName != null">
-        #{chapterName,jdbcType=VARCHAR},
-      </if>
-      <if test="learningTimes != null">
-        #{learningTimes,jdbcType=INTEGER},
-      </if>
-      <if test="videoPath != null">
-        #{videoPath,jdbcType=VARCHAR},
-      </if>
-      <if test="manuscript != null">
-        #{manuscript,jdbcType=VARCHAR},
-      </if>
-      <if test="deleteFlag != null">
-        #{deleteFlag,jdbcType=CHAR},
-      </if>
-      <if test="effectFlag != null">
-        #{effectFlag,jdbcType=CHAR},
-      </if>
-      <if test="remark1 != null">
-        #{remark1,jdbcType=VARCHAR},
-      </if>
-      <if test="remark2 != null">
-        #{remark2,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <select id="countByExample" parameterType="com.master.qianyi.pojo.TbChapterExample" resultType="java.lang.Integer">
-    select count(*) from tb_chapter
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-  </select>
-  <update id="updateByExampleSelective" parameterType="map">
-    update tb_chapter
-    <set>
-      <if test="record.chapterId != null">
-        chapter_id = #{record.chapterId,jdbcType=VARCHAR},
-      </if>
-      <if test="record.catalogId != null">
-        catalog_id = #{record.catalogId,jdbcType=VARCHAR},
-      </if>
-      <if test="record.chapterOrder != null">
-        chapter_order = #{record.chapterOrder,jdbcType=INTEGER},
-      </if>
-      <if test="record.chapterName != null">
-        chapter_name = #{record.chapterName,jdbcType=VARCHAR},
-      </if>
-      <if test="record.learningTimes != null">
-        learning_times = #{record.learningTimes,jdbcType=INTEGER},
-      </if>
-      <if test="record.videoPath != null">
-        video_path = #{record.videoPath,jdbcType=VARCHAR},
-      </if>
-      <if test="record.manuscript != null">
-        manuscript = #{record.manuscript,jdbcType=VARCHAR},
-      </if>
-      <if test="record.deleteFlag != null">
-        delete_flag = #{record.deleteFlag,jdbcType=CHAR},
-      </if>
-      <if test="record.effectFlag != null">
-        effect_flag = #{record.effectFlag,jdbcType=CHAR},
-      </if>
-      <if test="record.remark1 != null">
-        remark1 = #{record.remark1,jdbcType=VARCHAR},
-      </if>
-      <if test="record.remark2 != null">
-        remark2 = #{record.remark2,jdbcType=VARCHAR},
-      </if>
-    </set>
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExample" parameterType="map">
-    update tb_chapter
-    set chapter_id = #{record.chapterId,jdbcType=VARCHAR},
-      catalog_id = #{record.catalogId,jdbcType=VARCHAR},
-      chapter_order = #{record.chapterOrder,jdbcType=INTEGER},
-      chapter_name = #{record.chapterName,jdbcType=VARCHAR},
-      learning_times = #{record.learningTimes,jdbcType=INTEGER},
-      video_path = #{record.videoPath,jdbcType=VARCHAR},
-      manuscript = #{record.manuscript,jdbcType=VARCHAR},
-      delete_flag = #{record.deleteFlag,jdbcType=CHAR},
-      effect_flag = #{record.effectFlag,jdbcType=CHAR},
-      remark1 = #{record.remark1,jdbcType=VARCHAR},
-      remark2 = #{record.remark2,jdbcType=VARCHAR}
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.master.qianyi.pojo.TbChapter">
-    update tb_chapter
-    <set>
-      <if test="catalogId != null">
-        catalog_id = #{catalogId,jdbcType=VARCHAR},
-      </if>
-      <if test="chapterOrder != null">
-        chapter_order = #{chapterOrder,jdbcType=INTEGER},
-      </if>
-      <if test="chapterName != null">
-        chapter_name = #{chapterName,jdbcType=VARCHAR},
-      </if>
-      <if test="learningTimes != null">
-        learning_times = #{learningTimes,jdbcType=INTEGER},
-      </if>
-      <if test="videoPath != null">
-        video_path = #{videoPath,jdbcType=VARCHAR},
-      </if>
-      <if test="manuscript != null">
-        manuscript = #{manuscript,jdbcType=VARCHAR},
-      </if>
-      <if test="deleteFlag != null">
-        delete_flag = #{deleteFlag,jdbcType=CHAR},
-      </if>
-      <if test="effectFlag != null">
-        effect_flag = #{effectFlag,jdbcType=CHAR},
-      </if>
-      <if test="remark1 != null">
-        remark1 = #{remark1,jdbcType=VARCHAR},
-      </if>
-      <if test="remark2 != null">
-        remark2 = #{remark2,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where chapter_id = #{chapterId,jdbcType=VARCHAR}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.master.qianyi.pojo.TbChapter">
+  <update id="updateByPrimaryKey" parameterType="com.master.qianyi.pojo.TbChapter" >
     update tb_chapter
     set catalog_id = #{catalogId,jdbcType=VARCHAR},
       chapter_order = #{chapterOrder,jdbcType=INTEGER},

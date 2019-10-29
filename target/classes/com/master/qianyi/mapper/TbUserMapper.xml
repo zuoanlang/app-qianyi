@@ -10,9 +10,14 @@
     <result column="id_card_no" property="idCardNo" jdbcType="VARCHAR" />
     <result column="is_administrator" property="isAdministrator" jdbcType="CHAR" />
     <result column="birthday" property="birthday" jdbcType="DATE" />
-    <result column="master_rank" property="masterRank" jdbcType="CHAR" />
+    <result column="master_rank" property="masterRank" jdbcType="VARCHAR" />
+    <result column="floor_price" property="floorPrice" jdbcType="INTEGER" />
     <result column="is_official" property="isOfficial" jdbcType="CHAR" />
+    <result column="is_master" property="isMaster" jdbcType="CHAR" />
+    <result column="apply_status" property="applyStatus" jdbcType="CHAR" />
+    <result column="apply_time" property="applyTime" jdbcType="TIMESTAMP" />
     <result column="master_introduction" property="masterIntroduction" jdbcType="VARCHAR" />
+    <result column="user_account_balance" property="userAccountBalance" jdbcType="INTEGER" />
     <result column="sex" property="sex" jdbcType="CHAR" />
     <result column="effect_flag" property="effectFlag" jdbcType="CHAR" />
     <result column="delete_flag" property="deleteFlag" jdbcType="CHAR" />
@@ -26,18 +31,19 @@
     <result column="qq_oppenid" property="qqOppenid" jdbcType="VARCHAR" />
     <result column="weixin" property="weixin" jdbcType="VARCHAR" />
     <result column="wx_openid" property="wxOpenid" jdbcType="VARCHAR" />
-    <result column="is_master" property="isMaster" jdbcType="CHAR" />
     <result column="sms" property="sms" jdbcType="INTEGER" />
     <result column="asign" property="asign" jdbcType="VARCHAR" />
-    <result column="profession" property="profession" jdbcType="VARCHAR" />
+    <result column="profession" property="profession" jdbcType="CHAR" />
     <result column="major" property="major" jdbcType="VARCHAR" />
     <result column="register_time" property="registerTime" jdbcType="TIMESTAMP" />
+    <result column="is_online" property="isOnline" jdbcType="CHAR" />
     <result column="last_login_time" property="lastLoginTime" jdbcType="TIMESTAMP" />
     <result column="remark1" property="remark1" jdbcType="VARCHAR" />
     <result column="remark2" property="remark2" jdbcType="VARCHAR" />
     <result column="remark3" property="remark3" jdbcType="VARCHAR" />
     <result column="remark4" property="remark4" jdbcType="VARCHAR" />
     <result column="remark5" property="remark5" jdbcType="VARCHAR" />
+    <result column="approval_opinion" property="approvalOpinion" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -99,10 +105,11 @@
   </sql>
   <sql id="Base_Column_List" >
     user_id, user_name, nick_name, user_password, token, id_card_no, is_administrator, 
-    birthday, master_rank, is_official, master_introduction, sex, effect_flag, delete_flag, 
-    id_card_img1, id_card_img2, head_img, hobby, handphone, telephone, qq, qq_oppenid, 
-    weixin, wx_openid, is_master, sms, asign, profession, major, register_time, last_login_time, 
-    remark1, remark2, remark3, remark4, remark5
+    birthday, master_rank, floor_price, is_official, is_master, apply_status, apply_time, 
+    master_introduction, user_account_balance, sex, effect_flag, delete_flag, id_card_img1, 
+    id_card_img2, head_img, hobby, handphone, telephone, qq, qq_oppenid, weixin, wx_openid, 
+    sms, asign, profession, major, register_time, is_online, last_login_time, remark1, 
+    remark2, remark3, remark4, remark5, approval_opinion
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.master.qianyi.pojo.TbUserExample" >
     select
@@ -139,28 +146,32 @@
     insert into tb_user (user_id, user_name, nick_name, 
       user_password, token, id_card_no, 
       is_administrator, birthday, master_rank, 
-      is_official, master_introduction, sex, 
-      effect_flag, delete_flag, id_card_img1, 
-      id_card_img2, head_img, hobby, 
-      handphone, telephone, qq, 
-      qq_oppenid, weixin, wx_openid, 
-      is_master, sms, asign, 
-      profession, major, register_time, 
-      last_login_time, remark1, remark2, 
-      remark3, remark4, remark5
+      floor_price, is_official, is_master, 
+      apply_status, apply_time, master_introduction, 
+      user_account_balance, sex, effect_flag, 
+      delete_flag, id_card_img1, id_card_img2, 
+      head_img, hobby, handphone, 
+      telephone, qq, qq_oppenid, 
+      weixin, wx_openid, sms, 
+      asign, profession, major, 
+      register_time, is_online, last_login_time, 
+      remark1, remark2, remark3, 
+      remark4, remark5, approval_opinion
       )
     values (#{userId,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{nickName,jdbcType=VARCHAR}, 
       #{userPassword,jdbcType=VARCHAR}, #{token,jdbcType=VARCHAR}, #{idCardNo,jdbcType=VARCHAR}, 
-      #{isAdministrator,jdbcType=CHAR}, #{birthday,jdbcType=DATE}, #{masterRank,jdbcType=CHAR}, 
-      #{isOfficial,jdbcType=CHAR}, #{masterIntroduction,jdbcType=VARCHAR}, #{sex,jdbcType=CHAR}, 
-      #{effectFlag,jdbcType=CHAR}, #{deleteFlag,jdbcType=CHAR}, #{idCardImg1,jdbcType=VARCHAR}, 
-      #{idCardImg2,jdbcType=VARCHAR}, #{headImg,jdbcType=VARCHAR}, #{hobby,jdbcType=VARCHAR}, 
-      #{handphone,jdbcType=VARCHAR}, #{telephone,jdbcType=VARCHAR}, #{qq,jdbcType=VARCHAR}, 
-      #{qqOppenid,jdbcType=VARCHAR}, #{weixin,jdbcType=VARCHAR}, #{wxOpenid,jdbcType=VARCHAR}, 
-      #{isMaster,jdbcType=CHAR}, #{sms,jdbcType=INTEGER}, #{asign,jdbcType=VARCHAR}, 
-      #{profession,jdbcType=VARCHAR}, #{major,jdbcType=VARCHAR}, #{registerTime,jdbcType=TIMESTAMP}, 
-      #{lastLoginTime,jdbcType=TIMESTAMP}, #{remark1,jdbcType=VARCHAR}, #{remark2,jdbcType=VARCHAR}, 
-      #{remark3,jdbcType=VARCHAR}, #{remark4,jdbcType=VARCHAR}, #{remark5,jdbcType=VARCHAR}
+      #{isAdministrator,jdbcType=CHAR}, #{birthday,jdbcType=DATE}, #{masterRank,jdbcType=VARCHAR}, 
+      #{floorPrice,jdbcType=INTEGER}, #{isOfficial,jdbcType=CHAR}, #{isMaster,jdbcType=CHAR}, 
+      #{applyStatus,jdbcType=CHAR}, #{applyTime,jdbcType=TIMESTAMP}, #{masterIntroduction,jdbcType=VARCHAR}, 
+      #{userAccountBalance,jdbcType=INTEGER}, #{sex,jdbcType=CHAR}, #{effectFlag,jdbcType=CHAR}, 
+      #{deleteFlag,jdbcType=CHAR}, #{idCardImg1,jdbcType=VARCHAR}, #{idCardImg2,jdbcType=VARCHAR}, 
+      #{headImg,jdbcType=VARCHAR}, #{hobby,jdbcType=VARCHAR}, #{handphone,jdbcType=VARCHAR}, 
+      #{telephone,jdbcType=VARCHAR}, #{qq,jdbcType=VARCHAR}, #{qqOppenid,jdbcType=VARCHAR}, 
+      #{weixin,jdbcType=VARCHAR}, #{wxOpenid,jdbcType=VARCHAR}, #{sms,jdbcType=INTEGER}, 
+      #{asign,jdbcType=VARCHAR}, #{profession,jdbcType=CHAR}, #{major,jdbcType=VARCHAR}, 
+      #{registerTime,jdbcType=TIMESTAMP}, #{isOnline,jdbcType=CHAR}, #{lastLoginTime,jdbcType=TIMESTAMP}, 
+      #{remark1,jdbcType=VARCHAR}, #{remark2,jdbcType=VARCHAR}, #{remark3,jdbcType=VARCHAR}, 
+      #{remark4,jdbcType=VARCHAR}, #{remark5,jdbcType=VARCHAR}, #{approvalOpinion,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.master.qianyi.pojo.TbUser" >
@@ -193,11 +204,26 @@
       <if test="masterRank != null" >
         master_rank,
       </if>
+      <if test="floorPrice != null" >
+        floor_price,
+      </if>
       <if test="isOfficial != null" >
         is_official,
       </if>
+      <if test="isMaster != null" >
+        is_master,
+      </if>
+      <if test="applyStatus != null" >
+        apply_status,
+      </if>
+      <if test="applyTime != null" >
+        apply_time,
+      </if>
       <if test="masterIntroduction != null" >
         master_introduction,
+      </if>
+      <if test="userAccountBalance != null" >
+        user_account_balance,
       </if>
       <if test="sex != null" >
         sex,
@@ -238,9 +264,6 @@
       <if test="wxOpenid != null" >
         wx_openid,
       </if>
-      <if test="isMaster != null" >
-        is_master,
-      </if>
       <if test="sms != null" >
         sms,
       </if>
@@ -255,6 +278,9 @@
       </if>
       <if test="registerTime != null" >
         register_time,
+      </if>
+      <if test="isOnline != null" >
+        is_online,
       </if>
       <if test="lastLoginTime != null" >
         last_login_time,
@@ -273,6 +299,9 @@
       </if>
       <if test="remark5 != null" >
         remark5,
+      </if>
+      <if test="approvalOpinion != null" >
+        approval_opinion,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -301,13 +330,28 @@
         #{birthday,jdbcType=DATE},
       </if>
       <if test="masterRank != null" >
-        #{masterRank,jdbcType=CHAR},
+        #{masterRank,jdbcType=VARCHAR},
+      </if>
+      <if test="floorPrice != null" >
+        #{floorPrice,jdbcType=INTEGER},
       </if>
       <if test="isOfficial != null" >
         #{isOfficial,jdbcType=CHAR},
       </if>
+      <if test="isMaster != null" >
+        #{isMaster,jdbcType=CHAR},
+      </if>
+      <if test="applyStatus != null" >
+        #{applyStatus,jdbcType=CHAR},
+      </if>
+      <if test="applyTime != null" >
+        #{applyTime,jdbcType=TIMESTAMP},
+      </if>
       <if test="masterIntroduction != null" >
         #{masterIntroduction,jdbcType=VARCHAR},
+      </if>
+      <if test="userAccountBalance != null" >
+        #{userAccountBalance,jdbcType=INTEGER},
       </if>
       <if test="sex != null" >
         #{sex,jdbcType=CHAR},
@@ -348,9 +392,6 @@
       <if test="wxOpenid != null" >
         #{wxOpenid,jdbcType=VARCHAR},
       </if>
-      <if test="isMaster != null" >
-        #{isMaster,jdbcType=CHAR},
-      </if>
       <if test="sms != null" >
         #{sms,jdbcType=INTEGER},
       </if>
@@ -358,13 +399,16 @@
         #{asign,jdbcType=VARCHAR},
       </if>
       <if test="profession != null" >
-        #{profession,jdbcType=VARCHAR},
+        #{profession,jdbcType=CHAR},
       </if>
       <if test="major != null" >
         #{major,jdbcType=VARCHAR},
       </if>
       <if test="registerTime != null" >
         #{registerTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isOnline != null" >
+        #{isOnline,jdbcType=CHAR},
       </if>
       <if test="lastLoginTime != null" >
         #{lastLoginTime,jdbcType=TIMESTAMP},
@@ -383,6 +427,9 @@
       </if>
       <if test="remark5 != null" >
         #{remark5,jdbcType=VARCHAR},
+      </if>
+      <if test="approvalOpinion != null" >
+        #{approvalOpinion,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -420,13 +467,28 @@
         birthday = #{record.birthday,jdbcType=DATE},
       </if>
       <if test="record.masterRank != null" >
-        master_rank = #{record.masterRank,jdbcType=CHAR},
+        master_rank = #{record.masterRank,jdbcType=VARCHAR},
+      </if>
+      <if test="record.floorPrice != null" >
+        floor_price = #{record.floorPrice,jdbcType=INTEGER},
       </if>
       <if test="record.isOfficial != null" >
         is_official = #{record.isOfficial,jdbcType=CHAR},
       </if>
+      <if test="record.isMaster != null" >
+        is_master = #{record.isMaster,jdbcType=CHAR},
+      </if>
+      <if test="record.applyStatus != null" >
+        apply_status = #{record.applyStatus,jdbcType=CHAR},
+      </if>
+      <if test="record.applyTime != null" >
+        apply_time = #{record.applyTime,jdbcType=TIMESTAMP},
+      </if>
       <if test="record.masterIntroduction != null" >
         master_introduction = #{record.masterIntroduction,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userAccountBalance != null" >
+        user_account_balance = #{record.userAccountBalance,jdbcType=INTEGER},
       </if>
       <if test="record.sex != null" >
         sex = #{record.sex,jdbcType=CHAR},
@@ -467,9 +529,6 @@
       <if test="record.wxOpenid != null" >
         wx_openid = #{record.wxOpenid,jdbcType=VARCHAR},
       </if>
-      <if test="record.isMaster != null" >
-        is_master = #{record.isMaster,jdbcType=CHAR},
-      </if>
       <if test="record.sms != null" >
         sms = #{record.sms,jdbcType=INTEGER},
       </if>
@@ -477,13 +536,16 @@
         asign = #{record.asign,jdbcType=VARCHAR},
       </if>
       <if test="record.profession != null" >
-        profession = #{record.profession,jdbcType=VARCHAR},
+        profession = #{record.profession,jdbcType=CHAR},
       </if>
       <if test="record.major != null" >
         major = #{record.major,jdbcType=VARCHAR},
       </if>
       <if test="record.registerTime != null" >
         register_time = #{record.registerTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.isOnline != null" >
+        is_online = #{record.isOnline,jdbcType=CHAR},
       </if>
       <if test="record.lastLoginTime != null" >
         last_login_time = #{record.lastLoginTime,jdbcType=TIMESTAMP},
@@ -503,6 +565,9 @@
       <if test="record.remark5 != null" >
         remark5 = #{record.remark5,jdbcType=VARCHAR},
       </if>
+      <if test="record.approvalOpinion != null" >
+        approval_opinion = #{record.approvalOpinion,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -518,9 +583,14 @@
       id_card_no = #{record.idCardNo,jdbcType=VARCHAR},
       is_administrator = #{record.isAdministrator,jdbcType=CHAR},
       birthday = #{record.birthday,jdbcType=DATE},
-      master_rank = #{record.masterRank,jdbcType=CHAR},
+      master_rank = #{record.masterRank,jdbcType=VARCHAR},
+      floor_price = #{record.floorPrice,jdbcType=INTEGER},
       is_official = #{record.isOfficial,jdbcType=CHAR},
+      is_master = #{record.isMaster,jdbcType=CHAR},
+      apply_status = #{record.applyStatus,jdbcType=CHAR},
+      apply_time = #{record.applyTime,jdbcType=TIMESTAMP},
       master_introduction = #{record.masterIntroduction,jdbcType=VARCHAR},
+      user_account_balance = #{record.userAccountBalance,jdbcType=INTEGER},
       sex = #{record.sex,jdbcType=CHAR},
       effect_flag = #{record.effectFlag,jdbcType=CHAR},
       delete_flag = #{record.deleteFlag,jdbcType=CHAR},
@@ -534,18 +604,19 @@
       qq_oppenid = #{record.qqOppenid,jdbcType=VARCHAR},
       weixin = #{record.weixin,jdbcType=VARCHAR},
       wx_openid = #{record.wxOpenid,jdbcType=VARCHAR},
-      is_master = #{record.isMaster,jdbcType=CHAR},
       sms = #{record.sms,jdbcType=INTEGER},
       asign = #{record.asign,jdbcType=VARCHAR},
-      profession = #{record.profession,jdbcType=VARCHAR},
+      profession = #{record.profession,jdbcType=CHAR},
       major = #{record.major,jdbcType=VARCHAR},
       register_time = #{record.registerTime,jdbcType=TIMESTAMP},
+      is_online = #{record.isOnline,jdbcType=CHAR},
       last_login_time = #{record.lastLoginTime,jdbcType=TIMESTAMP},
       remark1 = #{record.remark1,jdbcType=VARCHAR},
       remark2 = #{record.remark2,jdbcType=VARCHAR},
       remark3 = #{record.remark3,jdbcType=VARCHAR},
       remark4 = #{record.remark4,jdbcType=VARCHAR},
-      remark5 = #{record.remark5,jdbcType=VARCHAR}
+      remark5 = #{record.remark5,jdbcType=VARCHAR},
+      approval_opinion = #{record.approvalOpinion,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -575,13 +646,28 @@
         birthday = #{birthday,jdbcType=DATE},
       </if>
       <if test="masterRank != null" >
-        master_rank = #{masterRank,jdbcType=CHAR},
+        master_rank = #{masterRank,jdbcType=VARCHAR},
+      </if>
+      <if test="floorPrice != null" >
+        floor_price = #{floorPrice,jdbcType=INTEGER},
       </if>
       <if test="isOfficial != null" >
         is_official = #{isOfficial,jdbcType=CHAR},
       </if>
+      <if test="isMaster != null" >
+        is_master = #{isMaster,jdbcType=CHAR},
+      </if>
+      <if test="applyStatus != null" >
+        apply_status = #{applyStatus,jdbcType=CHAR},
+      </if>
+      <if test="applyTime != null" >
+        apply_time = #{applyTime,jdbcType=TIMESTAMP},
+      </if>
       <if test="masterIntroduction != null" >
         master_introduction = #{masterIntroduction,jdbcType=VARCHAR},
+      </if>
+      <if test="userAccountBalance != null" >
+        user_account_balance = #{userAccountBalance,jdbcType=INTEGER},
       </if>
       <if test="sex != null" >
         sex = #{sex,jdbcType=CHAR},
@@ -622,9 +708,6 @@
       <if test="wxOpenid != null" >
         wx_openid = #{wxOpenid,jdbcType=VARCHAR},
       </if>
-      <if test="isMaster != null" >
-        is_master = #{isMaster,jdbcType=CHAR},
-      </if>
       <if test="sms != null" >
         sms = #{sms,jdbcType=INTEGER},
       </if>
@@ -632,13 +715,16 @@
         asign = #{asign,jdbcType=VARCHAR},
       </if>
       <if test="profession != null" >
-        profession = #{profession,jdbcType=VARCHAR},
+        profession = #{profession,jdbcType=CHAR},
       </if>
       <if test="major != null" >
         major = #{major,jdbcType=VARCHAR},
       </if>
       <if test="registerTime != null" >
         register_time = #{registerTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isOnline != null" >
+        is_online = #{isOnline,jdbcType=CHAR},
       </if>
       <if test="lastLoginTime != null" >
         last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
@@ -658,6 +744,9 @@
       <if test="remark5 != null" >
         remark5 = #{remark5,jdbcType=VARCHAR},
       </if>
+      <if test="approvalOpinion != null" >
+        approval_opinion = #{approvalOpinion,jdbcType=VARCHAR},
+      </if>
     </set>
     where user_id = #{userId,jdbcType=VARCHAR}
   </update>
@@ -670,9 +759,14 @@
       id_card_no = #{idCardNo,jdbcType=VARCHAR},
       is_administrator = #{isAdministrator,jdbcType=CHAR},
       birthday = #{birthday,jdbcType=DATE},
-      master_rank = #{masterRank,jdbcType=CHAR},
+      master_rank = #{masterRank,jdbcType=VARCHAR},
+      floor_price = #{floorPrice,jdbcType=INTEGER},
       is_official = #{isOfficial,jdbcType=CHAR},
+      is_master = #{isMaster,jdbcType=CHAR},
+      apply_status = #{applyStatus,jdbcType=CHAR},
+      apply_time = #{applyTime,jdbcType=TIMESTAMP},
       master_introduction = #{masterIntroduction,jdbcType=VARCHAR},
+      user_account_balance = #{userAccountBalance,jdbcType=INTEGER},
       sex = #{sex,jdbcType=CHAR},
       effect_flag = #{effectFlag,jdbcType=CHAR},
       delete_flag = #{deleteFlag,jdbcType=CHAR},
@@ -686,18 +780,19 @@
       qq_oppenid = #{qqOppenid,jdbcType=VARCHAR},
       weixin = #{weixin,jdbcType=VARCHAR},
       wx_openid = #{wxOpenid,jdbcType=VARCHAR},
-      is_master = #{isMaster,jdbcType=CHAR},
       sms = #{sms,jdbcType=INTEGER},
       asign = #{asign,jdbcType=VARCHAR},
-      profession = #{profession,jdbcType=VARCHAR},
+      profession = #{profession,jdbcType=CHAR},
       major = #{major,jdbcType=VARCHAR},
       register_time = #{registerTime,jdbcType=TIMESTAMP},
+      is_online = #{isOnline,jdbcType=CHAR},
       last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
       remark1 = #{remark1,jdbcType=VARCHAR},
       remark2 = #{remark2,jdbcType=VARCHAR},
       remark3 = #{remark3,jdbcType=VARCHAR},
       remark4 = #{remark4,jdbcType=VARCHAR},
-      remark5 = #{remark5,jdbcType=VARCHAR}
+      remark5 = #{remark5,jdbcType=VARCHAR},
+      approval_opinion = #{approvalOpinion,jdbcType=VARCHAR}
     where user_id = #{userId,jdbcType=VARCHAR}
   </update>
 </mapper>

@@ -2,67 +2,29 @@ package com.master.qianyi.order.form;
 
 import com.master.qianyi.pojo.TbOrder;
 
+/**
+ * 后台课程列表
+ */
 public class OrderForm extends TbOrder {
 
-    private String courseId;
+    private String userName;
 
-    private String courseName;
+    private String masterName;
 
-    private Integer coursePrice;
-
-    private String course_belongTo;
-
-    private Long courseLearningFrequency;
-
-    private String courseImg;
-
-    public String getCourseId() {
-        return courseId;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setCourseId(String courseId) {
-        this.courseId = courseId;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
-    public String getCourseName() {
-        return courseName;
+    public String getMasterName() {
+        return masterName;
     }
 
-    public void setCourseName(String courseName) {
-        this.courseName = courseName;
+    public void setMasterName(String masterName) {
+        this.masterName = masterName;
     }
 
-
-    public String getCourse_belongTo() {
-        return course_belongTo;
-    }
-
-    public void setCourse_belongTo(String course_belongTo) {
-        this.course_belongTo = course_belongTo;
-    }
-
-
-    public Integer getCoursePrice() {
-        return coursePrice;
-    }
-
-    public void setCoursePrice(Integer coursePrice) {
-        this.coursePrice = coursePrice;
-    }
-
-    public String getCourseImg() {
-        return courseImg;
-    }
-
-    public void setCourseImg(String courseImg) {
-        this.courseImg = courseImg;
-    }
-
-    public Long getCourseLearningFrequency() {
-        return courseLearningFrequency;
-    }
-
-    public void setCourseLearningFrequency(Long courseLearningFrequency) {
-        this.courseLearningFrequency = courseLearningFrequency;
-    }
 }

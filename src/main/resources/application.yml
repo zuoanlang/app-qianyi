@@ -39,7 +39,7 @@ mybatis:
 # ��ҳ����
 pagehelper:
   helper-dialect: mysql
-  reasonable: true
+  reasonable: false
   support-methods-arguments: true
   params: count=countSql
 ################################################################
@@ -58,3 +58,22 @@ logging:
 management:
   security:
     enabled: false #�Ƿ���actuator��ȫ��֤
+
+################################################################
+################################################################
+aliyun:
+  access:
+    id: 'LTAIh7QUIIjheNnI'
+    key: 'o6YUhS76FNkr8k6BXYjkeqwu0TXKqA'
+  oss:
+    endpoint: 'oss-cn-shenzhen.aliyuncs.com'
+    bucket: 'qianyi-app'
+    host: 'http://qianyi-app.oss-cn-shenzhen.aliyuncs.com'##图片的访问路径可以是配置好的域名，也可以是oss的域名
+    dir:
+      ueditor: 'ueditor'##oss存放的路径
+multipart:
+  maxFileSize: 100000MB
+  maxRequestSize: 1000000MB
+
+base:
+  url: 'http://127.0.0.1:443'

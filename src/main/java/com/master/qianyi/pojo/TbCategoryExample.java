@@ -355,6 +355,146 @@ public class TbCategoryExample {
             return (Criteria) this;
         }
 
+        public Criteria andKeyWordsIsNull() {
+            addCriterion("key_words is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andKeyWordsIsNotNull() {
+            addCriterion("key_words is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andKeyWordsEqualTo(String value) {
+            addCriterion("key_words =", value, "keyWords");
+            return (Criteria) this;
+        }
+
+        public Criteria andKeyWordsNotEqualTo(String value) {
+            addCriterion("key_words <>", value, "keyWords");
+            return (Criteria) this;
+        }
+
+        public Criteria andKeyWordsGreaterThan(String value) {
+            addCriterion("key_words >", value, "keyWords");
+            return (Criteria) this;
+        }
+
+        public Criteria andKeyWordsGreaterThanOrEqualTo(String value) {
+            addCriterion("key_words >=", value, "keyWords");
+            return (Criteria) this;
+        }
+
+        public Criteria andKeyWordsLessThan(String value) {
+            addCriterion("key_words <", value, "keyWords");
+            return (Criteria) this;
+        }
+
+        public Criteria andKeyWordsLessThanOrEqualTo(String value) {
+            addCriterion("key_words <=", value, "keyWords");
+            return (Criteria) this;
+        }
+
+        public Criteria andKeyWordsLike(String value) {
+            addCriterion("key_words like", value, "keyWords");
+            return (Criteria) this;
+        }
+
+        public Criteria andKeyWordsNotLike(String value) {
+            addCriterion("key_words not like", value, "keyWords");
+            return (Criteria) this;
+        }
+
+        public Criteria andKeyWordsIn(List<String> values) {
+            addCriterion("key_words in", values, "keyWords");
+            return (Criteria) this;
+        }
+
+        public Criteria andKeyWordsNotIn(List<String> values) {
+            addCriterion("key_words not in", values, "keyWords");
+            return (Criteria) this;
+        }
+
+        public Criteria andKeyWordsBetween(String value1, String value2) {
+            addCriterion("key_words between", value1, value2, "keyWords");
+            return (Criteria) this;
+        }
+
+        public Criteria andKeyWordsNotBetween(String value1, String value2) {
+            addCriterion("key_words not between", value1, value2, "keyWords");
+            return (Criteria) this;
+        }
+
+        public Criteria andImgPathIsNull() {
+            addCriterion("img_path is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andImgPathIsNotNull() {
+            addCriterion("img_path is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andImgPathEqualTo(String value) {
+            addCriterion("img_path =", value, "imgPath");
+            return (Criteria) this;
+        }
+
+        public Criteria andImgPathNotEqualTo(String value) {
+            addCriterion("img_path <>", value, "imgPath");
+            return (Criteria) this;
+        }
+
+        public Criteria andImgPathGreaterThan(String value) {
+            addCriterion("img_path >", value, "imgPath");
+            return (Criteria) this;
+        }
+
+        public Criteria andImgPathGreaterThanOrEqualTo(String value) {
+            addCriterion("img_path >=", value, "imgPath");
+            return (Criteria) this;
+        }
+
+        public Criteria andImgPathLessThan(String value) {
+            addCriterion("img_path <", value, "imgPath");
+            return (Criteria) this;
+        }
+
+        public Criteria andImgPathLessThanOrEqualTo(String value) {
+            addCriterion("img_path <=", value, "imgPath");
+            return (Criteria) this;
+        }
+
+        public Criteria andImgPathLike(String value) {
+            addCriterion("img_path like", value, "imgPath");
+            return (Criteria) this;
+        }
+
+        public Criteria andImgPathNotLike(String value) {
+            addCriterion("img_path not like", value, "imgPath");
+            return (Criteria) this;
+        }
+
+        public Criteria andImgPathIn(List<String> values) {
+            addCriterion("img_path in", values, "imgPath");
+            return (Criteria) this;
+        }
+
+        public Criteria andImgPathNotIn(List<String> values) {
+            addCriterion("img_path not in", values, "imgPath");
+            return (Criteria) this;
+        }
+
+        public Criteria andImgPathBetween(String value1, String value2) {
+            addCriterion("img_path between", value1, value2, "imgPath");
+            return (Criteria) this;
+        }
+
+        public Criteria andImgPathNotBetween(String value1, String value2) {
+            addCriterion("img_path not between", value1, value2, "imgPath");
+            return (Criteria) this;
+        }
+
         public Criteria andSortOrderIsNull() {
             addCriterion("sort_order is null");
             return (Criteria) this;

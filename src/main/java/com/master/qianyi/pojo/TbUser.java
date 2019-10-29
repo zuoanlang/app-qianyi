@@ -21,7 +21,15 @@ public class TbUser {
 
     private String masterRank;
 
+    private Integer floorPrice;
+
     private String isOfficial;
+
+    private String isMaster;
+
+    private String applyStatus;
+
+    private Date applyTime;
 
     private String masterIntroduction;
 
@@ -53,8 +61,6 @@ public class TbUser {
 
     private String wxOpenid;
 
-    private String isMaster;
-
     private Integer sms;
 
     private String asign;
@@ -64,6 +70,8 @@ public class TbUser {
     private String major;
 
     private Date registerTime;
+
+    private String isOnline;
 
     private Date lastLoginTime;
 
@@ -76,6 +84,8 @@ public class TbUser {
     private String remark4;
 
     private String remark5;
+
+    private String approvalOpinion;
 
     public String getUserId() {
         return userId;
@@ -149,12 +159,44 @@ public class TbUser {
         this.masterRank = masterRank == null ? null : masterRank.trim();
     }
 
+    public Integer getFloorPrice() {
+        return floorPrice;
+    }
+
+    public void setFloorPrice(Integer floorPrice) {
+        this.floorPrice = floorPrice;
+    }
+
     public String getIsOfficial() {
         return isOfficial;
     }
 
     public void setIsOfficial(String isOfficial) {
         this.isOfficial = isOfficial == null ? null : isOfficial.trim();
+    }
+
+    public String getIsMaster() {
+        return isMaster;
+    }
+
+    public void setIsMaster(String isMaster) {
+        this.isMaster = isMaster == null ? null : isMaster.trim();
+    }
+
+    public String getApplyStatus() {
+        return applyStatus;
+    }
+
+    public void setApplyStatus(String applyStatus) {
+        this.applyStatus = applyStatus == null ? null : applyStatus.trim();
+    }
+
+    public Date getApplyTime() {
+        return applyTime;
+    }
+
+    public void setApplyTime(Date applyTime) {
+        this.applyTime = applyTime;
     }
 
     public String getMasterIntroduction() {
@@ -277,14 +319,6 @@ public class TbUser {
         this.wxOpenid = wxOpenid == null ? null : wxOpenid.trim();
     }
 
-    public String getIsMaster() {
-        return isMaster;
-    }
-
-    public void setIsMaster(String isMaster) {
-        this.isMaster = isMaster == null ? null : isMaster.trim();
-    }
-
     public Integer getSms() {
         return sms;
     }
@@ -323,6 +357,14 @@ public class TbUser {
 
     public void setRegisterTime(Date registerTime) {
         this.registerTime = registerTime;
+    }
+
+    public String getIsOnline() {
+        return isOnline;
+    }
+
+    public void setIsOnline(String isOnline) {
+        this.isOnline = isOnline == null ? null : isOnline.trim();
     }
 
     public Date getLastLoginTime() {
@@ -371,5 +413,13 @@ public class TbUser {
 
     public void setRemark5(String remark5) {
         this.remark5 = remark5 == null ? null : remark5.trim();
+    }
+
+    public String getApprovalOpinion() {
+        return approvalOpinion;
+    }
+
+    public void setApprovalOpinion(String approvalOpinion) {
+        this.approvalOpinion = approvalOpinion == null ? null : approvalOpinion.trim();
     }
 }

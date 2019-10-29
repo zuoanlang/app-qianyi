@@ -13,6 +13,8 @@ public class TbComment {
 
     private String commentFatherId;
 
+    private Integer commentScore;
+
     private String commentContent;
 
     private Date commentDateTime;
@@ -69,6 +71,14 @@ public class TbComment {
 
     public void setCommentFatherId(String commentFatherId) {
         this.commentFatherId = commentFatherId == null ? null : commentFatherId.trim();
+    }
+
+    public Integer getCommentScore() {
+        return commentScore;
+    }
+
+    public void setCommentScore(Integer commentScore) {
+        this.commentScore = commentScore;
     }
 
     public String getCommentContent() {

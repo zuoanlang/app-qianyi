@@ -3,23 +3,25 @@
 <mapper namespace="com.master.qianyi.mapper.TbInformationMapper" >
   <resultMap id="BaseResultMap" type="com.master.qianyi.pojo.TbInformation" >
     <id column="info_id" property="infoId" jdbcType="VARCHAR" />
-    <result column="info_type" property="infoType" jdbcType="CHAR" />
+    <result column="info_type" property="infoType" jdbcType="VARCHAR" />
     <result column="info_writer" property="infoWriter" jdbcType="VARCHAR" />
     <result column="info_title" property="infoTitle" jdbcType="VARCHAR" />
     <result column="info_view_times" property="infoViewTimes" jdbcType="BIGINT" />
     <result column="info_img_path" property="infoImgPath" jdbcType="VARCHAR" />
+    <result column="info_url" property="infoUrl" jdbcType="VARCHAR" />
     <result column="effect_flag" property="effectFlag" jdbcType="CHAR" />
     <result column="delete_flag" property="deleteFlag" jdbcType="CHAR" />
     <result column="published_time" property="publishedTime" jdbcType="TIMESTAMP" />
     <result column="info_source" property="infoSource" jdbcType="CHAR" />
-    <result column="remark5" property="remark5" jdbcType="VARCHAR" />
-    <result column="remark4" property="remark4" jdbcType="VARCHAR" />
-    <result column="remark3" property="remark3" jdbcType="VARCHAR" />
-    <result column="remark2" property="remark2" jdbcType="VARCHAR" />
     <result column="remark1" property="remark1" jdbcType="VARCHAR" />
+    <result column="remark2" property="remark2" jdbcType="VARCHAR" />
+    <result column="remark3" property="remark3" jdbcType="VARCHAR" />
+    <result column="remark4" property="remark4" jdbcType="VARCHAR" />
+    <result column="remark5" property="remark5" jdbcType="VARCHAR" />
   </resultMap>
-  <resultMap id="ResultMapWithBLOBs" type="com.master.qianyi.pojo.TbInformation" extends="BaseResultMap" >
+  <resultMap id="ResultMapWithBLOBs" type="com.master.qianyi.pojo.TbInformationWithBLOBs" extends="BaseResultMap" >
     <result column="info_details" property="infoDetails" jdbcType="LONGVARCHAR" />
+    <result column="info_content" property="infoContent" jdbcType="LONGVARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -80,11 +82,12 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    info_id, info_type, info_writer, info_title, info_view_times, info_img_path, effect_flag, 
-    delete_flag, published_time, info_source, remark5, remark4, remark3, remark2, remark1
+    info_id, info_type, info_writer, info_title, info_view_times, info_img_path, info_url, 
+    effect_flag, delete_flag, published_time, info_source, remark1, remark2, remark3, 
+    remark4, remark5
   </sql>
   <sql id="Blob_Column_List" >
-    info_details
+    info_details, info_content
   </sql>
   <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.master.qianyi.pojo.TbInformationExample" >
     select
@@ -136,21 +139,23 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.master.qianyi.pojo.TbInformation" >
+  <insert id="insert" parameterType="com.master.qianyi.pojo.TbInformationWithBLOBs" >
     insert into tb_information (info_id, info_type, info_writer, 
       info_title, info_view_times, info_img_path, 
-      effect_flag, delete_flag, published_time, 
-      info_source, remark5, remark4, 
-      remark3, remark2, remark1, 
-      info_details)
-    values (#{infoId,jdbcType=VARCHAR}, #{infoType,jdbcType=CHAR}, #{infoWriter,jdbcType=VARCHAR}, 
+      info_url, effect_flag, delete_flag, 
+      published_time, info_source, remark1, 
+      remark2, remark3, remark4, 
+      remark5, info_details, info_content
+      )
+    values (#{infoId,jdbcType=VARCHAR}, #{infoType,jdbcType=VARCHAR}, #{infoWriter,jdbcType=VARCHAR}, 
       #{infoTitle,jdbcType=VARCHAR}, #{infoViewTimes,jdbcType=BIGINT}, #{infoImgPath,jdbcType=VARCHAR}, 
-      #{effectFlag,jdbcType=CHAR}, #{deleteFlag,jdbcType=CHAR}, #{publishedTime,jdbcType=TIMESTAMP}, 
-      #{infoSource,jdbcType=CHAR}, #{remark5,jdbcType=VARCHAR}, #{remark4,jdbcType=VARCHAR}, 
-      #{remark3,jdbcType=VARCHAR}, #{remark2,jdbcType=VARCHAR}, #{remark1,jdbcType=VARCHAR}, 
-      #{infoDetails,jdbcType=LONGVARCHAR})
+      #{infoUrl,jdbcType=VARCHAR}, #{effectFlag,jdbcType=CHAR}, #{deleteFlag,jdbcType=CHAR}, 
+      #{publishedTime,jdbcType=TIMESTAMP}, #{infoSource,jdbcType=CHAR}, #{remark1,jdbcType=VARCHAR}, 
+      #{remark2,jdbcType=VARCHAR}, #{remark3,jdbcType=VARCHAR}, #{remark4,jdbcType=VARCHAR}, 
+      #{remark5,jdbcType=VARCHAR}, #{infoDetails,jdbcType=LONGVARCHAR}, #{infoContent,jdbcType=LONGVARCHAR}
+      )
   </insert>
-  <insert id="insertSelective" parameterType="com.master.qianyi.pojo.TbInformation" >
+  <insert id="insertSelective" parameterType="com.master.qianyi.pojo.TbInformationWithBLOBs" >
     insert into tb_information
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="infoId != null" >
@@ -171,6 +176,9 @@
       <if test="infoImgPath != null" >
         info_img_path,
       </if>
+      <if test="infoUrl != null" >
+        info_url,
+      </if>
       <if test="effectFlag != null" >
         effect_flag,
       </if>
@@ -183,23 +191,26 @@
       <if test="infoSource != null" >
         info_source,
       </if>
-      <if test="remark5 != null" >
-        remark5,
-      </if>
-      <if test="remark4 != null" >
-        remark4,
-      </if>
-      <if test="remark3 != null" >
-        remark3,
+      <if test="remark1 != null" >
+        remark1,
       </if>
       <if test="remark2 != null" >
         remark2,
       </if>
-      <if test="remark1 != null" >
-        remark1,
+      <if test="remark3 != null" >
+        remark3,
+      </if>
+      <if test="remark4 != null" >
+        remark4,
+      </if>
+      <if test="remark5 != null" >
+        remark5,
       </if>
       <if test="infoDetails != null" >
         info_details,
+      </if>
+      <if test="infoContent != null" >
+        info_content,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -207,7 +218,7 @@
         #{infoId,jdbcType=VARCHAR},
       </if>
       <if test="infoType != null" >
-        #{infoType,jdbcType=CHAR},
+        #{infoType,jdbcType=VARCHAR},
       </if>
       <if test="infoWriter != null" >
         #{infoWriter,jdbcType=VARCHAR},
@@ -221,6 +232,9 @@
       <if test="infoImgPath != null" >
         #{infoImgPath,jdbcType=VARCHAR},
       </if>
+      <if test="infoUrl != null" >
+        #{infoUrl,jdbcType=VARCHAR},
+      </if>
       <if test="effectFlag != null" >
         #{effectFlag,jdbcType=CHAR},
       </if>
@@ -233,23 +247,26 @@
       <if test="infoSource != null" >
         #{infoSource,jdbcType=CHAR},
       </if>
-      <if test="remark5 != null" >
-        #{remark5,jdbcType=VARCHAR},
-      </if>
-      <if test="remark4 != null" >
-        #{remark4,jdbcType=VARCHAR},
-      </if>
-      <if test="remark3 != null" >
-        #{remark3,jdbcType=VARCHAR},
+      <if test="remark1 != null" >
+        #{remark1,jdbcType=VARCHAR},
       </if>
       <if test="remark2 != null" >
         #{remark2,jdbcType=VARCHAR},
       </if>
-      <if test="remark1 != null" >
-        #{remark1,jdbcType=VARCHAR},
+      <if test="remark3 != null" >
+        #{remark3,jdbcType=VARCHAR},
+      </if>
+      <if test="remark4 != null" >
+        #{remark4,jdbcType=VARCHAR},
+      </if>
+      <if test="remark5 != null" >
+        #{remark5,jdbcType=VARCHAR},
       </if>
       <if test="infoDetails != null" >
         #{infoDetails,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="infoContent != null" >
+        #{infoContent,jdbcType=LONGVARCHAR},
       </if>
     </trim>
   </insert>
@@ -266,7 +283,7 @@
         info_id = #{record.infoId,jdbcType=VARCHAR},
       </if>
       <if test="record.infoType != null" >
-        info_type = #{record.infoType,jdbcType=CHAR},
+        info_type = #{record.infoType,jdbcType=VARCHAR},
       </if>
       <if test="record.infoWriter != null" >
         info_writer = #{record.infoWriter,jdbcType=VARCHAR},
@@ -280,6 +297,9 @@
       <if test="record.infoImgPath != null" >
         info_img_path = #{record.infoImgPath,jdbcType=VARCHAR},
       </if>
+      <if test="record.infoUrl != null" >
+        info_url = #{record.infoUrl,jdbcType=VARCHAR},
+      </if>
       <if test="record.effectFlag != null" >
         effect_flag = #{record.effectFlag,jdbcType=CHAR},
       </if>
@@ -292,23 +312,26 @@
       <if test="record.infoSource != null" >
         info_source = #{record.infoSource,jdbcType=CHAR},
       </if>
-      <if test="record.remark5 != null" >
-        remark5 = #{record.remark5,jdbcType=VARCHAR},
-      </if>
-      <if test="record.remark4 != null" >
-        remark4 = #{record.remark4,jdbcType=VARCHAR},
-      </if>
-      <if test="record.remark3 != null" >
-        remark3 = #{record.remark3,jdbcType=VARCHAR},
+      <if test="record.remark1 != null" >
+        remark1 = #{record.remark1,jdbcType=VARCHAR},
       </if>
       <if test="record.remark2 != null" >
         remark2 = #{record.remark2,jdbcType=VARCHAR},
       </if>
-      <if test="record.remark1 != null" >
-        remark1 = #{record.remark1,jdbcType=VARCHAR},
+      <if test="record.remark3 != null" >
+        remark3 = #{record.remark3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark4 != null" >
+        remark4 = #{record.remark4,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark5 != null" >
+        remark5 = #{record.remark5,jdbcType=VARCHAR},
       </if>
       <if test="record.infoDetails != null" >
         info_details = #{record.infoDetails,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.infoContent != null" >
+        info_content = #{record.infoContent,jdbcType=LONGVARCHAR},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -318,21 +341,23 @@
   <update id="updateByExampleWithBLOBs" parameterType="map" >
     update tb_information
     set info_id = #{record.infoId,jdbcType=VARCHAR},
-      info_type = #{record.infoType,jdbcType=CHAR},
+      info_type = #{record.infoType,jdbcType=VARCHAR},
       info_writer = #{record.infoWriter,jdbcType=VARCHAR},
       info_title = #{record.infoTitle,jdbcType=VARCHAR},
       info_view_times = #{record.infoViewTimes,jdbcType=BIGINT},
       info_img_path = #{record.infoImgPath,jdbcType=VARCHAR},
+      info_url = #{record.infoUrl,jdbcType=VARCHAR},
       effect_flag = #{record.effectFlag,jdbcType=CHAR},
       delete_flag = #{record.deleteFlag,jdbcType=CHAR},
       published_time = #{record.publishedTime,jdbcType=TIMESTAMP},
       info_source = #{record.infoSource,jdbcType=CHAR},
-      remark5 = #{record.remark5,jdbcType=VARCHAR},
-      remark4 = #{record.remark4,jdbcType=VARCHAR},
-      remark3 = #{record.remark3,jdbcType=VARCHAR},
-      remark2 = #{record.remark2,jdbcType=VARCHAR},
       remark1 = #{record.remark1,jdbcType=VARCHAR},
-      info_details = #{record.infoDetails,jdbcType=LONGVARCHAR}
+      remark2 = #{record.remark2,jdbcType=VARCHAR},
+      remark3 = #{record.remark3,jdbcType=VARCHAR},
+      remark4 = #{record.remark4,jdbcType=VARCHAR},
+      remark5 = #{record.remark5,jdbcType=VARCHAR},
+      info_details = #{record.infoDetails,jdbcType=LONGVARCHAR},
+      info_content = #{record.infoContent,jdbcType=LONGVARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -340,29 +365,30 @@
   <update id="updateByExample" parameterType="map" >
     update tb_information
     set info_id = #{record.infoId,jdbcType=VARCHAR},
-      info_type = #{record.infoType,jdbcType=CHAR},
+      info_type = #{record.infoType,jdbcType=VARCHAR},
       info_writer = #{record.infoWriter,jdbcType=VARCHAR},
       info_title = #{record.infoTitle,jdbcType=VARCHAR},
       info_view_times = #{record.infoViewTimes,jdbcType=BIGINT},
       info_img_path = #{record.infoImgPath,jdbcType=VARCHAR},
+      info_url = #{record.infoUrl,jdbcType=VARCHAR},
       effect_flag = #{record.effectFlag,jdbcType=CHAR},
       delete_flag = #{record.deleteFlag,jdbcType=CHAR},
       published_time = #{record.publishedTime,jdbcType=TIMESTAMP},
       info_source = #{record.infoSource,jdbcType=CHAR},
-      remark5 = #{record.remark5,jdbcType=VARCHAR},
-      remark4 = #{record.remark4,jdbcType=VARCHAR},
-      remark3 = #{record.remark3,jdbcType=VARCHAR},
+      remark1 = #{record.remark1,jdbcType=VARCHAR},
       remark2 = #{record.remark2,jdbcType=VARCHAR},
-      remark1 = #{record.remark1,jdbcType=VARCHAR}
+      remark3 = #{record.remark3,jdbcType=VARCHAR},
+      remark4 = #{record.remark4,jdbcType=VARCHAR},
+      remark5 = #{record.remark5,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.master.qianyi.pojo.TbInformation" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.master.qianyi.pojo.TbInformationWithBLOBs" >
     update tb_information
     <set >
       <if test="infoType != null" >
-        info_type = #{infoType,jdbcType=CHAR},
+        info_type = #{infoType,jdbcType=VARCHAR},
       </if>
       <if test="infoWriter != null" >
         info_writer = #{infoWriter,jdbcType=VARCHAR},
@@ -376,6 +402,9 @@
       <if test="infoImgPath != null" >
         info_img_path = #{infoImgPath,jdbcType=VARCHAR},
       </if>
+      <if test="infoUrl != null" >
+        info_url = #{infoUrl,jdbcType=VARCHAR},
+      </if>
       <if test="effectFlag != null" >
         effect_flag = #{effectFlag,jdbcType=CHAR},
       </if>
@@ -388,62 +417,68 @@
       <if test="infoSource != null" >
         info_source = #{infoSource,jdbcType=CHAR},
       </if>
-      <if test="remark5 != null" >
-        remark5 = #{remark5,jdbcType=VARCHAR},
-      </if>
-      <if test="remark4 != null" >
-        remark4 = #{remark4,jdbcType=VARCHAR},
-      </if>
-      <if test="remark3 != null" >
-        remark3 = #{remark3,jdbcType=VARCHAR},
+      <if test="remark1 != null" >
+        remark1 = #{remark1,jdbcType=VARCHAR},
       </if>
       <if test="remark2 != null" >
         remark2 = #{remark2,jdbcType=VARCHAR},
       </if>
-      <if test="remark1 != null" >
-        remark1 = #{remark1,jdbcType=VARCHAR},
+      <if test="remark3 != null" >
+        remark3 = #{remark3,jdbcType=VARCHAR},
+      </if>
+      <if test="remark4 != null" >
+        remark4 = #{remark4,jdbcType=VARCHAR},
+      </if>
+      <if test="remark5 != null" >
+        remark5 = #{remark5,jdbcType=VARCHAR},
       </if>
       <if test="infoDetails != null" >
         info_details = #{infoDetails,jdbcType=LONGVARCHAR},
       </if>
+      <if test="infoContent != null" >
+        info_content = #{infoContent,jdbcType=LONGVARCHAR},
+      </if>
     </set>
     where info_id = #{infoId,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.master.qianyi.pojo.TbInformation" >
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.master.qianyi.pojo.TbInformationWithBLOBs" >
     update tb_information
-    set info_type = #{infoType,jdbcType=CHAR},
+    set info_type = #{infoType,jdbcType=VARCHAR},
       info_writer = #{infoWriter,jdbcType=VARCHAR},
       info_title = #{infoTitle,jdbcType=VARCHAR},
       info_view_times = #{infoViewTimes,jdbcType=BIGINT},
       info_img_path = #{infoImgPath,jdbcType=VARCHAR},
+      info_url = #{infoUrl,jdbcType=VARCHAR},
       effect_flag = #{effectFlag,jdbcType=CHAR},
       delete_flag = #{deleteFlag,jdbcType=CHAR},
       published_time = #{publishedTime,jdbcType=TIMESTAMP},
       info_source = #{infoSource,jdbcType=CHAR},
-      remark5 = #{remark5,jdbcType=VARCHAR},
-      remark4 = #{remark4,jdbcType=VARCHAR},
-      remark3 = #{remark3,jdbcType=VARCHAR},
-      remark2 = #{remark2,jdbcType=VARCHAR},
       remark1 = #{remark1,jdbcType=VARCHAR},
-      info_details = #{infoDetails,jdbcType=LONGVARCHAR}
+      remark2 = #{remark2,jdbcType=VARCHAR},
+      remark3 = #{remark3,jdbcType=VARCHAR},
+      remark4 = #{remark4,jdbcType=VARCHAR},
+      remark5 = #{remark5,jdbcType=VARCHAR},
+      info_details = #{infoDetails,jdbcType=LONGVARCHAR},
+      info_content = #{infoContent,jdbcType=LONGVARCHAR}
     where info_id = #{infoId,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.master.qianyi.pojo.TbInformation" >
     update tb_information
-    set info_type = #{infoType,jdbcType=CHAR},
+    set info_type = #{infoType,jdbcType=VARCHAR},
       info_writer = #{infoWriter,jdbcType=VARCHAR},
       info_title = #{infoTitle,jdbcType=VARCHAR},
       info_view_times = #{infoViewTimes,jdbcType=BIGINT},
       info_img_path = #{infoImgPath,jdbcType=VARCHAR},
+      info_url = #{infoUrl,jdbcType=VARCHAR},
       effect_flag = #{effectFlag,jdbcType=CHAR},
       delete_flag = #{deleteFlag,jdbcType=CHAR},
       published_time = #{publishedTime,jdbcType=TIMESTAMP},
       info_source = #{infoSource,jdbcType=CHAR},
-      remark5 = #{remark5,jdbcType=VARCHAR},
-      remark4 = #{remark4,jdbcType=VARCHAR},
-      remark3 = #{remark3,jdbcType=VARCHAR},
+      remark1 = #{remark1,jdbcType=VARCHAR},
       remark2 = #{remark2,jdbcType=VARCHAR},
-      remark1 = #{remark1,jdbcType=VARCHAR}
+      remark3 = #{remark3,jdbcType=VARCHAR},
+      remark4 = #{remark4,jdbcType=VARCHAR},
+      remark5 = #{remark5,jdbcType=VARCHAR}
     where info_id = #{infoId,jdbcType=VARCHAR}
   </update>
 </mapper>

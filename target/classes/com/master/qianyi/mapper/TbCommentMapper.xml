@@ -7,11 +7,12 @@
     <result column="commentary_subject_id" property="commentarySubjectId" jdbcType="VARCHAR" />
     <result column="comment_type" property="commentType" jdbcType="CHAR" />
     <result column="comment_father_id" property="commentFatherId" jdbcType="VARCHAR" />
+    <result column="comment_score" property="commentScore" jdbcType="INTEGER" />
     <result column="comment_content" property="commentContent" jdbcType="VARCHAR" />
     <result column="comment_date_time" property="commentDateTime" jdbcType="TIMESTAMP" />
     <result column="effect_flag" property="effectFlag" jdbcType="CHAR" />
     <result column="delete_flag" property="deleteFlag" jdbcType="CHAR" />
-    <result column="remark1" property="remark1" jdbcType="VARCHAR" />
+    <result column="remark1" property="remark1" jdbcType="CHAR" />
     <result column="remark2" property="remark2" jdbcType="VARCHAR" />
     <result column="remark3" property="remark3" jdbcType="VARCHAR" />
     <result column="remark4" property="remark4" jdbcType="VARCHAR" />
@@ -77,8 +78,8 @@
   </sql>
   <sql id="Base_Column_List" >
     comment_id, comment_user_id, commentary_subject_id, comment_type, comment_father_id, 
-    comment_content, comment_date_time, effect_flag, delete_flag, remark1, remark2, remark3, 
-    remark4, remark5
+    comment_score, comment_content, comment_date_time, effect_flag, delete_flag, remark1, 
+    remark2, remark3, remark4, remark5
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.master.qianyi.pojo.TbCommentExample" >
     select
@@ -113,15 +114,17 @@
   </delete>
   <insert id="insert" parameterType="com.master.qianyi.pojo.TbComment" >
     insert into tb_comment (comment_id, comment_user_id, commentary_subject_id, 
-      comment_type, comment_father_id, comment_content, 
-      comment_date_time, effect_flag, delete_flag, 
-      remark1, remark2, remark3, 
-      remark4, remark5)
+      comment_type, comment_father_id, comment_score, 
+      comment_content, comment_date_time, effect_flag, 
+      delete_flag, remark1, remark2, 
+      remark3, remark4, remark5
+      )
     values (#{commentId,jdbcType=VARCHAR}, #{commentUserId,jdbcType=VARCHAR}, #{commentarySubjectId,jdbcType=VARCHAR}, 
-      #{commentType,jdbcType=CHAR}, #{commentFatherId,jdbcType=VARCHAR}, #{commentContent,jdbcType=VARCHAR}, 
-      #{commentDateTime,jdbcType=TIMESTAMP}, #{effectFlag,jdbcType=CHAR}, #{deleteFlag,jdbcType=CHAR}, 
-      #{remark1,jdbcType=VARCHAR}, #{remark2,jdbcType=VARCHAR}, #{remark3,jdbcType=VARCHAR}, 
-      #{remark4,jdbcType=VARCHAR}, #{remark5,jdbcType=VARCHAR})
+      #{commentType,jdbcType=CHAR}, #{commentFatherId,jdbcType=VARCHAR}, #{commentScore,jdbcType=INTEGER}, 
+      #{commentContent,jdbcType=VARCHAR}, #{commentDateTime,jdbcType=TIMESTAMP}, #{effectFlag,jdbcType=CHAR}, 
+      #{deleteFlag,jdbcType=CHAR}, #{remark1,jdbcType=CHAR}, #{remark2,jdbcType=VARCHAR}, 
+      #{remark3,jdbcType=VARCHAR}, #{remark4,jdbcType=VARCHAR}, #{remark5,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.master.qianyi.pojo.TbComment" >
     insert into tb_comment
@@ -140,6 +143,9 @@
       </if>
       <if test="commentFatherId != null" >
         comment_father_id,
+      </if>
+      <if test="commentScore != null" >
+        comment_score,
       </if>
       <if test="commentContent != null" >
         comment_content,
@@ -185,6 +191,9 @@
       <if test="commentFatherId != null" >
         #{commentFatherId,jdbcType=VARCHAR},
       </if>
+      <if test="commentScore != null" >
+        #{commentScore,jdbcType=INTEGER},
+      </if>
       <if test="commentContent != null" >
         #{commentContent,jdbcType=VARCHAR},
       </if>
@@ -198,7 +207,7 @@
         #{deleteFlag,jdbcType=CHAR},
       </if>
       <if test="remark1 != null" >
-        #{remark1,jdbcType=VARCHAR},
+        #{remark1,jdbcType=CHAR},
       </if>
       <if test="remark2 != null" >
         #{remark2,jdbcType=VARCHAR},
@@ -238,6 +247,9 @@
       <if test="record.commentFatherId != null" >
         comment_father_id = #{record.commentFatherId,jdbcType=VARCHAR},
       </if>
+      <if test="record.commentScore != null" >
+        comment_score = #{record.commentScore,jdbcType=INTEGER},
+      </if>
       <if test="record.commentContent != null" >
         comment_content = #{record.commentContent,jdbcType=VARCHAR},
       </if>
@@ -251,7 +263,7 @@
         delete_flag = #{record.deleteFlag,jdbcType=CHAR},
       </if>
       <if test="record.remark1 != null" >
-        remark1 = #{record.remark1,jdbcType=VARCHAR},
+        remark1 = #{record.remark1,jdbcType=CHAR},
       </if>
       <if test="record.remark2 != null" >
         remark2 = #{record.remark2,jdbcType=VARCHAR},
@@ -277,11 +289,12 @@
       commentary_subject_id = #{record.commentarySubjectId,jdbcType=VARCHAR},
       comment_type = #{record.commentType,jdbcType=CHAR},
       comment_father_id = #{record.commentFatherId,jdbcType=VARCHAR},
+      comment_score = #{record.commentScore,jdbcType=INTEGER},
       comment_content = #{record.commentContent,jdbcType=VARCHAR},
       comment_date_time = #{record.commentDateTime,jdbcType=TIMESTAMP},
       effect_flag = #{record.effectFlag,jdbcType=CHAR},
       delete_flag = #{record.deleteFlag,jdbcType=CHAR},
-      remark1 = #{record.remark1,jdbcType=VARCHAR},
+      remark1 = #{record.remark1,jdbcType=CHAR},
       remark2 = #{record.remark2,jdbcType=VARCHAR},
       remark3 = #{record.remark3,jdbcType=VARCHAR},
       remark4 = #{record.remark4,jdbcType=VARCHAR},
@@ -305,6 +318,9 @@
       <if test="commentFatherId != null" >
         comment_father_id = #{commentFatherId,jdbcType=VARCHAR},
       </if>
+      <if test="commentScore != null" >
+        comment_score = #{commentScore,jdbcType=INTEGER},
+      </if>
       <if test="commentContent != null" >
         comment_content = #{commentContent,jdbcType=VARCHAR},
       </if>
@@ -318,7 +334,7 @@
         delete_flag = #{deleteFlag,jdbcType=CHAR},
       </if>
       <if test="remark1 != null" >
-        remark1 = #{remark1,jdbcType=VARCHAR},
+        remark1 = #{remark1,jdbcType=CHAR},
       </if>
       <if test="remark2 != null" >
         remark2 = #{remark2,jdbcType=VARCHAR},
@@ -341,11 +357,12 @@
       commentary_subject_id = #{commentarySubjectId,jdbcType=VARCHAR},
       comment_type = #{commentType,jdbcType=CHAR},
       comment_father_id = #{commentFatherId,jdbcType=VARCHAR},
+      comment_score = #{commentScore,jdbcType=INTEGER},
       comment_content = #{commentContent,jdbcType=VARCHAR},
       comment_date_time = #{commentDateTime,jdbcType=TIMESTAMP},
       effect_flag = #{effectFlag,jdbcType=CHAR},
       delete_flag = #{deleteFlag,jdbcType=CHAR},
-      remark1 = #{remark1,jdbcType=VARCHAR},
+      remark1 = #{remark1,jdbcType=CHAR},
       remark2 = #{remark2,jdbcType=VARCHAR},
       remark3 = #{remark3,jdbcType=VARCHAR},
       remark4 = #{remark4,jdbcType=VARCHAR},

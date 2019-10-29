@@ -21,7 +21,7 @@ public interface MobileService {
      * @param password
      * @return
      */
-    ResultBean mobileSmsRegister(String userName, String phoneNumber, int mobileCode, String password);
+    ResultBean mobileSmsRegister(String nickName, String phoneNumber, int mobileCode, String password);
 
     /**
      * 登录操作（手机号、密码）
@@ -45,4 +45,5 @@ public interface MobileService {
 
     ResultBean threePartyLogin(String openid,String type,String headImg, String nickName);
 
+    ResultBean bindPhoneNumber(String phoneNumber, int mobileCode, String openid, String type);
 }

@@ -484,6 +484,346 @@ public class TbCatalogExample {
             return (Criteria) this;
         }
 
+        public Criteria andVideoPathIsNull() {
+            addCriterion("video_path is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andVideoPathIsNotNull() {
+            addCriterion("video_path is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andVideoPathEqualTo(String value) {
+            addCriterion("video_path =", value, "videoPath");
+            return (Criteria) this;
+        }
+
+        public Criteria andVideoPathNotEqualTo(String value) {
+            addCriterion("video_path <>", value, "videoPath");
+            return (Criteria) this;
+        }
+
+        public Criteria andVideoPathGreaterThan(String value) {
+            addCriterion("video_path >", value, "videoPath");
+            return (Criteria) this;
+        }
+
+        public Criteria andVideoPathGreaterThanOrEqualTo(String value) {
+            addCriterion("video_path >=", value, "videoPath");
+            return (Criteria) this;
+        }
+
+        public Criteria andVideoPathLessThan(String value) {
+            addCriterion("video_path <", value, "videoPath");
+            return (Criteria) this;
+        }
+
+        public Criteria andVideoPathLessThanOrEqualTo(String value) {
+            addCriterion("video_path <=", value, "videoPath");
+            return (Criteria) this;
+        }
+
+        public Criteria andVideoPathLike(String value) {
+            addCriterion("video_path like", value, "videoPath");
+            return (Criteria) this;
+        }
+
+        public Criteria andVideoPathNotLike(String value) {
+            addCriterion("video_path not like", value, "videoPath");
+            return (Criteria) this;
+        }
+
+        public Criteria andVideoPathIn(List<String> values) {
+            addCriterion("video_path in", values, "videoPath");
+            return (Criteria) this;
+        }
+
+        public Criteria andVideoPathNotIn(List<String> values) {
+            addCriterion("video_path not in", values, "videoPath");
+            return (Criteria) this;
+        }
+
+        public Criteria andVideoPathBetween(String value1, String value2) {
+            addCriterion("video_path between", value1, value2, "videoPath");
+            return (Criteria) this;
+        }
+
+        public Criteria andVideoPathNotBetween(String value1, String value2) {
+            addCriterion("video_path not between", value1, value2, "videoPath");
+            return (Criteria) this;
+        }
+
+        public Criteria andVideoTimeIsNull() {
+            addCriterion("video_time is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andVideoTimeIsNotNull() {
+            addCriterion("video_time is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andVideoTimeEqualTo(String value) {
+            addCriterion("video_time =", value, "videoTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andVideoTimeNotEqualTo(String value) {
+            addCriterion("video_time <>", value, "videoTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andVideoTimeGreaterThan(String value) {
+            addCriterion("video_time >", value, "videoTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andVideoTimeGreaterThanOrEqualTo(String value) {
+            addCriterion("video_time >=", value, "videoTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andVideoTimeLessThan(String value) {
+            addCriterion("video_time <", value, "videoTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andVideoTimeLessThanOrEqualTo(String value) {
+            addCriterion("video_time <=", value, "videoTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andVideoTimeLike(String value) {
+            addCriterion("video_time like", value, "videoTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andVideoTimeNotLike(String value) {
+            addCriterion("video_time not like", value, "videoTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andVideoTimeIn(List<String> values) {
+            addCriterion("video_time in", values, "videoTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andVideoTimeNotIn(List<String> values) {
+            addCriterion("video_time not in", values, "videoTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andVideoTimeBetween(String value1, String value2) {
+            addCriterion("video_time between", value1, value2, "videoTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andVideoTimeNotBetween(String value1, String value2) {
+            addCriterion("video_time not between", value1, value2, "videoTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andVideoNameIsNull() {
+            addCriterion("video_name is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andVideoNameIsNotNull() {
+            addCriterion("video_name is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andVideoNameEqualTo(String value) {
+            addCriterion("video_name =", value, "videoName");
+            return (Criteria) this;
+        }
+
+        public Criteria andVideoNameNotEqualTo(String value) {
+            addCriterion("video_name <>", value, "videoName");
+            return (Criteria) this;
+        }
+
+        public Criteria andVideoNameGreaterThan(String value) {
+            addCriterion("video_name >", value, "videoName");
+            return (Criteria) this;
+        }
+
+        public Criteria andVideoNameGreaterThanOrEqualTo(String value) {
+            addCriterion("video_name >=", value, "videoName");
+            return (Criteria) this;
+        }
+
+        public Criteria andVideoNameLessThan(String value) {
+            addCriterion("video_name <", value, "videoName");
+            return (Criteria) this;
+        }
+
+        public Criteria andVideoNameLessThanOrEqualTo(String value) {
+            addCriterion("video_name <=", value, "videoName");
+            return (Criteria) this;
+        }
+
+        public Criteria andVideoNameLike(String value) {
+            addCriterion("video_name like", value, "videoName");
+            return (Criteria) this;
+        }
+
+        public Criteria andVideoNameNotLike(String value) {
+            addCriterion("video_name not like", value, "videoName");
+            return (Criteria) this;
+        }
+
+        public Criteria andVideoNameIn(List<String> values) {
+            addCriterion("video_name in", values, "videoName");
+            return (Criteria) this;
+        }
+
+        public Criteria andVideoNameNotIn(List<String> values) {
+            addCriterion("video_name not in", values, "videoName");
+            return (Criteria) this;
+        }
+
+        public Criteria andVideoNameBetween(String value1, String value2) {
+            addCriterion("video_name between", value1, value2, "videoName");
+            return (Criteria) this;
+        }
+
+        public Criteria andVideoNameNotBetween(String value1, String value2) {
+            addCriterion("video_name not between", value1, value2, "videoName");
+            return (Criteria) this;
+        }
+
+        public Criteria andLearningTimesIsNull() {
+            addCriterion("learning_times is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andLearningTimesIsNotNull() {
+            addCriterion("learning_times is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andLearningTimesEqualTo(Long value) {
+            addCriterion("learning_times =", value, "learningTimes");
+            return (Criteria) this;
+        }
+
+        public Criteria andLearningTimesNotEqualTo(Long value) {
+            addCriterion("learning_times <>", value, "learningTimes");
+            return (Criteria) this;
+        }
+
+        public Criteria andLearningTimesGreaterThan(Long value) {
+            addCriterion("learning_times >", value, "learningTimes");
+            return (Criteria) this;
+        }
+
+        public Criteria andLearningTimesGreaterThanOrEqualTo(Long value) {
+            addCriterion("learning_times >=", value, "learningTimes");
+            return (Criteria) this;
+        }
+
+        public Criteria andLearningTimesLessThan(Long value) {
+            addCriterion("learning_times <", value, "learningTimes");
+            return (Criteria) this;
+        }
+
+        public Criteria andLearningTimesLessThanOrEqualTo(Long value) {
+            addCriterion("learning_times <=", value, "learningTimes");
+            return (Criteria) this;
+        }
+
+        public Criteria andLearningTimesIn(List<Long> values) {
+            addCriterion("learning_times in", values, "learningTimes");
+            return (Criteria) this;
+        }
+
+        public Criteria andLearningTimesNotIn(List<Long> values) {
+            addCriterion("learning_times not in", values, "learningTimes");
+            return (Criteria) this;
+        }
+
+        public Criteria andLearningTimesBetween(Long value1, Long value2) {
+            addCriterion("learning_times between", value1, value2, "learningTimes");
+            return (Criteria) this;
+        }
+
+        public Criteria andLearningTimesNotBetween(Long value1, Long value2) {
+            addCriterion("learning_times not between", value1, value2, "learningTimes");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsAuditioningIsNull() {
+            addCriterion("is_auditioning is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsAuditioningIsNotNull() {
+            addCriterion("is_auditioning is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsAuditioningEqualTo(String value) {
+            addCriterion("is_auditioning =", value, "isAuditioning");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsAuditioningNotEqualTo(String value) {
+            addCriterion("is_auditioning <>", value, "isAuditioning");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsAuditioningGreaterThan(String value) {
+            addCriterion("is_auditioning >", value, "isAuditioning");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsAuditioningGreaterThanOrEqualTo(String value) {
+            addCriterion("is_auditioning >=", value, "isAuditioning");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsAuditioningLessThan(String value) {
+            addCriterion("is_auditioning <", value, "isAuditioning");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsAuditioningLessThanOrEqualTo(String value) {
+            addCriterion("is_auditioning <=", value, "isAuditioning");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsAuditioningLike(String value) {
+            addCriterion("is_auditioning like", value, "isAuditioning");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsAuditioningNotLike(String value) {
+            addCriterion("is_auditioning not like", value, "isAuditioning");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsAuditioningIn(List<String> values) {
+            addCriterion("is_auditioning in", values, "isAuditioning");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsAuditioningNotIn(List<String> values) {
+            addCriterion("is_auditioning not in", values, "isAuditioning");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsAuditioningBetween(String value1, String value2) {
+            addCriterion("is_auditioning between", value1, value2, "isAuditioning");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsAuditioningNotBetween(String value1, String value2) {
+            addCriterion("is_auditioning not between", value1, value2, "isAuditioning");
+            return (Criteria) this;
+        }
+
         public Criteria andDeleteFlagIsNull() {
             addCriterion("delete_flag is null");
             return (Criteria) this;

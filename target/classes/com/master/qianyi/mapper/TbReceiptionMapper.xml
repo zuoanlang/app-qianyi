@@ -5,16 +5,17 @@
     <id column="receipt_id" property="receiptId" jdbcType="VARCHAR" />
     <result column="user_id" property="userId" jdbcType="VARCHAR" />
     <result column="trade_type" property="tradeType" jdbcType="CHAR" />
+    <result column="trade_amount" property="tradeAmount" jdbcType="INTEGER" />
     <result column="trade_date_time" property="tradeDateTime" jdbcType="TIMESTAMP" />
     <result column="trade_source" property="tradeSource" jdbcType="CHAR" />
     <result column="trade_detail" property="tradeDetail" jdbcType="VARCHAR" />
     <result column="delete_flag" property="deleteFlag" jdbcType="CHAR" />
     <result column="effect_flag" property="effectFlag" jdbcType="CHAR" />
     <result column="remark1" property="remark1" jdbcType="VARCHAR" />
-    <result column="remark5" property="remark5" jdbcType="VARCHAR" />
     <result column="remark3" property="remark3" jdbcType="VARCHAR" />
     <result column="remark2" property="remark2" jdbcType="VARCHAR" />
     <result column="remark4" property="remark4" jdbcType="VARCHAR" />
+    <result column="remark5" property="remark5" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -75,8 +76,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    receipt_id, user_id, trade_type, trade_date_time, trade_source, trade_detail, delete_flag, 
-    effect_flag, remark1, remark5, remark3, remark2, remark4
+    receipt_id, user_id, trade_type, trade_amount, trade_date_time, trade_source, trade_detail, 
+    delete_flag, effect_flag, remark1, remark3, remark2, remark4, remark5
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.master.qianyi.pojo.TbReceiptionExample" >
     select
@@ -111,15 +112,15 @@
   </delete>
   <insert id="insert" parameterType="com.master.qianyi.pojo.TbReceiption" >
     insert into tb_receiption (receipt_id, user_id, trade_type, 
-      trade_date_time, trade_source, trade_detail, 
-      delete_flag, effect_flag, remark1, 
-      remark5, remark3, remark2, 
-      remark4)
+      trade_amount, trade_date_time, trade_source, 
+      trade_detail, delete_flag, effect_flag, 
+      remark1, remark3, remark2, 
+      remark4, remark5)
     values (#{receiptId,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{tradeType,jdbcType=CHAR}, 
-      #{tradeDateTime,jdbcType=TIMESTAMP}, #{tradeSource,jdbcType=CHAR}, #{tradeDetail,jdbcType=VARCHAR}, 
-      #{deleteFlag,jdbcType=CHAR}, #{effectFlag,jdbcType=CHAR}, #{remark1,jdbcType=VARCHAR}, 
-      #{remark5,jdbcType=VARCHAR}, #{remark3,jdbcType=VARCHAR}, #{remark2,jdbcType=VARCHAR}, 
-      #{remark4,jdbcType=VARCHAR})
+      #{tradeAmount,jdbcType=INTEGER}, #{tradeDateTime,jdbcType=TIMESTAMP}, #{tradeSource,jdbcType=CHAR}, 
+      #{tradeDetail,jdbcType=VARCHAR}, #{deleteFlag,jdbcType=CHAR}, #{effectFlag,jdbcType=CHAR}, 
+      #{remark1,jdbcType=VARCHAR}, #{remark3,jdbcType=VARCHAR}, #{remark2,jdbcType=VARCHAR}, 
+      #{remark4,jdbcType=VARCHAR}, #{remark5,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.master.qianyi.pojo.TbReceiption" >
     insert into tb_receiption
@@ -132,6 +133,9 @@
       </if>
       <if test="tradeType != null" >
         trade_type,
+      </if>
+      <if test="tradeAmount != null" >
+        trade_amount,
       </if>
       <if test="tradeDateTime != null" >
         trade_date_time,
@@ -151,9 +155,6 @@
       <if test="remark1 != null" >
         remark1,
       </if>
-      <if test="remark5 != null" >
-        remark5,
-      </if>
       <if test="remark3 != null" >
         remark3,
       </if>
@@ -162,6 +163,9 @@
       </if>
       <if test="remark4 != null" >
         remark4,
+      </if>
+      <if test="remark5 != null" >
+        remark5,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -173,6 +177,9 @@
       </if>
       <if test="tradeType != null" >
         #{tradeType,jdbcType=CHAR},
+      </if>
+      <if test="tradeAmount != null" >
+        #{tradeAmount,jdbcType=INTEGER},
       </if>
       <if test="tradeDateTime != null" >
         #{tradeDateTime,jdbcType=TIMESTAMP},
@@ -192,9 +199,6 @@
       <if test="remark1 != null" >
         #{remark1,jdbcType=VARCHAR},
       </if>
-      <if test="remark5 != null" >
-        #{remark5,jdbcType=VARCHAR},
-      </if>
       <if test="remark3 != null" >
         #{remark3,jdbcType=VARCHAR},
       </if>
@@ -203,6 +207,9 @@
       </if>
       <if test="remark4 != null" >
         #{remark4,jdbcType=VARCHAR},
+      </if>
+      <if test="remark5 != null" >
+        #{remark5,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -224,6 +231,9 @@
       <if test="record.tradeType != null" >
         trade_type = #{record.tradeType,jdbcType=CHAR},
       </if>
+      <if test="record.tradeAmount != null" >
+        trade_amount = #{record.tradeAmount,jdbcType=INTEGER},
+      </if>
       <if test="record.tradeDateTime != null" >
         trade_date_time = #{record.tradeDateTime,jdbcType=TIMESTAMP},
       </if>
@@ -242,9 +252,6 @@
       <if test="record.remark1 != null" >
         remark1 = #{record.remark1,jdbcType=VARCHAR},
       </if>
-      <if test="record.remark5 != null" >
-        remark5 = #{record.remark5,jdbcType=VARCHAR},
-      </if>
       <if test="record.remark3 != null" >
         remark3 = #{record.remark3,jdbcType=VARCHAR},
       </if>
@@ -253,6 +260,9 @@
       </if>
       <if test="record.remark4 != null" >
         remark4 = #{record.remark4,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark5 != null" >
+        remark5 = #{record.remark5,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -264,16 +274,17 @@
     set receipt_id = #{record.receiptId,jdbcType=VARCHAR},
       user_id = #{record.userId,jdbcType=VARCHAR},
       trade_type = #{record.tradeType,jdbcType=CHAR},
+      trade_amount = #{record.tradeAmount,jdbcType=INTEGER},
       trade_date_time = #{record.tradeDateTime,jdbcType=TIMESTAMP},
       trade_source = #{record.tradeSource,jdbcType=CHAR},
       trade_detail = #{record.tradeDetail,jdbcType=VARCHAR},
       delete_flag = #{record.deleteFlag,jdbcType=CHAR},
       effect_flag = #{record.effectFlag,jdbcType=CHAR},
       remark1 = #{record.remark1,jdbcType=VARCHAR},
-      remark5 = #{record.remark5,jdbcType=VARCHAR},
       remark3 = #{record.remark3,jdbcType=VARCHAR},
       remark2 = #{record.remark2,jdbcType=VARCHAR},
-      remark4 = #{record.remark4,jdbcType=VARCHAR}
+      remark4 = #{record.remark4,jdbcType=VARCHAR},
+      remark5 = #{record.remark5,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -286,6 +297,9 @@
       </if>
       <if test="tradeType != null" >
         trade_type = #{tradeType,jdbcType=CHAR},
+      </if>
+      <if test="tradeAmount != null" >
+        trade_amount = #{tradeAmount,jdbcType=INTEGER},
       </if>
       <if test="tradeDateTime != null" >
         trade_date_time = #{tradeDateTime,jdbcType=TIMESTAMP},
@@ -305,9 +319,6 @@
       <if test="remark1 != null" >
         remark1 = #{remark1,jdbcType=VARCHAR},
       </if>
-      <if test="remark5 != null" >
-        remark5 = #{remark5,jdbcType=VARCHAR},
-      </if>
       <if test="remark3 != null" >
         remark3 = #{remark3,jdbcType=VARCHAR},
       </if>
@@ -317,6 +328,9 @@
       <if test="remark4 != null" >
         remark4 = #{remark4,jdbcType=VARCHAR},
       </if>
+      <if test="remark5 != null" >
+        remark5 = #{remark5,jdbcType=VARCHAR},
+      </if>
     </set>
     where receipt_id = #{receiptId,jdbcType=VARCHAR}
   </update>
@@ -324,16 +338,17 @@
     update tb_receiption
     set user_id = #{userId,jdbcType=VARCHAR},
       trade_type = #{tradeType,jdbcType=CHAR},
+      trade_amount = #{tradeAmount,jdbcType=INTEGER},
       trade_date_time = #{tradeDateTime,jdbcType=TIMESTAMP},
       trade_source = #{tradeSource,jdbcType=CHAR},
       trade_detail = #{tradeDetail,jdbcType=VARCHAR},
       delete_flag = #{deleteFlag,jdbcType=CHAR},
       effect_flag = #{effectFlag,jdbcType=CHAR},
       remark1 = #{remark1,jdbcType=VARCHAR},
-      remark5 = #{remark5,jdbcType=VARCHAR},
       remark3 = #{remark3,jdbcType=VARCHAR},
       remark2 = #{remark2,jdbcType=VARCHAR},
-      remark4 = #{remark4,jdbcType=VARCHAR}
+      remark4 = #{remark4,jdbcType=VARCHAR},
+      remark5 = #{remark5,jdbcType=VARCHAR}
     where receipt_id = #{receiptId,jdbcType=VARCHAR}
   </update>
 </mapper>

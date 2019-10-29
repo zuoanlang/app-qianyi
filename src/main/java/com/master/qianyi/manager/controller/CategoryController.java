@@ -51,6 +51,18 @@ public class CategoryController {
         List<EasyUITreeNode> list = categoryServiceImpl.getContentCatList(parentId);
         return list;
     }
+    /**
+     * 查询数据字典(测算服务)
+     * @param parentId
+     * @return
+     */
+    @RequestMapping("/category/getServiceList")
+    @ResponseBody
+    public List<EasyUITreeNode> getServiceList(
+            @RequestParam(name = "id", defaultValue = "24") Long parentId) {
+        List<EasyUITreeNode> list = categoryServiceImpl.getContentCatList(parentId);
+        return list;
+    }
 
     /**
      * 查询数据字典(课程级别)

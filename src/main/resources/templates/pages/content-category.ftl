@@ -24,6 +24,7 @@ $(function(){
         },
         onAfterEdit : function(node){
         	var _tree = $(this);
+        	debugger
         	if(node.id == 0){
         		// 新增节点
         		$.post("/qianyi/category/create",{parentId:node.parentId,name:node.text},function(data){

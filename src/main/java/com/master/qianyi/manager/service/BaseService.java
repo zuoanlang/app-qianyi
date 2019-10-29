@@ -23,8 +23,8 @@ public class BaseService {
     public boolean login(HttpServletRequest request, String username, String password) {
         //查询数据库
         TbUser user = userService.getUserByUsername(username);
-        if(user.getUserPassword().equals(password)){
-            setUserSession(request,user);
+        if (user != null && user.getUserPassword().equals(password)) {
+            setUserSession(request, user);
             return true;
         } else {
             return false;
@@ -32,28 +32,27 @@ public class BaseService {
     }
 
     //get user session
-    public TbUser getUserFromSession(HttpServletRequest request){
+    public TbUser getUserFromSession(HttpServletRequest request) {
         HttpSession session = request.getSession();
-        if(session!=null && session.getAttribute("user")!=null){
-            return (TbUser)session.getAttribute("user");
+        if (session != null && session.getAttribute("user") != null) {
+            return (TbUser) session.getAttribute("user");
         } else {
             return null;
         }
     }
 
     //set user session
-    public void setUserSession(HttpServletRequest request, TbUser user){
+    public void setUserSession(HttpServletRequest request, TbUser user) {
         HttpSession session = request.getSession();
-        session.setAttribute("user",user);
+        session.setAttribute("user", user);
     }
 
     //log off user
-    public String logOffUser(HttpServletRequest request){
+    public String logOffUser(HttpServletRequest request) {
         HttpSession session = request.getSession();
-        session.setAttribute("user",null);
+        session.setAttribute("user", null);
         return "loginPage";
     }
-
 
 
 }

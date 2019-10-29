@@ -6,6 +6,8 @@
     <result column="parent_id" property="parentId" jdbcType="BIGINT" />
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="key_words" property="keyWords" jdbcType="VARCHAR" />
+    <result column="img_path" property="imgPath" jdbcType="VARCHAR" />
     <result column="sort_order" property="sortOrder" jdbcType="INTEGER" />
     <result column="is_parent" property="isParent" jdbcType="BIT" />
     <result column="created" property="created" jdbcType="TIMESTAMP" />
@@ -70,7 +72,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, parent_id, name, status, sort_order, is_parent, created, updated
+    id, parent_id, name, status, key_words, img_path, sort_order, is_parent, created, 
+    updated
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.master.qianyi.pojo.TbCategoryExample" >
     select
@@ -105,11 +108,13 @@
   </delete>
   <insert id="insert" parameterType="com.master.qianyi.pojo.TbCategory" >
     insert into tb_category (id, parent_id, name, 
-      status, sort_order, is_parent, 
-      created, updated)
+      status, key_words, img_path, 
+      sort_order, is_parent, created, 
+      updated)
     values (#{id,jdbcType=BIGINT}, #{parentId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, 
-      #{status,jdbcType=INTEGER}, #{sortOrder,jdbcType=INTEGER}, #{isParent,jdbcType=BIT}, 
-      #{created,jdbcType=TIMESTAMP}, #{updated,jdbcType=TIMESTAMP})
+      #{status,jdbcType=INTEGER}, #{keyWords,jdbcType=VARCHAR}, #{imgPath,jdbcType=VARCHAR}, 
+      #{sortOrder,jdbcType=INTEGER}, #{isParent,jdbcType=BIT}, #{created,jdbcType=TIMESTAMP}, 
+      #{updated,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.master.qianyi.pojo.TbCategory" >
     insert into tb_category
@@ -125,6 +130,12 @@
       </if>
       <if test="status != null" >
         status,
+      </if>
+      <if test="keyWords != null" >
+        key_words,
+      </if>
+      <if test="imgPath != null" >
+        img_path,
       </if>
       <if test="sortOrder != null" >
         sort_order,
@@ -151,6 +162,12 @@
       </if>
       <if test="status != null" >
         #{status,jdbcType=INTEGER},
+      </if>
+      <if test="keyWords != null" >
+        #{keyWords,jdbcType=VARCHAR},
+      </if>
+      <if test="imgPath != null" >
+        #{imgPath,jdbcType=VARCHAR},
       </if>
       <if test="sortOrder != null" >
         #{sortOrder,jdbcType=INTEGER},
@@ -187,6 +204,12 @@
       <if test="record.status != null" >
         status = #{record.status,jdbcType=INTEGER},
       </if>
+      <if test="record.keyWords != null" >
+        key_words = #{record.keyWords,jdbcType=VARCHAR},
+      </if>
+      <if test="record.imgPath != null" >
+        img_path = #{record.imgPath,jdbcType=VARCHAR},
+      </if>
       <if test="record.sortOrder != null" >
         sort_order = #{record.sortOrder,jdbcType=INTEGER},
       </if>
@@ -210,6 +233,8 @@
       parent_id = #{record.parentId,jdbcType=BIGINT},
       name = #{record.name,jdbcType=VARCHAR},
       status = #{record.status,jdbcType=INTEGER},
+      key_words = #{record.keyWords,jdbcType=VARCHAR},
+      img_path = #{record.imgPath,jdbcType=VARCHAR},
       sort_order = #{record.sortOrder,jdbcType=INTEGER},
       is_parent = #{record.isParent,jdbcType=BIT},
       created = #{record.created,jdbcType=TIMESTAMP},
@@ -229,6 +254,12 @@
       </if>
       <if test="status != null" >
         status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="keyWords != null" >
+        key_words = #{keyWords,jdbcType=VARCHAR},
+      </if>
+      <if test="imgPath != null" >
+        img_path = #{imgPath,jdbcType=VARCHAR},
       </if>
       <if test="sortOrder != null" >
         sort_order = #{sortOrder,jdbcType=INTEGER},
@@ -250,6 +281,8 @@
     set parent_id = #{parentId,jdbcType=BIGINT},
       name = #{name,jdbcType=VARCHAR},
       status = #{status,jdbcType=INTEGER},
+      key_words = #{keyWords,jdbcType=VARCHAR},
+      img_path = #{imgPath,jdbcType=VARCHAR},
       sort_order = #{sortOrder,jdbcType=INTEGER},
       is_parent = #{isParent,jdbcType=BIT},
       created = #{created,jdbcType=TIMESTAMP},

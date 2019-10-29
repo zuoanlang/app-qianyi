@@ -69,6 +69,11 @@ public class CategoryServiceImpl implements CategoryService {
 		//判断父节点的isparent属性。如果不是true改为true
 		//根据parentid查询父节点
 		TbCategory parent = CategoryMapper.selectByPrimaryKey(parentId);
+		TbCategoryExample example = new TbCategoryExample();
+		TbCategoryExample.Criteria criteria = example.createCriteria();
+		criteria.andIdIsNotNull();
+		int count = CategoryMapper.countByExample(example);
+		Category.setId(Long.parseLong(Integer.toString(count)));
 		if (!parent.getIsParent()) {
 			parent.setIsParent(true);
 			//更新到数数据库

@@ -455,6 +455,66 @@ public class TbCommentExample {
             return (Criteria) this;
         }
 
+        public Criteria andCommentScoreIsNull() {
+            addCriterion("comment_score is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommentScoreIsNotNull() {
+            addCriterion("comment_score is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommentScoreEqualTo(Integer value) {
+            addCriterion("comment_score =", value, "commentScore");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommentScoreNotEqualTo(Integer value) {
+            addCriterion("comment_score <>", value, "commentScore");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommentScoreGreaterThan(Integer value) {
+            addCriterion("comment_score >", value, "commentScore");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommentScoreGreaterThanOrEqualTo(Integer value) {
+            addCriterion("comment_score >=", value, "commentScore");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommentScoreLessThan(Integer value) {
+            addCriterion("comment_score <", value, "commentScore");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommentScoreLessThanOrEqualTo(Integer value) {
+            addCriterion("comment_score <=", value, "commentScore");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommentScoreIn(List<Integer> values) {
+            addCriterion("comment_score in", values, "commentScore");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommentScoreNotIn(List<Integer> values) {
+            addCriterion("comment_score not in", values, "commentScore");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommentScoreBetween(Integer value1, Integer value2) {
+            addCriterion("comment_score between", value1, value2, "commentScore");
+            return (Criteria) this;
+        }
+
+        public Criteria andCommentScoreNotBetween(Integer value1, Integer value2) {
+            addCriterion("comment_score not between", value1, value2, "commentScore");
+            return (Criteria) this;
+        }
+
         public Criteria andCommentContentIsNull() {
             addCriterion("comment_content is null");
             return (Criteria) this;
