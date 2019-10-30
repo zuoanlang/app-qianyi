@@ -146,8 +146,8 @@ public class ManagerController {
     //保存名师身份证
     @PostMapping("/saveMasterIdNo")
     @ResponseBody
-    public Map<String, String> saveMasterIdNo(String userId, String idCardNo) {
-        return userService.saveMasterIdNo(userId, idCardNo);
+    public Map<String, String> saveMasterIdNo(String userId, String idCardNo,String masterRank,String isOfficial) {
+        return userService.saveMasterIdNo(userId, idCardNo,masterRank,isOfficial);
     }
 
     //入驻审批

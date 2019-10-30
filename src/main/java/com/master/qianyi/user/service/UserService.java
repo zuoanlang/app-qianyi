@@ -81,7 +81,7 @@ public class UserService {
         TbUserExample.Criteria criteria = userExample.createCriteria();
         criteria.andUserNameEqualTo(username);
         List<TbUser> tbUsers = tbuserMapper.selectByExample(userExample);
-        if (tbUsers.size()>0){
+        if (tbUsers.size() > 0) {
             return tbUsers.get(0);
         }
         return null;
@@ -92,21 +92,21 @@ public class UserService {
      *
      * @return
      */
-    public EasyUIDataGridResult getOrdinaryUserList(int pageNum, int pageSize,String type) {
+    public EasyUIDataGridResult getOrdinaryUserList(int pageNum, int pageSize, String type) {
         EasyUIDataGridResult result = new EasyUIDataGridResult();
         PageHelper.startPage(pageNum, pageSize);
         TbUserExample userExample = new TbUserExample();
         userExample.setOrderByClause("is_administrator desc,is_master desc,register_time asc");
         TbUserExample.Criteria criteria = userExample.createCriteria();
         criteria.andDeleteFlagEqualTo("0").andEffectFlagEqualTo("1");
-        if(type.equals("ordinary")){
+        if (type.equals("ordinary")) {
             criteria.andIsAdministratorEqualTo("0");
             criteria.andIsMasterEqualTo("0");
         }
-        if(type.equals("admin")){
+        if (type.equals("admin")) {
             criteria.andIsAdministratorEqualTo("1");
         }
-        if(type.equals("master")){
+        if (type.equals("master")) {
             criteria.andIsMasterEqualTo("1");
         }
         List<TbUser> userList = tbuserMapper.selectByExample(userExample);
@@ -141,14 +141,39 @@ public class UserService {
         }
         // 二、1.具体分类,3.官方名师,3.价格
         // 按名师专业(多个专业，搜索时只按一个专业搜索，只要包含在该名师专业中即可)
-        // 1.具体分类
-        if (StringUtil.isNotEmpty(user.getMajor())) {
-            criteria.andMajorLike("%" + user.getMajor() + "%");
+        // 按名师提供的服务检索
+        // 取得所有的服务列表
+        TbServiceExample serviceExample = new TbServiceExample();
+        TbServiceExample.Criteria criteria1 = serviceExample.createCriteria();
+        criteria1.andDeleteFlagEqualTo("0").andEffectFlagEqualTo("1");
+        if (StringUtils.isNotBlank(user.getMajor())){
+            criteria1.andServiceNameLike("%"+user.getMajor()+"%");
+        }
+        List<TbService> tbServices = tbServiceMapper.selectByExample(serviceExample);
+
+        //获取名师id
+        List<String> teacherIdList = new ArrayList<>();
+        if (tbServices.size() > 0) {
+            for (TbService service : tbServices) {
+                if (!teacherIdList.contains(service.getUserId())){
+                    teacherIdList.add(service.getUserId());
+                }
+            }
+
         }
         // 2.官方名师
         if (StringUtil.isNotEmpty(user.getIsOfficial()) && "1".equals(user.getIsOfficial())) {
             criteria.andIsOfficialEqualTo(user.getIsOfficial());
         }
+        if (teacherIdList.size()>0){
+            criteria.andUserIdIn(teacherIdList);
+        } else {
+            if (StringUtils.isNotBlank(user.getMajor())){
+                teacherIdList.add("");
+                criteria.andUserIdIn(teacherIdList);
+            }
+        }
+
         PageHelper.startPage(pageNum, pageSize);
         List<TbUser> tbUsers = tbuserMapper.selectByExample(example);
 
@@ -547,7 +572,7 @@ public class UserService {
      * @param userId 用户id
      * @return
      */
-    public ResultBean getTradeDetail(String userId,int pageNum,int pageSize) {
+    public ResultBean getTradeDetail(String userId, int pageNum, int pageSize) {
         ResultBean bean = new ResultBean();
         if (StringUtil.isEmpty(userId)) {
             bean.setCode(Constants.code_1);
@@ -559,15 +584,15 @@ public class UserService {
                 .andDeleteFlagEqualTo("0")
                 .andEffectFlagEqualTo("1")
                 .andUserIdEqualTo(userId);
-        PageHelper.startPage(pageNum,pageSize);
+        PageHelper.startPage(pageNum, pageSize);
         example.setOrderByClause("trade_date_time desc");
         List<TbReceiption> receptions = tbReceiptionMapper.selectByExample(example);
-        if(receptions.size()>0){
+        if (receptions.size() > 0) {
             List<TradeDetails> detailsList = new ArrayList<>();
             TradeDetails details = null;
-            for(TbReceiption reception:receptions){
+            for (TbReceiption reception : receptions) {
                 details = new TradeDetails();
-                details.setTradeName(reception.getTradeType().equals("1")?"充值":"提现");
+                details.setTradeName(reception.getTradeType().equals("1") ? "充值" : "提现");
                 details.setTradeDataTime(String.valueOf(reception.getTradeDateTime().getTime()));
                 details.setTradeAmount(reception.getTradeAmount());
                 detailsList.add(details);
@@ -587,11 +612,11 @@ public class UserService {
      * @return
      */
     @Transactional
-    public ResultBean updateUserInfo(String userId,String token,String userName,String major,String idCardNo,
-                                     String profession,String idCardImg1,String idCardImg2,String masterIntroduction) {
+    public ResultBean updateUserInfo(String userId, String token, String userName, String major, String idCardNo,
+                                     String profession, String idCardImg1, String idCardImg2, String masterIntroduction) {
         ResultBean bean = new ResultBean();
         // 1.查询,userId,主键查询和token
-        ResultBean userOperableBean = getUserOperable(userId, token,idCardNo);
+        ResultBean userOperableBean = getUserOperable(userId, token, idCardNo);
         if (userOperableBean.getCode() != 0) {
             return userOperableBean;
         }
@@ -644,7 +669,6 @@ public class UserService {
         }
 
 
-
         bean.setCode(Constants.code_0);
         bean.setMsg(Constants.msg_success);
         return bean;
@@ -659,7 +683,7 @@ public class UserService {
                                    String handphone, String mobileCode) {
         ResultBean bean = new ResultBean();
         // 1.查询,userId,主键查询和token
-        ResultBean userOperableBean = getUserOperable(userId, token,null);
+        ResultBean userOperableBean = getUserOperable(userId, token, null);
         if (userOperableBean.getCode() != 0) {
             return userOperableBean;
         }
@@ -705,7 +729,7 @@ public class UserService {
      * @param token
      * @return
      */
-    public ResultBean getUserOperable(String userId, String token,String idCardNo) {
+    public ResultBean getUserOperable(String userId, String token, String idCardNo) {
         ResultBean bean = new ResultBean();
         if (StringUtil.isEmpty(userId)) {
             bean.setCode(Constants.code_1);
@@ -725,7 +749,7 @@ public class UserService {
             bean.setMsg("当前用户不存在");
             return bean;
         }
-        if (tbUser.getIdCardNo()!=null && tbUser.getIdCardNo().equals(idCardNo)) {
+        if (tbUser.getIdCardNo() != null && tbUser.getIdCardNo().equals(idCardNo)) {
             bean.setCode(Constants.code_1);
             bean.setMsg("当前用户已经入驻");
             return bean;
@@ -992,7 +1016,7 @@ public class UserService {
         return bean;
     }
 
-    public ResultBean recordVideoPercent(String userId, String token, String catalogId, float learningPercent,float currentSecond) {
+    public ResultBean recordVideoPercent(String userId, String token, String catalogId, float learningPercent, float currentSecond) {
         ResultBean bean = new ResultBean();
         //1.身份验证
         TbUser user = tbuserMapper.selectByPrimaryKey(userId);
@@ -1066,7 +1090,7 @@ public class UserService {
         criteria.andApplyStatusIn(Constants.apply_Status_LIST)
                 .andDeleteFlagEqualTo("0")
                 .andEffectFlagEqualTo("1");
-        PageHelper.startPage(page,rows);
+        PageHelper.startPage(page, rows);
         example.setOrderByClause("apply_status asc,apply_time asc");
         List<TbUser> userList = tbuserMapper.selectByExample(example);
         result.setRows(userList);
@@ -1076,26 +1100,26 @@ public class UserService {
     }
 
     public Map<String, String> deleteUserById(String userId) {
-        Map<String,String> infoMap = new HashMap<>();
+        Map<String, String> infoMap = new HashMap<>();
         TbUser user = tbuserMapper.selectByPrimaryKey(userId);
-        if(user!=null && user.getUserId()!=null){
+        if (user != null && user.getUserId() != null) {
             //1.删除课程（逻辑删除）
             user.setDeleteFlag("1");
             int delete = tbuserMapper.updateByPrimaryKeySelective(user);
             //2.删除对应的课程目录
-            if(delete>0){
-                infoMap.put("code","0");
-                infoMap.put("msg","删除成功!");
+            if (delete > 0) {
+                infoMap.put("code", "0");
+                infoMap.put("msg", "删除成功!");
                 return infoMap;
             }
 
         }
-        infoMap.put("code","1");
-        infoMap.put("msg","删除失败!");
+        infoMap.put("code", "1");
+        infoMap.put("msg", "删除失败!");
         return infoMap;
     }
 
-    public Map<String, String> saveServiceByMasterId(String userId,String serviceId, String serviceName, int servicePrice) {
+    public Map<String, String> saveServiceByMasterId(String userId, String serviceId, String serviceName, int servicePrice) {
         Map<String, String> infoMap = new HashMap<>();
         //测算服务id->name
         String serviceNameTemp = courseService.getCategoryName(Long.parseLong(serviceName));
@@ -1106,12 +1130,12 @@ public class UserService {
         criteria.andServiceNameEqualTo(serviceNameTemp)
                 .andUserIdEqualTo(userId);
         List<TbService> tbServices = serviceMapper.selectByExample(example);
-        if (tbServices.size()>0){
-            infoMap.put("code","1");
-            infoMap.put("msg","该项测算服务已存在");
+        if (tbServices.size() > 0) {
+            infoMap.put("code", "1");
+            infoMap.put("msg", "该项测算服务已存在");
             return infoMap;
         }
-        if (StringUtil.isEmpty(serviceId)){
+        if (StringUtil.isEmpty(serviceId)) {
             //不存在，执行保存逻辑
             tbService.setServiceId(IDUtils.genItemId());
             tbService.setUserId(userId);
@@ -1119,17 +1143,17 @@ public class UserService {
             tbService.setRemark1(serviceName);
             tbService.setServicePrice(servicePrice);
             int i = serviceMapper.insertSelective(tbService);
-            if (i < 0){
-                infoMap.put("code","1");
-                infoMap.put("msg","保存失败");
+            if (i < 0) {
+                infoMap.put("code", "1");
+                infoMap.put("msg", "保存失败");
                 return infoMap;
             }
-            infoMap.put("code","0");
-            infoMap.put("msg","保存成功");
+            infoMap.put("code", "0");
+            infoMap.put("msg", "保存成功");
         } else {
             //1.查询
             TbService service = serviceMapper.selectByPrimaryKey(serviceId);
-            if (service.getUserId()!=null){
+            if (service.getUserId() != null) {
                 //已存在
                 //更新
                 tbService.setUserId(userId);
@@ -1139,16 +1163,16 @@ public class UserService {
                 tbService.setRemark1(serviceName);
                 tbService.setServicePrice(servicePrice);
                 int update = serviceMapper.updateByPrimaryKeySelective(tbService);
-                if (update<0){
-                    infoMap.put("code","1");
-                    infoMap.put("msg","保存失败");
+                if (update < 0) {
+                    infoMap.put("code", "1");
+                    infoMap.put("msg", "保存失败");
                 } else {
-                    infoMap.put("code","0");
-                    infoMap.put("msg","保存成功");
+                    infoMap.put("code", "0");
+                    infoMap.put("msg", "保存成功");
                 }
             } else {
-                infoMap.put("code","1");
-                infoMap.put("msg","当前服务已失效");
+                infoMap.put("code", "1");
+                infoMap.put("msg", "当前服务已失效");
             }
             return infoMap;
         }
@@ -1182,10 +1206,10 @@ public class UserService {
                 .andDeleteFlagEqualTo("0")
                 .andEffectFlagEqualTo("1");
         List<TbUser> userList = tbuserMapper.selectByExample(example);
-        if (userList.size() == 1){
-            infoMap.put("code","0");
+        if (userList.size() == 1) {
+            infoMap.put("code", "0");
         } else {
-            infoMap.put("code","1");
+            infoMap.put("code", "1");
         }
         return infoMap;
     }
@@ -1193,34 +1217,36 @@ public class UserService {
     public Map<String, String> deleteServiceByServiceId(String serviceId) {
         Map<String, String> infoMap = new HashMap<>();
         int i = serviceMapper.deleteByPrimaryKey(serviceId);
-        if (i>0){
-            infoMap.put("code","0");
+        if (i > 0) {
+            infoMap.put("code", "0");
         } else {
-            infoMap.put("code","1");
+            infoMap.put("code", "1");
         }
         return infoMap;
     }
 
-    public Map<String, String> saveMasterIdNo(String userId, String idCardNo) {
+    public Map<String, String> saveMasterIdNo(String userId, String idCardNo,String masterRank,String isOfficial) {
         Map<String, String> infoMap = new HashMap<>();
         //1.查询
         TbUser user = tbuserMapper.selectByPrimaryKey(userId);
-        if (user == null){
-            infoMap.put("code","1");
-            infoMap.put("msg","该名师不存在");
+        if (user == null) {
+            infoMap.put("code", "1");
+            infoMap.put("msg", "该名师不存在");
             return infoMap;
         }
 
         TbUser tbUser = new TbUser();
         tbUser.setIdCardNo(idCardNo);
         tbUser.setUserId(userId);
+        tbUser.setMasterRank(masterRank);
+        tbUser.setIsOfficial(isOfficial);
         int update = tbuserMapper.updateByPrimaryKeySelective(tbUser);
-        if (update>0){
-            infoMap.put("code","0");
-            infoMap.put("msg","保存成功");
-        }else {
-            infoMap.put("code","0");
-            infoMap.put("msg","保存失败");
+        if (update > 0) {
+            infoMap.put("code", "0");
+            infoMap.put("msg", "保存成功");
+        } else {
+            infoMap.put("code", "0");
+            infoMap.put("msg", "保存失败");
         }
         return infoMap;
     }
@@ -1228,13 +1254,13 @@ public class UserService {
     public Map<String, String> approval(String userId, String flag, String approvalOpinion) {
         Map<String, String> infoMap = new HashMap<>();
         TbUser tbUser = tbuserMapper.selectByPrimaryKey(userId);
-        if(!tbUser.getApplyStatus().equals("1")){
-            infoMap.put("code","1");
-            infoMap.put("msg","名师状态错误，请刷新重试");
+        if (!tbUser.getApplyStatus().equals("1")) {
+            infoMap.put("code", "1");
+            infoMap.put("msg", "名师状态错误，请刷新重试");
             return infoMap;
         }
         //get flag
-        if (flag.equals("0")){
+        if (flag.equals("0")) {
             //驳回
             tbUser.setApplyStatus("3");
         } else {
@@ -1244,13 +1270,13 @@ public class UserService {
         }
         tbUser.setApprovalOpinion(approvalOpinion);
         int update = tbuserMapper.updateByPrimaryKeySelective(tbUser);
-        if (update<=0){
-            infoMap.put("code","0");
-            infoMap.put("msg","保存失败");
+        if (update <= 0) {
+            infoMap.put("code", "0");
+            infoMap.put("msg", "保存失败");
             return infoMap;
         }
-        infoMap.put("code","0");
-        infoMap.put("msg","保存成功");
+        infoMap.put("code", "0");
+        infoMap.put("msg", "保存成功");
         return infoMap;
     }
 
@@ -1258,21 +1284,21 @@ public class UserService {
         Map<String, String> infoMap = new HashMap<>();
         //查询订单状态
         TbOrder order = tbOrderMapper.selectByPrimaryKey(orderId);
-        if (!order.getOrderStatus().equals("4")){
-            infoMap.put("code","1");
-            infoMap.put("msg","订单状态异常，请刷新重试！");
+        if (!order.getOrderStatus().equals("4")) {
+            infoMap.put("code", "1");
+            infoMap.put("msg", "订单状态异常，请刷新重试！");
             return infoMap;
         }
         order.setOrderRefundEtime(new Date());
         order.setOrderStatus(orderStatus);
         int update = tbOrderMapper.updateByPrimaryKeySelective(order);
-        if (update<=0){
-            infoMap.put("code","1");
-            infoMap.put("msg","操作失败，请刷新重试");
+        if (update <= 0) {
+            infoMap.put("code", "1");
+            infoMap.put("msg", "操作失败，请刷新重试");
             return infoMap;
         }
-        infoMap.put("code","0");
-        infoMap.put("msg","操作成功");
+        infoMap.put("code", "0");
+        infoMap.put("msg", "操作成功");
         return infoMap;
     }
 
@@ -1280,12 +1306,12 @@ public class UserService {
         ResultBean bean = new ResultBean();
         TbUser tbUser = tbuserMapper.selectByPrimaryKey(userId);
         MasterInfo masterInfo = new MasterInfo();
-        BeanUtils.copyProperties(tbUser,masterInfo);
-        if (tbUser.getApplyStatus().equals("0")){
+        BeanUtils.copyProperties(tbUser, masterInfo);
+        if (tbUser.getApplyStatus().equals("0")) {
             masterInfo.setApplyStatus("待申请");
-        } else if (tbUser.getApplyStatus().equals("1")){
+        } else if (tbUser.getApplyStatus().equals("1")) {
             masterInfo.setApplyStatus("待审批");
-        } else if (tbUser.getApplyStatus().equals("2")){
+        } else if (tbUser.getApplyStatus().equals("2")) {
             masterInfo.setApplyStatus("已通过");
         } else {
             masterInfo.setApplyStatus("已驳回");
@@ -1302,19 +1328,19 @@ public class UserService {
         TbUserExample userExample = new TbUserExample();
         TbUserExample.Criteria criteria = userExample.createCriteria();
         criteria.andApplyStatusEqualTo("1");
-        infoMap.put("rz",tbuserMapper.countByExample(userExample));
+        infoMap.put("rz", tbuserMapper.countByExample(userExample));
         //2.tk
         TbOrderExample orderExample = new TbOrderExample();
         TbOrderExample.Criteria criteria1 = orderExample.createCriteria();
         criteria1.andOrderStatusEqualTo("4");
-        infoMap.put("tk",tbOrderMapper.countByExample(orderExample));
+        infoMap.put("tk", tbOrderMapper.countByExample(orderExample));
 
         //3.pl
         TbCommentExample commentExample = new TbCommentExample();
         TbCommentExample.Criteria criteria2 = commentExample.createCriteria();
         criteria2.andRemark1EqualTo("0");
-        infoMap.put("pl",commentMapper.countByExample(commentExample));
-        infoMap.put("code",0);
+        infoMap.put("pl", commentMapper.countByExample(commentExample));
+        infoMap.put("code", 0);
         return infoMap;
     }
 
@@ -1322,14 +1348,14 @@ public class UserService {
         Map<String, Integer> info = new HashMap<>();
         TbMessage message = messageMapper.selectByPrimaryKey(messageId);
         if (!message.getIsRead().equals("0")) {
-            info.put("code",1);
-        }else {
+            info.put("code", 1);
+        } else {
             message.setIsRead("1");
             int update = messageMapper.updateByPrimaryKeySelective(message);
-            if (update>0){
-                info.put("code",0);
+            if (update > 0) {
+                info.put("code", 0);
             } else {
-                info.put("code",1);
+                info.put("code", 1);
             }
         }
         return info;
@@ -1348,21 +1374,21 @@ public class UserService {
         TbMessageExample.Criteria criteria = example.createCriteria();
         criteria.andMessageIdIn(idList);
         int i = messageMapper.deleteByExample(example);
-        if (i>0){
-            infoMap.put("code",0);
+        if (i > 0) {
+            infoMap.put("code", 0);
         } else {
-            infoMap.put("code",1);
+            infoMap.put("code", 1);
         }
         return infoMap;
     }
 
-    public Map<String, String> addAdmin(HttpServletRequest request,String userName, String password) {
+    public Map<String, String> addAdmin(HttpServletRequest request, String userName, String password) {
         Map<String, String> infoMap = new HashMap<>();
         //判断当前用户
         TbUser userFromSession = baseService.getUserFromSession(request);
-        if (userFromSession != null && !"admin".equals(userFromSession.getUserName())){
-            infoMap.put("code","1");
-            infoMap.put("msg","权限不足");
+        if (userFromSession != null && !"admin".equals(userFromSession.getUserName())) {
+            infoMap.put("code", "1");
+            infoMap.put("msg", "权限不足");
             return infoMap;
         }
         //1.查询管理员
@@ -1371,9 +1397,9 @@ public class UserService {
         criteria.andUserNameEqualTo(userName)
                 .andIsAdministratorEqualTo("1");
         List<TbUser> userList = tbuserMapper.selectByExample(example);
-        if (userList.size()!=0){
-            infoMap.put("code","1");
-            infoMap.put("msg","用户名已存在，请重新输入");
+        if (userList.size() != 0) {
+            infoMap.put("code", "1");
+            infoMap.put("msg", "用户名已存在，请重新输入");
             return infoMap;
         }
         TbUser user = new TbUser();
@@ -1385,23 +1411,23 @@ public class UserService {
         user.setIsAdministrator("1");
         //2.新增
         int i = tbuserMapper.insertSelective(user);
-        if (i>0){
-            infoMap.put("code","0");
+        if (i > 0) {
+            infoMap.put("code", "0");
         } else {
-            infoMap.put("code","0");
-            infoMap.put("msg","操作失败，请稍后重试");
+            infoMap.put("code", "0");
+            infoMap.put("msg", "操作失败，请稍后重试");
         }
         return infoMap;
 
     }
 
-    public Map<String, String> editAdmin(HttpServletRequest request,String userName, String password, String password_n) {
+    public Map<String, String> editAdmin(HttpServletRequest request, String userName, String password, String password_n) {
         Map<String, String> infoMap = new HashMap<>();
         //判断当前用户
         TbUser userFromSession = baseService.getUserFromSession(request);
-        if (userFromSession != null && !"admin".equals(userFromSession.getUserName())){
-            infoMap.put("code","1");
-            infoMap.put("msg","权限不足");
+        if (userFromSession != null && !"admin".equals(userFromSession.getUserName())) {
+            infoMap.put("code", "1");
+            infoMap.put("msg", "权限不足");
             return infoMap;
         }
         //1.查询管理员
@@ -1411,32 +1437,32 @@ public class UserService {
                 .andIsAdministratorEqualTo("1")
                 .andUserPasswordEqualTo(password);
         List<TbUser> userList = tbuserMapper.selectByExample(example);
-        if (userList.size() != 1){
-            infoMap.put("code","1");
-            infoMap.put("msg","原密码错误");
+        if (userList.size() != 1) {
+            infoMap.put("code", "1");
+            infoMap.put("msg", "原密码错误");
             return infoMap;
         } else {
             TbUser user = userList.get(0);
             user.setUserPassword(password_n);
-            infoMap.put("code","0");
+            infoMap.put("code", "0");
         }
         return infoMap;
     }
 
-    public Map<String, String> deleteAdmin(HttpServletRequest request,String userId) {
+    public Map<String, String> deleteAdmin(HttpServletRequest request, String userId) {
         Map<String, String> infoMap = new HashMap<>();
         //判断当前用户
         TbUser userFromSession = baseService.getUserFromSession(request);
-        if (userFromSession != null && !"admin".equals(userFromSession.getUserName())){
-            infoMap.put("code","1");
-            infoMap.put("msg","权限不足");
+        if (userFromSession != null && !"admin".equals(userFromSession.getUserName())) {
+            infoMap.put("code", "1");
+            infoMap.put("msg", "权限不足");
             return infoMap;
         }
         int i = tbuserMapper.deleteByPrimaryKey(userId);
-        if (i>0){
-            infoMap.put("code","0");
+        if (i > 0) {
+            infoMap.put("code", "0");
         } else {
-            infoMap.put("code","1");
+            infoMap.put("code", "1");
         }
         return infoMap;
     }
@@ -1445,7 +1471,7 @@ public class UserService {
     public Map<String, String> deleteMaster(String userId) {
         Map<String, String> infoMap = new HashMap<>();
         int i = tbuserMapper.deleteByPrimaryKey(userId);
-        if (i>0){
+        if (i > 0) {
             //清空名师的相关信息
             //1.课程相关
             TbCourseWithBLOBs tbCourse = new TbCourseWithBLOBs();
@@ -1462,10 +1488,10 @@ public class UserService {
             TbServiceExample.Criteria criteria1 = serviceExample.createCriteria();
             criteria1.andUserIdEqualTo(userId);
             int i2 = tbServiceMapper.updateByExampleSelective(tbService, serviceExample);
-            infoMap.put("code","0");
+            infoMap.put("code", "0");
 
         } else {
-            infoMap.put("code","1");
+            infoMap.put("code", "1");
         }
         return infoMap;
     }

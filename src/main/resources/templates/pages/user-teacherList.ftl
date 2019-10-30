@@ -4,8 +4,9 @@
         <tr>
         	<th data-options="field:'ck',checkbox:true"></th>
         	<th data-options="field:'userId',align:'center',width:150">名师ID</th>
-            <th data-options="field:'userName',align:'center',width:200">名师名</th>
+            <th data-options="field:'userName',align:'center',width:200">姓名</th>
             <th data-options="field:'nickName',align:'center',width:200">昵称</th>
+            <th data-options="field:'masterRank',align:'center',width:200">职称</th>
             <th data-options="field:'handphone',align:'center',width:120">手机号</th>
             <th data-options="field:'isOfficial',align:'center',width:120,formatter:E3.formatIsAdminStatus">官方(名师)</th>
             <th data-options="field:'idCardNo',align:'center',width:200">身份证号</th>
@@ -57,6 +58,18 @@
         			//回显数据
         			var data = $("#userMasterList").datagrid("getSelections")[0];
         			$("#userEditForm").form("load",data);
+                    var v = data.masterRank;
+                    var s = data.masterRank;
+                    $('#cc').combo('setValue', v).combo('setText', s);
+
+                    var v1 = data.isOfficial;
+                    var s1 = data.isOfficial;
+                    if (s1 == "0"){
+                        s1 = '否';
+                    } else {
+                        s1 = '是';
+                    }
+                    $('#cc1').combo('setValue', v1).combo('setText', s1);
                     $('#userServiceList').datagrid("options").url = '/qianyi/manager/getMasterServerList?userId='+data.userId;
         		}
         	}).window("open");

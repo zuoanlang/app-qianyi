@@ -99,33 +99,29 @@
                     <script id="editorCourse" name="content" type="text/plain" style="width: 405px;height:400px;"/>
                 </td>
                 <td colspan="2">
-					<div style="margin-bottom:20px">
-						<input class="easyui-filebox" label="File1:" labelPosition="top" data-options="prompt:'Choose a file...'" style="width:100%">
-					</div>
+                    文件名称：<input type="text" class="easyui-textbox" name="videoName" id="videoName" value="" disabled
+                                style="width: 200px;"/>
+                    <div style="display: none">
+                        <input type="hidden" name="videoPath" id="videoPath" value=""/>
+                    </div>
+                    <br/>
+
+                    <#--<h4>您所选择的文件列表：</h4>-->
+                    <div style="margin-top: 50px">文件上传：</div>
+                    <div style="margin-left: 66px;margin-top: -50px;">
+                        <div id="ossfile-course" style="margin-bottom: -15px;height: 48px">
+                            你的浏览器不支持flash,Silverlight或者HTML5！
+                        </div>
+
+                        <br/>
+                        <div id="container">
+                            <a id="selectfiles-course" href="javascript:void(0);" class='btn'>选择文件</a>
+                            <a id="postfiles-course" href="javascript:void(0);" class='btn'>开始上传</a>
+                        </div>
+                        <pre id="console"></pre>
+                    </div>
+
                 </td>
-                <#--				<td colspan="2">-->
-                <#--					文件名称：<input type="text" class="easyui-textbox" name="videoName" id="videoName" value="" disabled style="width: 200px;"/>-->
-                <#--					<div style="display: none">-->
-                <#--						<input type="hidden" name="videoPath" id="videoPath" value="" />-->
-                <#--					</div>-->
-                <#--					<br/>-->
-
-                <#--					&lt;#&ndash;<h4>您所选择的文件列表：</h4>&ndash;&gt;-->
-                <#--					<div style="margin-top: 50px">文件上传：</div>-->
-                <#--					<div style="margin-left: 66px;margin-top: -50px;">-->
-                <#--						<div id="ossfile-course" style="margin-bottom: -15px;height: 48px">-->
-                <#--							你的浏览器不支持flash,Silverlight或者HTML5！-->
-                <#--						</div>-->
-
-                <#--						<br/>-->
-                <#--						<div id="container">-->
-                <#--							<a id="selectfiles-course" href="javascript:void(0);" class='btn'>选择文件</a>-->
-                <#--							<a id="postfiles-course" href="javascript:void(0);" class='btn'>开始上传</a>-->
-                <#--						</div>-->
-                <#--						<pre id="console"></pre>-->
-                <#--					</div>-->
-
-                <#--				</td>-->
 
             </tr>
             <tr>

@@ -56,6 +56,7 @@ public class CategoryServiceImpl implements CategoryService {
 		//设置pojo的属性
 		Category.setParentId(parentId);
 		Category.setName(name);
+		Category.setKeyWords(name);
 		//1(正常),2(删除)
 		Category.setStatus(1);
 		//排序
