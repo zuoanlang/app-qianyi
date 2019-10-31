@@ -10,6 +10,23 @@
     .underline {
         display: none;
     }
+
+    .combo-panel panel-body panel-body-noheader {
+        height: 40px;
+    }
+
+    .isAudition {
+        margin-bottom: 20px;
+    }
+
+    .combo-panel panel-body panel-body-noheader {
+        height: 40px;
+    }
+
+    .isAuditioningS .textbox combo {
+        width: 40px;
+        margin-left: 23px;
+    }
 </style>
 <div style="padding:10px 10px 10px 10px">
     <form id="courseForm" class="itemForm" method="post">
@@ -99,8 +116,16 @@
                     <script id="editorCourse" name="content" type="text/plain" style="width: 405px;height:400px;"/>
                 </td>
                 <td colspan="2">
+                    <div class="isAudition">
+                        试看：
+                        <select class="easyui-combobox isAuditioningS" name="isAuditioning" id="isAuditioning" style="margin-left: 23px;width: 40px">
+                            <option value="0">否</option>
+                            <option value="1">是</option>
+                        </select>
+                    </div>
                     文件名称：<input type="text" class="easyui-textbox" name="videoName" id="videoName" value="" disabled
                                 style="width: 200px;"/>
+                    <br>
                     <div style="display: none">
                         <input type="hidden" name="videoPath" id="videoPath" value=""/>
                     </div>

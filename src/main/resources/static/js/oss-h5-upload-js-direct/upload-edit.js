@@ -352,7 +352,13 @@ var courseUploaderEdit = new plupload.Uploader({
                 var tree = $("#contentCategory-course-edit");
                 var node = tree.tree("getSelected");
                 var videoTime = $('#videoTimeEdit').timespinner("getValue");
-                $.post('/qianyi/catalog/uploadVideoName',{id:node.id,videoName:file.name,videoPath:videoPath,videoTime:videoTime},function(data){
+                var isAuditioningEdit = $("#isAuditioningEdit").val();
+                $.post('/qianyi/catalog/uploadVideoName',{
+                    id:node.id,videoName:file.name,
+                    videoPath:videoPath,
+                    videoTime:videoTime,
+                    isAuditioning:isAuditioningEdit
+                },function(data){
                     if(data.code == "0"){
                         //1.取得数据,回显课程文件名称
                         var data={

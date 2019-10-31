@@ -345,11 +345,13 @@ var courseUploader = new plupload.Uploader({
                 var tree = $("#contentCategory-course");
                 var node = tree.tree("getSelected");
                 var videoTime = $('#videoTime').timespinner("getValue");
+                var isAuditioning = $("#isAuditioning").val();
                 $.post('/qianyi/catalog/uploadVideoName', {
                     id: node.id,
                     videoName: file.name,
                     videoPath: videoPath,
-                    videoTime: videoTime
+                    videoTime: videoTime,
+                    isAuditioning:isAuditioning
                 }, function (data) {
                     if (data.code == "0") {
                         //1.取得数据,回显课程文件名称

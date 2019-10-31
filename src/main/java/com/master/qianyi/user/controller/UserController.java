@@ -32,7 +32,7 @@ public class UserController {
      */
     @GetMapping(value = "user/getOrdinaryUserList")
     public EasyUIDataGridResult getOrdinaryUserList(int pageNum, int pageSize) {
-        EasyUIDataGridResult ordinaryUserList = this.userService.getOrdinaryUserList(pageNum, pageSize,"index");
+        EasyUIDataGridResult ordinaryUserList = this.userService.getOrdinaryUserList(pageNum, pageSize, "index");
         return ordinaryUserList;
     }
 
@@ -45,8 +45,8 @@ public class UserController {
      * @return
      */
     @GetMapping("user/getFamousTeachers")
-    public ResultBean getFamousTeachers(@RequestParam(value="pageNum", defaultValue="1") int pageNum,
-                                        @RequestParam(value="pageSize", defaultValue="15")int pageSize, TbUser user) {
+    public ResultBean getFamousTeachers(@RequestParam(value = "pageNum", defaultValue = "1") int pageNum,
+                                        @RequestParam(value = "pageSize", defaultValue = "15") int pageSize, TbUser user) {
         return userService.getFamousTeachers(pageNum, pageSize, user);
     }
 
@@ -61,10 +61,10 @@ public class UserController {
      * @return
      */
     @PostMapping("userInfo/rechargeAndWithdraw")
-    public ResultBean rechargeAndWithdraw(@RequestParam(value="userId")String userId,
-                                          @RequestParam(value="tradeType")String tradeType,
-                                          @RequestParam(value="tradeAmount")int tradeAmount) {
-        return userService.rechargeAndWithdraw(userId,tradeType, tradeAmount);
+    public ResultBean rechargeAndWithdraw(@RequestParam(value = "userId") String userId,
+                                          @RequestParam(value = "tradeType") String tradeType,
+                                          @RequestParam(value = "tradeAmount") int tradeAmount) {
+        return userService.rechargeAndWithdraw(userId, tradeType, tradeAmount);
     }
 
     /**
@@ -75,10 +75,10 @@ public class UserController {
      */
     @GetMapping("userInfo/getTradeDetail")
     @ResponseBody
-    public ResultBean getTradeDetail(@RequestParam(value="userId")String userId,
-                                     @RequestParam(value="pageNum", defaultValue="1") int pageNum,
-                                     @RequestParam(value="pageSize", defaultValue="15")int pageSize) {
-        return userService.getTradeDetail(userId,pageNum,pageSize);
+    public ResultBean getTradeDetail(@RequestParam(value = "userId") String userId,
+                                     @RequestParam(value = "pageNum", defaultValue = "1") int pageNum,
+                                     @RequestParam(value = "pageSize", defaultValue = "15") int pageSize) {
+        return userService.getTradeDetail(userId, pageNum, pageSize);
     }
 
     /**
@@ -89,22 +89,38 @@ public class UserController {
      */
     @PostMapping("userInfo/teacherSettledIn")
     @ResponseBody
-    public ResultBean teacherSettledIn(@RequestParam(value = "userId")String userId,
-                                       @RequestParam(value = "token")String token,
-                                       @RequestParam(value = "userName")String userName,
-                                       @RequestParam(value = "major")String major,
-                                       @RequestParam(value = "idCardNo")String idCardNo,
-                                       @RequestParam(value = "profession")String profession,
-                                       @RequestParam(value = "idCardImg1")String idCardImg1,
-                                       @RequestParam(value = "idCardImg2")String idCardImg2,
-                                       @RequestParam(value = "masterIntroduction")String masterIntroduction) {
-        return userService.updateUserInfo(userId,token,userName,major,idCardNo,profession,idCardImg1,idCardImg2,masterIntroduction);
+    public ResultBean teacherSettledIn(@RequestParam(value = "userId") String userId,
+                                       @RequestParam(value = "token") String token,
+                                       @RequestParam(value = "userName") String userName,
+                                       @RequestParam(value = "major") String major,
+                                       @RequestParam(value = "idCardNo") String idCardNo,
+                                       @RequestParam(value = "profession") String profession,
+                                       @RequestParam(value = "idCardImg1") String idCardImg1,
+                                       @RequestParam(value = "idCardImg2") String idCardImg2,
+                                       @RequestParam(value = "masterIntroduction") String masterIntroduction) {
+        return userService.updateUserInfo(userId, token, userName, major, idCardNo, profession, idCardImg1, idCardImg2, masterIntroduction);
+    }
+
+    /**
+     * 更新用户信息（名师简介）
+     *
+     * @param user
+     * @return
+     */
+    @PostMapping("userInfo/teacherInfoUpdate")
+    @ResponseBody
+    public ResultBean teacherSettledIn(@RequestParam(value = "userId") String userId,
+                                       String profession,
+                                       String major,
+                                       String masterIntroduction) {
+        return userService.updateMasterIntro(userId, profession, major, masterIntroduction);
     }
 
     /**
      * 更新用户信息（个人资料编辑）
-     *  7个字段
-     *  昵称、头像、签名、改绑手机号
+     * 7个字段
+     * 昵称、头像、签名、改绑手机号
+     *
      * @param userId
      * @param token
      * @param nickName
@@ -116,19 +132,20 @@ public class UserController {
      */
     @PostMapping("userInfo/updateMyInfo")
     @ResponseBody
-    public ResultBean updateMyInfo(@RequestParam(value = "userId")String userId,
-                                   @RequestParam(value = "token")String token,
+    public ResultBean updateMyInfo(@RequestParam(value = "userId") String userId,
+                                   @RequestParam(value = "token") String token,
                                    String nickName,
                                    String headImg,
                                    String asign,
                                    String handphone,
                                    String mobileCode) {
-        return userService.updateMyInfo(userId,token,nickName,headImg,asign,handphone,mobileCode);
+        return userService.updateMyInfo(userId, token, nickName, headImg, asign, handphone, mobileCode);
     }
 
     /**
      * 根据userId 查询用户信息(我的-个人)
-     *  个人的, 头像、昵称、签名、手机号、账户余额
+     * 个人的, 头像、昵称、签名、手机号、账户余额
+     *
      * @param user
      * @return
      */
@@ -140,7 +157,8 @@ public class UserController {
 
     /**
      * 根据userId 查询用户信息(我的-个人)
-     *  根据userid，获取头像、昵称
+     * 根据userid，获取头像、昵称
+     *
      * @param user
      * @return
      */
@@ -165,42 +183,44 @@ public class UserController {
      * 取名师测算类型
      */
     @GetMapping("/master/getServiceTypeList")
-    public ResultBean getServiceType(){
+    public ResultBean getServiceType() {
         return userService.getServiceType();
     }
 
     /**
      * 根据名师的userId取名师的服务列表
+     *
      * @return
      */
     @GetMapping("/master/getServiceItemByUserId")
-    public ResultBean getServiceItemByUserId(@RequestParam(value = "userId",required = true) String userId){
+    public ResultBean getServiceItemByUserId(@RequestParam(value = "userId", required = true) String userId) {
         return userService.getServiceItemByUserId(userId);
     }
 
     /**
      * 更新具体目录的个人学习进度
+     *
      * @param userId
      * @param catalogId
      * @param learningPercent
      * @return
      */
     @PostMapping("/userInfo/recordVideoPercent")
-    public ResultBean recordVideoPercent(@RequestParam(value = "userId")String userId,
-                                         @RequestParam(value = "catalogId")String catalogId,
-                                         @RequestParam(value = "token")String token,
-                                         @RequestParam(value = "learningPercent")float learningPercent,
-                                         @RequestParam(value = "currentSecond")float currentSecond){
-        return userService.recordVideoPercent(userId,token,catalogId,learningPercent,currentSecond);
+    public ResultBean recordVideoPercent(@RequestParam(value = "userId") String userId,
+                                         @RequestParam(value = "catalogId") String catalogId,
+                                         @RequestParam(value = "token") String token,
+                                         @RequestParam(value = "learningPercent") float learningPercent,
+                                         @RequestParam(value = "currentSecond") float currentSecond) {
+        return userService.recordVideoPercent(userId, token, catalogId, learningPercent, currentSecond);
     }
 
     @GetMapping("/approve/getMasterSettledList")
-    public EasyUIDataGridResult getMasterSettledList(int page , int rows){
-        return userService.getMasterSettledList(page , rows);
+    public EasyUIDataGridResult getMasterSettledList(int page, int rows) {
+        return userService.getMasterSettledList(page, rows);
     }
 
     @GetMapping("/userInfo/getMasterApplyInfo")
-    public ResultBean getMasterApplyInfo(String userId){
+    public ResultBean getMasterApplyInfo(String userId) {
         return userService.getMasterApplyInfo(userId);
     }
 }

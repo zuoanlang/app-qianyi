@@ -122,8 +122,8 @@ public class CourseManController {
 
     @PostMapping("/catalog/uploadVideoName")
     @ResponseBody
-    public Map<String, String> uploadVideoName(long id,String videoName,String videoPath,String videoTime) {
-        return courseServiceImpl.uploadVideoName(id,videoName,videoPath,videoTime);
+    public Map<String, String> uploadVideoName(long id,String videoName,String videoPath,String videoTime,String isAuditioning) {
+        return courseServiceImpl.uploadVideoName(id,videoName,videoPath,videoTime,isAuditioning);
     }
 
 

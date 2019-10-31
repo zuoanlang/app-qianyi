@@ -40,7 +40,7 @@ public interface CourseManService {
 
     Map<String, String> getCatalogVideo(long catalogId,String type);
 
-    Map<String, String> uploadVideoName(long id,String videoName,String videoPath,String videoTime);
+    Map<String, String> uploadVideoName(long id,String videoName,String videoPath,String videoTime,String isAuditioning);
 
     Map<String, String> updateDraft(long id, String draft);
 

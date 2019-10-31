@@ -146,8 +146,8 @@ public class UserService {
         TbServiceExample serviceExample = new TbServiceExample();
         TbServiceExample.Criteria criteria1 = serviceExample.createCriteria();
         criteria1.andDeleteFlagEqualTo("0").andEffectFlagEqualTo("1");
-        if (StringUtils.isNotBlank(user.getMajor())){
-            criteria1.andServiceNameLike("%"+user.getMajor()+"%");
+        if (StringUtils.isNotBlank(user.getMajor())) {
+            criteria1.andServiceNameLike("%" + user.getMajor() + "%");
         }
         List<TbService> tbServices = tbServiceMapper.selectByExample(serviceExample);
 
@@ -155,7 +155,7 @@ public class UserService {
         List<String> teacherIdList = new ArrayList<>();
         if (tbServices.size() > 0) {
             for (TbService service : tbServices) {
-                if (!teacherIdList.contains(service.getUserId())){
+                if (!teacherIdList.contains(service.getUserId())) {
                     teacherIdList.add(service.getUserId());
                 }
             }
@@ -165,10 +165,10 @@ public class UserService {
         if (StringUtil.isNotEmpty(user.getIsOfficial()) && "1".equals(user.getIsOfficial())) {
             criteria.andIsOfficialEqualTo(user.getIsOfficial());
         }
-        if (teacherIdList.size()>0){
+        if (teacherIdList.size() > 0) {
             criteria.andUserIdIn(teacherIdList);
         } else {
-            if (StringUtils.isNotBlank(user.getMajor())){
+            if (StringUtils.isNotBlank(user.getMajor())) {
                 teacherIdList.add("");
                 criteria.andUserIdIn(teacherIdList);
             }
@@ -1225,7 +1225,7 @@ public class UserService {
         return infoMap;
     }
 
-    public Map<String, String> saveMasterIdNo(String userId, String idCardNo,String masterRank,String isOfficial) {
+    public Map<String, String> saveMasterIdNo(String userId, String idCardNo, String masterRank, String isOfficial) {
         Map<String, String> infoMap = new HashMap<>();
         //1.查询
         TbUser user = tbuserMapper.selectByPrimaryKey(userId);
@@ -1494,5 +1494,20 @@ public class UserService {
             infoMap.put("code", "1");
         }
         return infoMap;
+    }
+
+    public ResultBean updateMasterIntro(String userId, String profession, String major, String masterIntroduction) {
+        ResultBean bean = new ResultBean();
+        TbUser user = new TbUser();
+        user.setProfession(profession);
+        user.setUserId(userId);
+        user.setMajor(major);
+        user.setMasterIntroduction(masterIntroduction);
+        int count = tbuserMapper.updateByPrimaryKeySelective(user);
+        if (count > 0) {
+            bean.setCode(Constants.code_0);
+            bean.setMsg("保存成功");
+        }
+        return bean;
     }
 }
